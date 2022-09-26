@@ -1,0 +1,22 @@
+uuid: 6a48a4e8-0a4e-44cc-8012-d7d18bc0fb32
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - band_booking_front
+_core:
+  default_config_hash: YqKTtloWJ8FjLtfVNfrHaK6kVgxT67lC1cJ3j6i6WLo
+id: band_booking_front_messages
+theme: band_booking_front
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -34,6 +34,7 @@ module:
   image: 0
   link: 0
   menu_link_content: 0
+  mysql: 0
   node: 0
   options: 0
   page_cache: 0
@@ -56,4 +57,7 @@ module:
 theme:
   seven: 0
   adminimal_theme: 0
+  band_booking_global: 0
+  band_booking_admin: 0
+  band_booking_front: 0
 profile: standard

@@ -1,0 +1,253 @@
+/* Size of sidebar * /
+#sidebar-left .region-sidebar-left,
+#sidebar-right .region-sidebar-right {
+    width: 400px;
+}
+*/
+
+/* Block * /
+@todo: check if necessary
+.block {
+    padding-bottom: 40px;
+}
+*/
+
+/* Label font-size * /
+.form-item label {
+    font-size: 14px;
+}
+*/
+
+/* Profile picture * /
+.profile .user-picture { width: 100px; }
+.profile .user-picture img { width: 100%; height: auto; }
+*/
+
+/* User picture in node * /
+.node .user-picture { float: left; width: 100px; margin: 0 20px 20px 0; }
+.node .user-picture img { width: 100%; height: auto; }
+.node hr { margin: 20px 0; }
+ */
+
+/* ---------- TB Megamenu ---------- * /
+.tb-megamenu .nav > li > a:focus,
+.tb-megamenu .nav > li > a:hover {
+    color: #0074BD;
+}
+.tb-megamenu .nav > .active > a,
+.tb-megamenu .nav > .active > a:hover,
+.tb-megamenu .nav > .active > a:focus {
+    background-color: #0074BD;
+}
+*/
+
+/* ---------- Registrations list ---------- * /
+form.determine-form { display: inline-block; }
+form.determine-form input[type=submit],
+/*@todo remove. It avoids Adminimal behavior* /
+form.determine-form input[type="submit"][id^="edit-submit"],
+form.determine-form input#edit-submit {
+  font-family: fontello!important;
+  margin-bottom: 0;
+  margin-right: 1em;
+}
+
+form.determine-form.wait input[type=submit],
+form.determine-form.wait input[type="submit"]#edit-submit { background-color: #696969; }
+form.determine-form.wait input[type=submit]:hover,
+form.determine-form.wait input[type="submit"]#edit-submit:hover { background-color: #4d4c4c; }
+form.determine-form.postpone input[type=submit],
+form.determine-form.postpone input[type="submit"]#edit-submit { background-color: #e99d3a; }
+form.determine-form.postpone input[type=submit]:hover,
+form.determine-form.postpone input[type="submit"]#edit-submit:hover { background-color: #d0811a; }
+form.determine-form.accept input[type=submit],
+form.determine-form.accept input[type="submit"]#edit-submit { background-color: #4d8f46; }
+form.determine-form.accept input[type=submit]:hover,
+form.determine-form.accept input[type="submit"]#edit-submit:hover { background-color: #35692f; }
+form.determine-form.refuse input[type=submit],
+form.determine-form.refuse input[type="submit"]#edit-submit { background-color: #df4530; }
+form.determine-form.refuse input[type=submit]:hover,
+form.determine-form.refuse input[type="submit"]#edit-submit:hover { background-color: #bb3a28; }
+
+
+/* ---------- Registrations ---------- */
+
+/* Ation différence entre regist-lst et regist-list * /
+.regist-lst tr a {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+/*Global colors for registration admin list * /
+.regist-list tr.waiting,
+tr.blv-evt-waiting { background: #e4e4e4; border-top: #fafafa 1px solid; }
+.regist-list tr.waiting.even:hover,
+.regist-list tr.waiting.odd:hover,
+tr.blv-evt-waiting.even:hover,
+tr.blv-evt-waiting.odd:hover { background-color: #fafafa; }
+.regist-list tr.waiting td.active,
+tr.blv-evt-waiting td.active { background-color: #ddd; }
+
+.regist-list tr.postponed,
+tr.blv-evt-postponed { background: #e6d6ae; border-top: #fdf4dc 1px solid; }
+.regist-list tr.postponed.even:hover,
+.regist-list tr.postponed.odd:hover,
+tr.blv-evt-postponed.even:hover,
+tr.blv-evt-postponed.odd:hover { background-color: #fdf4dc; }
+.regist-list tr.postponed a,
+tr.blv-evt-postponed a { color: #aa8d44; }
+.regist-list tr.postponed td.active,
+tr.blv-evt-postponed td.active { background-color: #d0bf94; }
+
+.regist-list tr.accepted,
+tr.blv-evt-accepted { background: #cfe6ae; border-top: #e8f5d6 1px solid; }
+.regist-list tr.accepted.even:hover,
+.regist-list tr.accepted.odd:hover,
+tr.blv-evt-accepted.even:hover,
+tr.blv-evt-accepted.odd:hover { background-color: #e8f5d6; }
+.regist-list tr.accepted a,
+tr.blv-evt-accepted a { color: #799157; }
+.regist-list tr.accepted td.active,
+tr.blv-evt-accepted td.active { background-color: #bdd29e; }
+
+.regist-list tr.refused,
+tr.blv-evt-refused { background: #e6b3ae; border-top: #f8d6d3 1px solid; }
+.regist-list tr.refused.even:hover,
+.regist-list tr.refused.odd:hover,
+tr.blv-evt-refused.even:hover,
+tr.blv-evt-refused.odd:hover { background-color: #f8d6d3; }
+.regist-list tr.refused a,
+tr.blv-evt-refused a { color: #915651; }
+.regist-list tr.refused td.active,
+tr.blv-evt-refused td.active { background-color: #d19b94; }
+
+.regist-list tr.waiting:first-child,
+tr.blv-evt-waiting:first-child,
+.regist-list tr.postponed:first-child,
+tr.blv-evt-postponed:first-child,
+.regist-list tr.accepted:first-child,
+tr.blv-evt-accepted:first-child,
+.regist-list tr.refused:first-child,
+tr.blv-evt-refused:first-child { border-top: none; }
+
+.regist-lst .views-field-postpone-link{ width: 20%; text-align: right; }
+
+
+/* Admin full registration list VIEWS * /
+.adm-regist-lst table caption {
+  text-align: left;
+  font-size: 20px;
+  line-height: initial;
+  padding: 10px 0;
+  margin: 30px 0 10px;
+  font-family: "Open Sans", "Segoe UI", "Helvetica", sans-serif;
+}
+.adm-regist-lst table td,
+.adm-regist-lst table th {
+  vertical-align: middle;
+  padding: 1.5em;
+  border: 0;
+  color: #000;
+}
+
+.adm-regist-lst .views-field-view-registration a { display: inline-block; margin-right: 10px; }
+.adm-regist-lst .views-field-state { width: 10%; }
+.adm-regist-lst .views-field-name { width: 20%; }
+.adm-regist-lst .views-field-title { width: 30%; }
+.adm-regist-lst .views-field-view-registration { width: 20%; }
+.adm-regist-lst .views-field-postpone-link{ width: 20%; text-align: right; }
+.adm-regist-lst .determine-registration { display: inline-block; }
+
+/* @todo : clean */
+/* The same for user registrations * /
+.view.view-id-registrations table caption {
+  text-align: left;
+  font-size: 20px;
+  line-height: initial;
+  padding: 10px 0;
+  margin: 30px 0 10px;
+  font-family: "Open Sans", "Segoe UI", "Helvetica", sans-serif;
+}
+.view.view-id-registrations table caption em {
+  font-size: 0.8em;
+}
+.view.view-id-registrations .determine-registration { display: inline-block; }
+
+/* Columns for tables * /
+@media only screen  and (min-width : 1224px) {
+  .adm-regist-lst table.views-table {
+    float: left;
+    width: 48%;
+    margin-right: 4%;
+  }
+  .adm-regist-lst table.views-table:nth-child(2n) {
+    margin-right: 0;
+  }
+  .adm-regist-lst table.views-table:nth-child(2n+1) {
+    clear: left;
+  }
+}
+
+/*Admin last registrations* /
+.regist-list tr.odd,
+.regist-list tr.even { border: 1px solid black; border-left-width: 5px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; display: block; margin-top: 2px; }
+.regist-list tr:first-child { margin-top: 0; }
+.regist-list tr.waiting { border-color: #bebebe; }
+.regist-list tr.postponed { border-color: #f9b815; }
+.regist-list tr.accepted { border-color: #99c45c; }
+.regist-list tr.refused { border-color: #d76b60; }
+
+
+
+/* Bootstrap Multiselect */
+/*ul.multiselect-container {
+    list-style: none;
+    margin: inherit;
+}*/
+
+/* Ajax throbber * /
+
+.ajax-progress-throbber {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 3000; background-color: rgba(0, 0, 0, 0.3);
+    -webkit-transition: background-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+.ajax-progress-throbber .throbber,
+.ajax-progress-throbber .message {
+    position: absolute; left: 50%; top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.ajax-progress-throbber .message {
+    margin-top: 20px;
+}
+
+/*
+.progress-disabled {
+    float: none;
+    display:inline;
+}
+
+.ajax-progress {
+    float: none;
+    display:inline;
+}
+.ajax-progress .throbber {
+    background: transparent url('../images/custom.gif') no-repeat;
+    float: none;
+    height: 15px;
+    margin: 2px;
+    width: 15px;
+    display:inline-block;
+}
+tr .ajax-progress .throbber {
+    margin: 0 2px;
+}
+.ajax-progress-bar {
+    width: 16em;
+}
+*/

@@ -1,0 +1,23 @@
+name: Band Booking Global Theme
+type: theme
+description: Custom global theme for Band Booking, base for Admin and Front Theme
+core_version_requirement: ^8 || ^9 || ^10
+# Defines the base theme
+base theme: adminimal_theme
+# Defines libraries group in which we can add CSS/JS.
+libraries:
+  - band_booking_global/fontello
+  - band_booking_global/global-styling
+# Regions, quote the names
+regions:
+  header: 'Header'
+  pre_content: 'Pre-content'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  sidebar_first: 'First sidebar'
+regions_hidden:
+  - sidebar_first

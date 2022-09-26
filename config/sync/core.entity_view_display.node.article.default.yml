@@ -8,11 +8,13 @@ dependencies:
     - field.field.node.article.comment
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
+    - field.field.node.article.field_test
     - image.style.large
     - node.type.article
   module:
     - comment
     - image
+    - state_machine
     - text
     - user
 _core:
@@ -27,7 +29,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   comment:
     type: comment_default
@@ -36,7 +38,7 @@ content:
       view_mode: default
       pager_id: 0
     third_party_settings: {  }
-    weight: 110
+    weight: 5
     region: content
   field_image:
     type: image
@@ -44,8 +46,10 @@ content:
     settings:
       image_link: ''
       image_style: large
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
-    weight: -1
+    weight: 1
     region: content
   field_tags:
     type: entity_reference_label
@@ -53,11 +57,20 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 10
+    weight: 3
+    region: content
+  field_test:
+    type: state_transition_form
+    label: above
+    settings:
+      require_confirmation: false
+      use_modal: false
+    third_party_settings: {  }
+    weight: 0
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 4
     region: content
 hidden: {  }
