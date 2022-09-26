@@ -3,10 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_position
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
     - image
+    - mobile_number
     - user
 _core:
   default_config_hash: FaQ9Ptcpxpg30AtiqRDtl_8zbJArHP1LPfug_s59TOA
@@ -21,6 +24,25 @@ content:
   contact:
     weight: 5
     region: content
+  field_phone:
+    type: mobile_number_default
+    weight: 8
+    region: content
+    settings:
+      countries: {  }
+      default_country: US
+      placeholder: null
+    third_party_settings: {  }
+  field_position:
+    type: entity_reference_autocomplete
+    weight: 7
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   language:
     weight: 0
     region: content
