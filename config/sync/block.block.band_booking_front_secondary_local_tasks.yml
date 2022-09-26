@@ -1,0 +1,22 @@
+uuid: cab7da7d-5f07-483c-a2b9-84d47f5c9ba4
+langcode: en
+status: true
+dependencies:
+  theme:
+    - band_booking_front
+_core:
+  default_config_hash: DJ7Om1C2xWr2GI8CjZaZtyWpP-0S3hRR3oROZl1oesc
+id: band_booking_front_secondary_local_tasks
+theme: band_booking_front
+region: pre_content
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  label_display: '0'
+  provider: core
+  primary: false
+  secondary: true
+visibility: {  }

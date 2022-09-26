@@ -1,0 +1,22 @@
+uuid: a3ccb324-a45d-4eb5-aac8-b01d7026bd90
+langcode: en
+status: true
+dependencies:
+  theme:
+    - band_booking_admin
+_core:
+  default_config_hash: CyX_aDKAka2_eihevNLscCHDYrzDgIqwWzFVEFRKIww
+id: band_booking_admin_primary_local_tasks
+theme: band_booking_admin
+region: header
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

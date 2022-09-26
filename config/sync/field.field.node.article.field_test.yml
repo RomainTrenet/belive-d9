@@ -1,0 +1,25 @@
+uuid: 15277ffa-9598-4819-b60a-60a063feda84
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_test
+    - node.type.article
+  module:
+    - state_machine
+id: node.article.field_test
+field_name: field_test
+entity_type: node
+bundle: article
+label: TEST
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: waiting
+default_value_callback: ''
+settings:
+  workflow: performance_default
+  workflow_callback: ''
+field_type: state

@@ -11,3 +11,4 @@ is_admin: null
 permissions:
   - 'use accept transition in performance_default'
   - 'use refuse transition in performance_default'
+  - 'view registration'

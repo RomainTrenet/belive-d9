@@ -6,7 +6,7 @@ dependencies:
     - field.field.registration.performance.field_statut
     - rt_registration.registration_type.performance
   module:
-    - options
+    - state_machine
     - text
     - user
 id: registration.performance.default
@@ -32,9 +32,11 @@ content:
     weight: 10
     region: content
   field_statut:
-    type: list_default
+    type: state_transition_form
     label: above
-    settings: {  }
+    settings:
+      require_confirmation: false
+      use_modal: false
     third_party_settings: {  }
     weight: 22
     region: content

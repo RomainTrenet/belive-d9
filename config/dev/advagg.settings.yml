@@ -11,9 +11,9 @@ path:
     absolute_to_protocol_relative: true
     absolute: false
     force_https: false
-cache_level: 2
+cache_level: 0
 cron_frequency: 86400
-enabled: true
+enabled: false
 global_counter: 0
 immutable: true
 js:
