@@ -1,0 +1,20 @@
+uuid: 5f740989-0289-4050-8656-f7d142e38b77
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - rt_registration
+id: node.field_registrations
+field_name: field_registrations
+entity_type: node
+type: entity_reference
+settings:
+  target_type: registration
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

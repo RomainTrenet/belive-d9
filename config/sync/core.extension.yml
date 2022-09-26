@@ -40,8 +40,10 @@ module:
   path: 0
   path_alias: 0
   rdf: 0
+  rt_registration: 0
   search: 0
   shortcut: 0
+  state_machine: 0
   system: 0
   taxonomy: 0
   text: 0

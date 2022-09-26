@@ -1,0 +1,18 @@
+uuid: 8e80d7e1-df45-4a51-a942-d53edc1dbfb1
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.performance
+id: node.performance.title
+field_name: title
+entity_type: node
+bundle: performance
+label: 'Nom de la prestation'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -12,6 +12,7 @@ dependencies:
     - file
     - node
     - path
+    - rt_registration
     - system
     - taxonomy
     - toolbar
@@ -32,17 +33,24 @@ permissions:
   - 'administer url aliases'
   - 'create article content'
   - 'create page content'
+  - 'create registration'
   - 'create terms in tags'
   - 'create url aliases'
   - 'delete article revisions'
   - 'delete own article content'
   - 'delete own page content'
   - 'delete page revisions'
+  - 'delete registration'
   - 'edit own article content'
   - 'edit own comments'
   - 'edit own page content'
+  - 'edit registration'
   - 'edit terms in tags'
   - 'revert all revisions'
+  - 'use accept transition in performance_default'
+  - 'use refuse transition in performance_default'
+  - 'use standby transition in performance_default'
   - 'view all revisions'
   - 'view own unpublished content'
+  - 'view registration'
   - 'view the administration theme'
