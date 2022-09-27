@@ -1,0 +1,50 @@
+uuid: a8fa713e-a694-43b3-95f5-2bab30e7c45b
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - node.type.performance
+    - taxonomy.vocabulary.position
+  module:
+    - band_booking_artist
+    - contextual
+    - filter
+    - mobile_number
+    - node
+    - profile
+    - rt_registration
+    - taxonomy
+    - toolbar
+id: manager
+label: Gérant
+weight: 5
+is_admin: null
+permissions:
+  - 'access contextual links'
+  - 'access toolbar'
+  - 'bypass mobile number verification requirement'
+  - 'create performance content'
+  - 'create profil_artist profile'
+  - 'create registration'
+  - 'create terms in position'
+  - 'delete any performance content'
+  - 'delete any profil_artist profile'
+  - 'delete own performance content'
+  - 'delete own profil_artist profile'
+  - 'delete registration'
+  - 'delete terms in position'
+  - 'edit any performance content'
+  - 'edit own performance content'
+  - 'edit registration'
+  - 'edit terms in position'
+  - 'manage artists'
+  - 'update any profil_artist profile'
+  - 'update own profil_artist profile'
+  - 'use accept transition in performance_default'
+  - 'use refuse transition in performance_default'
+  - 'use standby transition in performance_default'
+  - 'use text format full_html'
+  - 'view any profil_artist profile'
+  - 'view own profil_artist profile'
+  - 'view registration'

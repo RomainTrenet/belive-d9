@@ -1,0 +1,7 @@
+band_booking_artist_create:
+  path: '/admin/people/create/artist'
+  defaults:
+    _title: 'Add artist'
+    _controller: '\Drupal\band_booking_artist\Controller\BandBookingCreateArtist::content'
+  requirements:
+    _permission: 'manage artists'
