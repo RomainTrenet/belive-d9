@@ -19,7 +19,8 @@ default_value: {  }
 default_value_callback: ''
 settings:
   verify: none
-  countries: {  }
+  countries:
+    FR: FR
   message: |-
     Your verification code from !site_name:
     !code

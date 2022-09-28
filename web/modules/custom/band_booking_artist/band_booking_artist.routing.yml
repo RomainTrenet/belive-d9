@@ -1,5 +1,5 @@
 band_booking_artist_create:
-  path: '/admin/people/create/artist'
+  path: '/admin/artist/create'
   defaults:
     _title: 'Add artist'
     _controller: '\Drupal\band_booking_artist\Controller\BandBookingCreateArtist::content'

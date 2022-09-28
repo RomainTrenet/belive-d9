@@ -19,14 +19,13 @@ bundle: user
 mode: default
 content:
   account:
-    weight: -10
+    weight: 0
     region: content
-  contact:
-    weight: 5
-    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_phone:
     type: mobile_number_default
-    weight: 8
+    weight: 5
     region: content
     settings:
       countries: {  }
@@ -35,7 +34,7 @@ content:
     third_party_settings: {  }
   field_position:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
@@ -44,17 +43,24 @@ content:
       placeholder: ''
     third_party_settings: {  }
   language:
-    weight: 0
+    weight: 2
     region: content
+    settings: {  }
+    third_party_settings: {  }
   timezone:
-    weight: 6
+    weight: 3
     region: content
+    settings: {  }
+    third_party_settings: {  }
   user_picture:
     type: image_image
-    weight: -1
+    weight: 1
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  contact: true
+  langcode: true
+  profil_artist_profiles: true

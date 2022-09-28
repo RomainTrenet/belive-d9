@@ -23,7 +23,9 @@ is_admin: null
 permissions:
   - 'access contextual links'
   - 'access toolbar'
+  - 'access user profiles'
   - 'bypass mobile number verification requirement'
+  - 'change own username'
   - 'create performance content'
   - 'create profil_artist profile'
   - 'create registration'
@@ -48,3 +50,4 @@ permissions:
   - 'view any profil_artist profile'
   - 'view own profil_artist profile'
   - 'view registration'
+  - 'view user email addresses'

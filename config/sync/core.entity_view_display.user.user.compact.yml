@@ -32,4 +32,6 @@ content:
 hidden:
   field_phone: true
   field_position: true
+  langcode: true
   member_for: true
+  profil_artist_profiles: true
