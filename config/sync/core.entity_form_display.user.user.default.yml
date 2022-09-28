@@ -1,12 +1,15 @@
 uuid: e3dc2860-fb66-4229-9add-41d28b7f4ab5
-langcode: en
+langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_position
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
     - image
+    - mobile_number
     - user
 _core:
   default_config_hash: FaQ9Ptcpxpg30AtiqRDtl_8zbJArHP1LPfug_s59TOA
@@ -16,23 +19,48 @@ bundle: user
 mode: default
 content:
   account:
-    weight: -10
-    region: content
-  contact:
-    weight: 5
-    region: content
-  language:
     weight: 0
     region: content
-  timezone:
-    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+  field_phone:
+    type: mobile_number_default
+    weight: 5
     region: content
+    settings:
+      countries: {  }
+      default_country: US
+      placeholder: null
+    third_party_settings: {  }
+  field_position:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  language:
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  timezone:
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   user_picture:
     type: image_image
-    weight: -1
+    weight: 1
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  contact: true
+  langcode: true
+  profil_artist_profiles: true

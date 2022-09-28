@@ -1,12 +1,15 @@
 uuid: 73be32a9-9724-4fe1-81cd-23c7e25b9a26
-langcode: en
+langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_position
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
     - image
+    - mobile_number
     - user
 _core:
   default_config_hash: E1qmUI2SlozLlJ308jfMMFKT67l1p6PywE2LTRbeYS4
@@ -15,6 +18,22 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
+  field_phone:
+    type: mobile_number_international
+    label: above
+    settings:
+      as_link: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_position:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
   member_for:
     weight: 5
     region: content
@@ -29,4 +48,6 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-hidden: {  }
+hidden:
+  langcode: true
+  profil_artist_profiles: true

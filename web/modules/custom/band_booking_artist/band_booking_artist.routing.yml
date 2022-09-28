@@ -1,0 +1,22 @@
+band_booking_artist.create:
+  path: '/admin/artist/create'
+  defaults:
+    _title: 'Add an artist'
+    _controller: '\Drupal\band_booking_artist\Controller\BandBookingCreateArtist::content'
+  requirements:
+    _permission: 'manage artists'
+  options:
+    _admin_route: TRUE
+band_booking_artist.positions:
+  path: '/admin/artist/positions'
+  defaults:
+    _title: 'Artists positions'
+    _form: 'Drupal\taxonomy\Form\OverviewTerms'
+    taxonomy_vocabulary: position
+  requirements:
+    _permission: 'manage artists'
+  options:
+    _admin_route: TRUE
+    parameters:
+      taxonomy_vocabulary:
+        type: entity:taxonomy_vocabulary

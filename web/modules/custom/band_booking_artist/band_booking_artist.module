@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements hook_entity_build
+ */
+function band_booking_artist_entity_type_build(array &$entity_types) {
+
+  $entity_types['user']->setFormClass(
+    'band_booking_artist_register',
+    'Drupal\band_booking_artist\Form\ArtistRegistrationForm'
+  );
+}

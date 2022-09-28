@@ -1,0 +1,8 @@
+uuid: 7a8b3119-f0d4-4850-baf6-f4ece0592fcf
+langcode: fr
+status: true
+dependencies: {  }
+name: 'Poste de l''artiste'
+vid: position
+description: 'Poste de l''artiste'
+weight: 0
