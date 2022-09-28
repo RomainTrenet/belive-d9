@@ -16,6 +16,7 @@ module:
   migrate_drupal_ui: 0
   module_filter: 0
   views_ui: 0
+  content_translation: 10
   webprofiler: 0
 theme: {  }
 blacklist: {  }

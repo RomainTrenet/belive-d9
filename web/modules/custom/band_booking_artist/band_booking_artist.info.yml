@@ -7,3 +7,5 @@ dependencies:
   - user
 tags:
   - custom
+'interface translation project': band_booking_artist
+'interface translation server pattern': modules/custom/band_booking_artist/translations/band_booking_artist-fr.po

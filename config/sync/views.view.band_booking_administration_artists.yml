@@ -23,7 +23,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Artists
+      title: 'List of artists'
       fields:
         user_bulk_form:
           id: user_bulk_form
@@ -34,7 +34,7 @@ display:
           admin_label: ''
           entity_type: user
           plugin_id: user_bulk_form
-          label: 'Bulk update'
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -67,7 +67,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -75,6 +75,12 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          action_title: Actions
+          include_exclude: include
+          selected_actions:
+            - user_block_user_action
+            - user_cancel_user_action
+            - user_unblock_user_action
         name:
           id: name
           table: users_field_data
@@ -201,7 +207,7 @@ display:
           entity_type: user
           entity_field: status
           plugin_id: field
-          label: 'Active status'
+          label: Active
           exclude: false
           alter:
             alter_text: false
@@ -485,7 +491,7 @@ display:
           hide_alter_empty: true
           text: edit
           output_url_as_text: false
-          absolute: false
+          absolute: true
       pager:
         type: full
         options:
@@ -882,17 +888,38 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.user.field_position'
+  list:
+    id: list
+    display_title: 'List of artists'
+    display_plugin: page
+    position: 2
+    display_options:
+      display_description: ''
+      display_extenders: {  }
+      path: admin/artist
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user.permissions
+      tags:
+        - 'config:field.storage.user.field_position'
   page_1:
     id: page_1
     display_title: Page
     display_plugin: page
     position: 1
     display_options:
+      enabled: false
       defaults:
         show_admin_links: false
       show_admin_links: false
+      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders: {  }
-      path: truc/people/artist
+      path: test
       menu:
         type: 'default tab'
         title: List
@@ -909,25 +936,6 @@ display:
     cache_metadata:
       max-age: 0
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url
-        - url.query_args
-        - user.permissions
-      tags:
-        - 'config:field.storage.user.field_position'
-  page_2:
-    id: page_2
-    display_title: 'Page 2'
-    display_plugin: page
-    position: 2
-    display_options:
-      display_extenders: {  }
-      path: admin/artist
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args

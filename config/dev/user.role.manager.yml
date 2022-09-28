@@ -14,6 +14,7 @@ dependencies:
     - node
     - profile
     - rt_registration
+    - system
     - taxonomy
     - toolbar
 id: manager
@@ -24,6 +25,7 @@ permissions:
   - 'access contextual links'
   - 'access toolbar'
   - 'access user profiles'
+  - 'administer users'
   - 'bypass mobile number verification requirement'
   - 'change own username'
   - 'create performance content'
@@ -50,4 +52,5 @@ permissions:
   - 'view any profil_artist profile'
   - 'view own profil_artist profile'
   - 'view registration'
+  - 'view the administration theme'
   - 'view user email addresses'

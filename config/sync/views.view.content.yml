@@ -1,5 +1,5 @@
 uuid: a4ae3f7c-4222-40cc-b467-3151e4b09683
-langcode: en
+langcode: fr
 status: true
 dependencies:
   module:
@@ -150,7 +150,7 @@ display:
           entity_type: node
           entity_field: status
           plugin_id: field
-          label: Status
+          label: Statut
           exclude: false
           alter:
             alter_text: false
@@ -374,7 +374,7 @@ display:
           exposed: true
           expose:
             operator_id: ''
-            label: Status
+            label: Statut
             description: ''
             use_operator: false
             operator: status_op

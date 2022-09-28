@@ -1,0 +1,16 @@
+# Artit list action
+msgid "Add an artist"
+msgstr "Ajouter un artiste"
+
+# Menu title
+msgid "Artists positions"
+msgstr "Postes des artistes"
+
+msgid "Artists"
+msgstr "Artistes"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "Positions"
+msgstr "Postes"

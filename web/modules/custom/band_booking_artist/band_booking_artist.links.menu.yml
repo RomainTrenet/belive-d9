@@ -1,0 +1,20 @@
+band_booking_artist.menu:
+  title: 'Artists'
+  route_name: view.band_booking_administration_artists.list
+  parent: system.admin
+  weight: 2000
+band_booking_artist.menu.list:
+  title: 'List'
+  route_name: view.band_booking_administration_artists.list
+  parent: band_booking_artist.menu
+  weight: 100
+band_booking_artist.menu.create:
+  title: 'Add'
+  route_name: band_booking_artist.create
+  parent: band_booking_artist.menu
+  weight: 110
+band_booking_artist.menu.positions:
+  title: 'Positions'
+  route_name: band_booking_artist.positions
+  parent: band_booking_artist.menu
+  weight: 120

@@ -1,5 +1,5 @@
 uuid: ec8d3dc3-220b-47b9-a390-94d8ea058a35
-langcode: en
+langcode: fr
 status: true
 dependencies:
   module:
@@ -82,7 +82,7 @@ display:
           entity_type: user
           entity_field: name
           plugin_id: field
-          label: Username
+          label: 'Nom d''utilisateur'
           exclude: false
           alter:
             alter_text: false
@@ -134,7 +134,7 @@ display:
           entity_type: user
           entity_field: status
           plugin_id: field
-          label: Status
+          label: Statut
           exclude: false
           alter:
             alter_text: false
@@ -178,8 +178,8 @@ display:
           type: boolean
           settings:
             format: custom
-            format_custom_false: Blocked
-            format_custom_true: Active
+            format_custom_false: Bloqué
+            format_custom_true: Actif
         roles_target_id:
           id: roles_target_id
           table: user__roles
@@ -241,7 +241,7 @@ display:
           entity_type: user
           entity_field: created
           plugin_id: field
-          label: 'Member for'
+          label: 'Membre depuis'
           exclude: false
           alter:
             alter_text: false
@@ -600,7 +600,7 @@ display:
               administrator: '0'
           is_grouped: true
           group_info:
-            label: Status
+            label: Statut
             description: ''
             identifier: status
             optional: true
@@ -611,11 +611,11 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: Active
+                title: Actif
                 operator: '='
                 value: '1'
               2:
-                title: Blocked
+                title: Bloqué
                 operator: '='
                 value: '0'
         roles_target_id:

@@ -1,0 +1,12 @@
+band_booking_artist.admin:
+  title: 'Artists'
+  route_name: band_booking_artist.admin
+  base_route: example.admin
+  parent: system.admin
+  weight: 2000
+
+band_booking_artist.create:
+  route_name: band_booking_artist.create
+  title: 'Add an artist'
+  base_route: band_booking_artist.admin
+  weight: 100
