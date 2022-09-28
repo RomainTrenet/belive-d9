@@ -11,7 +11,7 @@ id: node.performance.body
 field_name: body
 entity_type: node
 bundle: performance
-label: Body
+label: Contenu
 description: ''
 required: false
 translatable: true

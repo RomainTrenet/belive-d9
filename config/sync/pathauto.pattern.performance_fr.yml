@@ -1,0 +1,33 @@
+uuid: 52937cea-84ca-4ce8-be65-cddfa197fc78
+langcode: fr
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: performance_fr
+label: 'Prestation FR'
+type: 'canonical_entities:node'
+pattern: 'prestation/[node:title]'
+selection_criteria:
+  86d5c8bd-9290-4778-8cf7-6a372eff4c94:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 86d5c8bd-9290-4778-8cf7-6a372eff4c94
+    context_mapping:
+      node: node
+    bundles:
+      performance: performance
+  4f4e0548-2432-48eb-ad68-4467a6950ec2:
+    id: language
+    negate: false
+    uuid: 4f4e0548-2432-48eb-ad68-4467a6950ec2
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      fr: fr
+selection_logic: and
+weight: -10
+relationships:
+  'node:langcode:language':
+    label: Language
