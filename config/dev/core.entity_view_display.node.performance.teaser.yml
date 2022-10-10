@@ -5,7 +5,13 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.performance.body
+    - field.field.node.performance.field_confirmation
+    - field.field.node.performance.field_date
+    - field.field.node.performance.field_mail_content
+    - field.field.node.performance.field_mail_object
+    - field.field.node.performance.field_place
     - field.field.node.performance.field_registrations
+    - field.field.node.performance.field_relaunch
     - node.type.performance
   module:
     - text
@@ -29,5 +35,11 @@ content:
     weight: 100
     region: content
 hidden:
+  field_confirmation: true
+  field_date: true
+  field_mail_content: true
+  field_mail_object: true
+  field_place: true
   field_registrations: true
+  field_relaunch: true
   langcode: true

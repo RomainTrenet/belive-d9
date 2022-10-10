@@ -12,7 +12,6 @@ dependencies:
     - filter
     - mobile_number
     - node
-    - profile
     - rt_registration
     - system
     - taxonomy
@@ -51,6 +50,7 @@ permissions:
   - 'use text format full_html'
   - 'view any profil_artist profile'
   - 'view own profil_artist profile'
+  - 'view own unpublished content'
   - 'view registration'
   - 'view the administration theme'
   - 'view user email addresses'

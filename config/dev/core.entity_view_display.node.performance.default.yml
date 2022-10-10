@@ -4,9 +4,16 @@ status: true
 dependencies:
   config:
     - field.field.node.performance.body
+    - field.field.node.performance.field_confirmation
+    - field.field.node.performance.field_date
+    - field.field.node.performance.field_mail_content
+    - field.field.node.performance.field_mail_object
+    - field.field.node.performance.field_place
     - field.field.node.performance.field_registrations
+    - field.field.node.performance.field_relaunch
     - node.type.performance
   module:
+    - options
     - text
     - user
 id: node.performance.default
@@ -19,20 +26,41 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 4
     region: content
-  field_registrations:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
+  field_confirmation:
+    type: list_default
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
-    weight: 102
+    weight: 1
+    region: content
+  field_date:
+    type: timestamp
+    label: inline
+    settings:
+      date_format: long
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_place:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
+  field_mail_content: true
+  field_mail_object: true
+  field_registrations: true
+  field_relaunch: true
   langcode: true

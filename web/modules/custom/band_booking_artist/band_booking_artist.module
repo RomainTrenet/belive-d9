@@ -10,3 +10,9 @@ function band_booking_artist_entity_type_build(array &$entity_types) {
     'Drupal\band_booking_artist\Form\ArtistRegistrationForm'
   );
 }
+/**
+ * Implements hook_page_attachments().
+ */
+function band_booking_artist_page_attachments(&$variables) {
+  $variables['#attached']['library'][] = 'band_booking_artist/style';
+}

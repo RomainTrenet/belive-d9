@@ -1,0 +1,7 @@
+type: module
+name: Band booking dev
+description: 'Dev for Band booking'
+package: Custom
+core_version_requirement: ^8 || ^9
+tags:
+  - custom

@@ -1,0 +1,21 @@
+uuid: 839f5807-b1c7-46e4-8952-f27c5f513aff
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_relaunch
+    - node.type.performance
+id: node.performance.field_relaunch
+field_name: field_relaunch
+entity_type: node
+bundle: performance
+label: 'Dates des relances automatiques'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1664403485
+default_value_callback: ''
+settings: {  }
+field_type: timestamp
