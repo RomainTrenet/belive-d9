@@ -31,12 +31,14 @@ function band_booking_registration_theme() {
  *     fields attached to the entity.
  *   - attributes: HTML attributes for the containing element.
  */
+/*
 function template_preprocess_registration(array &$variables) {
   $variables['view_mode'] = $variables['elements']['#view_mode'];
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
   }
 }
+*/
 
 /**
  * Implements hook_user_cancel().
