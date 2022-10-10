@@ -1,0 +1,20 @@
+/**
+ * Custom admin.
+ */
+
+/* Adminimal artist icon */
+.adminimal-admin-toolbar .toolbar-icon-band-booking-artist-menu:before {
+  background-image: url(../images/acacac/people.svg);
+}
+
+.adminimal-admin-toolbar .toolbar-tray-horizontal .menu-item--expanded:hover .toolbar-icon-band-booking-artist-menu:before,
+.adminimal-admin-toolbar .toolbar-icon-band-booking-artist-menu:hover:before,
+.adminimal-admin-toolbar .toolbar-icon-band-booking-artist-menu:active:before,
+.adminimal-admin-toolbar .toolbar-icon-band-booking-artist-menu.is-active:before {
+  background-image: url(../images/ffffff/people.svg);
+}
+
+.adminimal .toolbar-icon-band-booking-artist-menu:active:before,
+.adminimal .toolbar-icon-band-booking-artist-menu.is-active:before {
+  background-image: url(/core/themes/stable/images/core/icons/787878/people.svg);
+}

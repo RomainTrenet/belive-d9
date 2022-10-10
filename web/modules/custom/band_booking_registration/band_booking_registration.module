@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Provides a registration entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\band_booking_registration\Entity\Registration;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function band_booking_registration_theme() {
+  return [
+    'registration' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for registration templates.
+ *
+ * Default template: registration.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the registration information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_registration(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function band_booking_registration_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish registrations.
+      $storage = \Drupal::entityTypeManager()->getStorage('registration');
+      $registration_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($registration_ids) as $registration) {
+        $registration->set('status', FALSE);
+        $registration->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize registrations.
+      $storage = \Drupal::entityTypeManager()->getStorage('registration');
+      $registration_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($registration_ids) as $registration) {
+        $registration->setOwnerId(0);
+        $registration->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function band_booking_registration_user_predelete(UserInterface $account) {
+  // Delete registrations.
+  $storage = \Drupal::entityTypeManager()->getStorage('registration');
+  $registration_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $registrations = $storage->loadMultiple($registration_ids);
+  $storage->delete($registrations);
+}

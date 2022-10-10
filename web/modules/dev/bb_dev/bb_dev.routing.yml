@@ -1,0 +1,9 @@
+band_booking_dev.dev:
+  path: '/admin/bbdev'
+  defaults:
+    _title: 'BBDEV'
+    _controller: '\Drupal\bb_dev\Controller\BBDev::content'
+  requirements:
+    _permission: 'manage artists'
+  options:
+    _admin_route: TRUE
