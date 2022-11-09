@@ -60,6 +60,8 @@ class RegistrationPermissions implements ContainerInjectionInterface {
    */
   public function permissions() {
     $permissions = [];
+
+    // Workflows permisions.
     $workflows = $this->workflowManager->getDefinitions();
     /* @var \Drupal\taxonomy\Entity\Vocabulary $vocabulary */
     foreach ($workflows as $workflow_id => $workflow) {

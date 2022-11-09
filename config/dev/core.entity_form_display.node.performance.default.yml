@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.performance.field_mail_content
     - field.field.node.performance.field_mail_object
     - field.field.node.performance.field_place
-    - field.field.node.performance.field_registrations
     - field.field.node.performance.field_relaunch
     - node.type.performance
   module:
@@ -88,16 +87,6 @@ content:
     weight: 2
     region: content
     settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_registrations:
-    type: entity_reference_autocomplete
-    weight: 13
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }

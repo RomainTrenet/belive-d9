@@ -1,0 +1,7 @@
+type: module
+name: Vanilla select box
+description: 'Vanilla javascript library for creating select boxes'
+package: Custom
+core_version_requirement: ^8 || ^9
+tags:
+  - custom

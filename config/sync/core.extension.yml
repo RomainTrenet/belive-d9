@@ -13,6 +13,8 @@ module:
   automated_cron: 0
   backup_migrate: 0
   band_booking_artist: 0
+  band_booking_registration: 0
+  bb_dev: 0
   big_pipe: 0
   block: 0
   block_content: 0
@@ -53,7 +55,6 @@ module:
   pathologic: 0
   profile: 0
   rdf: 0
-  rt_registration: 0
   search: 0
   shortcut: 0
   state_machine: 0
@@ -65,6 +66,7 @@ module:
   tour: 0
   update: 0
   user: 0
+  vanilla_select_box: 0
   pathauto: 1
   views: 10
   standard: 1000

@@ -1,10 +1,10 @@
-uuid: f02b0499-e664-42d8-a0ef-7cbdfcdc9835
-langcode: en
+uuid: 79a8dc69-4516-4e02-bc88-ebd8d1ca6faa
+langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.registration.performance.field_statut
-    - rt_registration.registration_type.performance
+    - band_booking_registration.registration_type.performance
+    - field.field.registration.performance.field_performance
   module:
     - text
 id: registration.performance.default
@@ -14,23 +14,27 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 4
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
   description:
     type: text_textarea
-    weight: 2
+    weight: 10
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_statut:
-    type: options_select
-    weight: 0
+  field_performance:
+    type: entity_reference_autocomplete
+    weight: 21
     region: content
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select
@@ -41,14 +45,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 1
+    weight: 0
     region: content
     settings:
       display_label: false
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 15
     region: content
     settings:
       match_operator: CONTAINS
