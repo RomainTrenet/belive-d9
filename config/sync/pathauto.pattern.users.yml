@@ -1,0 +1,26 @@
+uuid: 4d63af62-42bf-4a8d-aada-d28ba1f3120d
+langcode: fr
+status: true
+dependencies:
+  module:
+    - language
+    - user
+id: users
+label: Utilisateurs
+type: 'canonical_entities:user'
+pattern: '[user:roles]/[user:name]'
+selection_criteria:
+  79ec3f7a-0535-48f0-942c-6239ddd8f09e:
+    id: language
+    negate: false
+    uuid: 79ec3f7a-0535-48f0-942c-6239ddd8f09e
+    context_mapping:
+      language: 'user:langcode:language'
+    langcodes:
+      fr: fr
+      en: en
+selection_logic: and
+weight: -4
+relationships:
+  'user:langcode:language':
+    label: Langue

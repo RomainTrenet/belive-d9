@@ -6,7 +6,7 @@ name: 'Belive booking'
 mail: beliveconcept@gmail.com
 slogan: ''
 page:
-  403: ''
+  403: /toboggan/denied
   404: ''
   front: /node
 admin_compact_mode: false
