@@ -58,9 +58,10 @@ final class BBDev extends ControllerBase {
    * @see band_booking_artist_entity_type_build.
    */
   public function content(): array {
-    return [
+    return $this->formBuilder->getForm(\Drupal\bb_dev\Form\PerformanceRegisterForm::class);
+    /*return [
       '#markup' => '<p>ICI</p>'
-    ];
+    ];*/
   }
 
 }

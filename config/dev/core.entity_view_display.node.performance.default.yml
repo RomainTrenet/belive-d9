@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.performance.field_mail_content
     - field.field.node.performance.field_mail_object
     - field.field.node.performance.field_place
-    - field.field.node.performance.field_registrations
     - field.field.node.performance.field_relaunch
     - node.type.performance
   module:
@@ -61,6 +60,5 @@ content:
 hidden:
   field_mail_content: true
   field_mail_object: true
-  field_registrations: true
   field_relaunch: true
   langcode: true

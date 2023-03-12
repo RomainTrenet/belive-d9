@@ -1,0 +1,7 @@
+field.widget.settings.selectbox:
+  type: mapping
+  label: 'Select Box widget settings'
+  mapping:
+    length:
+      type: integer
+      label: 'Length of select'
