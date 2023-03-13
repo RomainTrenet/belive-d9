@@ -75,7 +75,6 @@ module:
   update: 0
   user: 0
   vanilla_select_box: 0
-  webprofiler: 0
   workflows: 0
   pathauto: 1
   content_translation: 10
