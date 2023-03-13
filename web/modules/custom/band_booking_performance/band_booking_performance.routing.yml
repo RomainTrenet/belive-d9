@@ -1,0 +1,9 @@
+band_booking_performance.create:
+  path: '/admin/performance/create'
+  defaults:
+    _title: 'Add a performance'
+    _controller: '\Drupal\band_booking_artist\Controller\BandBookingCreateArtist::content'
+  requirements:
+    _permission: 'create performance content'
+  options:
+    _admin_route: TRUE

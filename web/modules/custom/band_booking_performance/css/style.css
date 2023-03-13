@@ -1,0 +1,20 @@
+/**
+ * Custom admin.
+ */
+
+/* Adminimal performance icon */
+.adminimal-admin-toolbar .toolbar-icon-band-booking-performance-menu:before {
+  background-image: url(../images/acacac/concert.svg);
+}
+
+.adminimal-admin-toolbar .toolbar-tray-horizontal .menu-item--expanded:hover .toolbar-icon-band-booking-performance-menu:before,
+.adminimal-admin-toolbar .toolbar-icon-band-booking-performance-menu:hover:before,
+.adminimal-admin-toolbar .toolbar-icon-band-booking-performance-menu:active:before,
+.adminimal-admin-toolbar .toolbar-icon-band-booking-performance-menu.is-active:before {
+  background-image: url(../images/ffffff/concert.svg);
+}
+
+.adminimal .toolbar-icon-band-booking-performance-menu:active:before,
+.adminimal .toolbar-icon-band-booking-performance-menu.is-active:before {
+  background-image: url(../images/787878/concert.svg);
+}

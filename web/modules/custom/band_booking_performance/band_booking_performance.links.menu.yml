@@ -1,0 +1,20 @@
+band_booking_performance.menu:
+  title: 'Performances'
+  route_name: view.band_booking_administration_performances.list_to_come
+  parent: system.admin
+  weight: 2000
+band_booking_performance.menu.list:
+  title: 'List of performances'
+  route_name: view.band_booking_administration_performances.list_to_come
+  parent: band_booking_performance.menu
+  weight: 100
+band_booking_performance.menu.list_former:
+  title: 'Former performances'
+  route_name: view.band_booking_administration_performances.list_former
+  parent: band_booking_performance.menu
+  weight: 110
+band_booking_performance.menu.create:
+  title: 'Add a performance'
+  route_name: band_booking_performance.create
+  parent: band_booking_performance.menu
+  weight: 120

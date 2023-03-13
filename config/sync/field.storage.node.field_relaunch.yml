@@ -1,15 +1,17 @@
-uuid: 78b5bd94-98a7-4a89-a807-f9a62c5fd2e5
+uuid: ac9ba75e-a251-4681-825c-a28a26d74ae9
 langcode: fr
 status: true
 dependencies:
   module:
+    - datetime
     - node
 id: node.field_relaunch
 field_name: field_relaunch
 entity_type: node
-type: timestamp
-settings: {  }
-module: core
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
 locked: false
 cardinality: -1
 translatable: true

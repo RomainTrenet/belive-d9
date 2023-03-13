@@ -1,4 +1,4 @@
-# Artit list action
+# Artist list action
 msgid "Add an artist"
 msgstr "Ajouter un artiste"
 

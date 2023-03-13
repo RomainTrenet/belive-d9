@@ -1,10 +1,12 @@
-uuid: 839f5807-b1c7-46e4-8952-f27c5f513aff
+uuid: 38f522d9-3734-46cc-8a71-5360049b08d8
 langcode: fr
 status: true
 dependencies:
   config:
     - field.storage.node.field_relaunch
     - node.type.performance
+  module:
+    - datetime
 id: node.performance.field_relaunch
 field_name: field_relaunch
 entity_type: node
@@ -15,7 +17,8 @@ required: false
 translatable: false
 default_value:
   -
-    value: 1664403485
+    default_date_type: relative
+    default_date: '+30 days'
 default_value_callback: ''
 settings: {  }
-field_type: timestamp
+field_type: datetime
