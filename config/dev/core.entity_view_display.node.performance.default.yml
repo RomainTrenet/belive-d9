@@ -1,0 +1,72 @@
+uuid: e1fde3f8-39ab-4297-ba0f-3da204862365
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.performance.body
+    - field.field.node.performance.field_confirmation
+    - field.field.node.performance.field_date
+    - field.field.node.performance.field_mail_content
+    - field.field.node.performance.field_mail_object
+    - field.field.node.performance.field_place
+    - field.field.node.performance.field_relaunch
+    - node.type.performance
+  module:
+    - datetime
+    - options
+    - text
+    - user
+id: node.performance.default
+targetEntityType: node
+bundle: performance
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_confirmation:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: long
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_place:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_relaunch:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_mail_content: true
+  field_mail_object: true
+  langcode: true
