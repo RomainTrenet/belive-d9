@@ -29,7 +29,6 @@ module:
   contextual: 0
   datetime: 0
   dblog: 0
-  devel: 0
   dynamic_page_cache: 0
   editor: 0
   editor_advanced_link: 0
@@ -52,7 +51,6 @@ module:
   migrate: 0
   migrate_drupal: 0
   mobile_number: 0
-  module_filter: 0
   mysql: 0
   node: 0
   options: 0
