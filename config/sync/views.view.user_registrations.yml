@@ -16,7 +16,7 @@ base_field: registration_id
 display:
   default:
     id: default
-    display_title: Default
+    display_title: 'Par défaut'
     display_plugin: default
     position: 0
     display_options:
@@ -346,7 +346,7 @@ display:
           entity_type: registration
           entity_field: state
           plugin_id: field
-          label: Status
+          label: État
           exclude: false
           alter:
             alter_text: false
@@ -409,7 +409,7 @@ display:
           admin_label: ''
           entity_type: registration
           plugin_id: entity_operations
-          label: Operations
+          label: Actions
           exclude: false
           alter:
             alter_text: false
@@ -459,10 +459,10 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Appliquer
           reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -489,7 +489,7 @@ display:
           exception:
             value: all
             title_enable: false
-            title: All
+            title: Tout
           title_enable: false
           title: ''
           default_argument_type: fixed
