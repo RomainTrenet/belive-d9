@@ -2,11 +2,8 @@ uuid: 2b368975-e859-44d7-8a32-91722c9f4070
 langcode: fr
 status: true
 dependencies:
-  config:
-    - filter.format.restricted_html
   module:
     - contact
-    - filter
     - search
     - system
 _core:
@@ -19,4 +16,3 @@ permissions:
   - 'access content'
   - 'access site-wide contact form'
   - 'search content'
-  - 'use text format restricted_html'

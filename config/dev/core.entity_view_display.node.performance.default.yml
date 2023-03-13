@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.performance.field_relaunch
     - node.type.performance
   module:
+    - datetime
     - options
     - text
     - user
@@ -35,12 +36,11 @@ content:
     weight: 1
     region: content
   field_date:
-    type: timestamp
+    type: datetime_default
     label: inline
     settings:
-      date_format: long
-      custom_date_format: ''
-      timezone: ''
+      timezone_override: ''
+      format_type: long
     third_party_settings: {  }
     weight: 3
     region: content
@@ -52,6 +52,15 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_relaunch:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 5
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -60,5 +69,4 @@ content:
 hidden:
   field_mail_content: true
   field_mail_object: true
-  field_relaunch: true
   langcode: true

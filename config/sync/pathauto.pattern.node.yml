@@ -1,0 +1,26 @@
+uuid: 3ae8a571-2dca-472c-bdca-969b439f355e
+langcode: fr
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: node
+label: Nœud
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  9b919c84-6494-40ab-9c46-bbca3c200b0e:
+    id: language
+    negate: false
+    uuid: 9b919c84-6494-40ab-9c46-bbca3c200b0e
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      fr: fr
+      en: en
+selection_logic: and
+weight: -7
+relationships:
+  'node:langcode:language':
+    label: Language

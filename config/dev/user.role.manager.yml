@@ -12,6 +12,7 @@ dependencies:
     - filter
     - mobile_number
     - node
+    - override_node_options
     - system
     - taxonomy
     - toolbar
@@ -46,3 +47,4 @@ permissions:
   - 'view own unpublished content'
   - 'view the administration theme'
   - 'view user email addresses'
+  - 'override performance published option'

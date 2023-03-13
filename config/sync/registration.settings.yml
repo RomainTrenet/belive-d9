@@ -1,0 +1,9 @@
+_core:
+  default_config_hash: Wce08LQIzhmBe0UkDi3v5lHq9OKOi50f9NBDYsEsPSI
+langcode: fr
+set_and_forget: true
+hide_filter: 10
+queue_notifications: 50
+html_email: false
+sync_registration_settings: true
+sync_registration_settings_all_fields: false

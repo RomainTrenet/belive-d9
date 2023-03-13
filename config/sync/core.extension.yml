@@ -13,13 +13,13 @@ module:
   automated_cron: 0
   backup_migrate: 0
   band_booking_artist: 0
-  band_booking_registration: 0
+  band_booking_performance: 0
   bb_dev: 0
   big_pipe: 0
   block: 0
   block_content: 0
   breakpoint: 0
-  ckeditor: 0
+  ckeditor5: 0
   config: 0
   config_filter: 0
   config_ignore: 0
@@ -31,11 +31,13 @@ module:
   dblog: 0
   dynamic_page_cache: 0
   editor: 0
+  editor_advanced_link: 0
   entity: 0
   field: 0
   field_group: 0
   file: 0
   filter: 0
+  front_page: 0
   help: 0
   history: 0
   image: 0
@@ -43,18 +45,20 @@ module:
   link: 0
   linkit: 0
   locale: 0
+  logintoboggan: 0
   menu_link_content: 0
   metatag: 0
   mobile_number: 0
   mysql: 0
   node: 0
   options: 0
+  override_node_options: 0
   page_cache: 0
   path: 0
   path_alias: 0
   pathologic: 0
   profile: 0
-  rdf: 0
+  registration: 0
   search: 0
   shortcut: 0
   state_machine: 0
@@ -67,6 +71,7 @@ module:
   update: 0
   user: 0
   vanilla_select_box: 0
+  workflows: 0
   pathauto: 1
   views: 10
   standard: 1000

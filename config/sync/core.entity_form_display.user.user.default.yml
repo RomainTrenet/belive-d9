@@ -10,6 +10,7 @@ dependencies:
   module:
     - image
     - mobile_number
+    - path
     - user
 _core:
   default_config_hash: FaQ9Ptcpxpg30AtiqRDtl_8zbJArHP1LPfug_s59TOA
@@ -22,6 +23,13 @@ content:
     weight: 0
     region: content
     settings: {  }
+    third_party_settings: {  }
+  artist_profiles:
+    type: profile_form
+    weight: 7
+    region: content
+    settings:
+      form_mode: default
     third_party_settings: {  }
   field_phone:
     type: mobile_number_default
@@ -44,6 +52,12 @@ content:
     third_party_settings: {  }
   language:
     weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

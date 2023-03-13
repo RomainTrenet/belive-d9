@@ -1,0 +1,13 @@
+# Performance list action
+msgid "Add a performance"
+msgstr "Ajouter une prestation"
+
+# Menu title
+msgid "Performances"
+msgstr "Prestations"
+
+msgid "List of performances"
+msgstr "Liste des prestations"
+
+msgid "Former performances"
+msgstr "Anciennes prestations"
