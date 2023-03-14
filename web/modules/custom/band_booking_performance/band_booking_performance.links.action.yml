@@ -1,0 +1,5 @@
+band_booking_performance.add:
+  route_name: band_booking_performance.create
+  title: 'Add a performance'
+  appears_on:
+    - view.band_booking_administration_performances.list_to_come
