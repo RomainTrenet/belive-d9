@@ -9,7 +9,7 @@ css:
 dns_prefetch: false
 path:
   convert:
-    absolute_to_protocol_relative: false
+    absolute_to_protocol_relative: true
     absolute: false
     force_https: false
 cache_level: 3
