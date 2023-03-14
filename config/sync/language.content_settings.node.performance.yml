@@ -1,0 +1,11 @@
+uuid: 3179d61c-64c8-4426-bff2-8c9a53434f57
+langcode: fr
+status: true
+dependencies:
+  config:
+    - node.type.performance
+id: node.performance
+target_entity_type_id: node
+target_bundle: performance
+default_langcode: site_default
+language_alterable: false

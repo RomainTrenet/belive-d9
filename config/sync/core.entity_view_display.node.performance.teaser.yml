@@ -1,0 +1,43 @@
+uuid: 025807a6-fb1e-45a1-8cab-cf6a23ccb2c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.performance.body
+    - field.field.node.performance.field_confirmation
+    - field.field.node.performance.field_date
+    - field.field.node.performance.field_mail_content
+    - field.field.node.performance.field_mail_object
+    - field.field.node.performance.field_place
+    - field.field.node.performance.field_relaunch
+    - node.type.performance
+  module:
+    - text
+    - user
+id: node.performance.teaser
+targetEntityType: node
+bundle: performance
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_confirmation: true
+  field_date: true
+  field_mail_content: true
+  field_mail_object: true
+  field_place: true
+  field_relaunch: true
+  langcode: true

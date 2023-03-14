@@ -1,0 +1,53 @@
+display:
+  default:
+    display_options:
+      title: 'Liste des artistes'
+      use_more_text: plus
+      fields:
+        edit_user:
+          text: éditer
+        name:
+          label: 'Nom d''utilisateur'
+        created:
+          label: 'Membre depuis'
+        access:
+          label: 'Dernier accès'
+        status:
+          label: Actif
+      pager:
+        options:
+          tags:
+            next: 'Suivante ›'
+            previous: '‹ Précédente'
+            first: '« Première'
+            last: 'Dernière »'
+          expose:
+            items_per_page_label: 'Eléments par page'
+            items_per_page_options_all_label: '- Tous -'
+            offset_label: Décalage
+      exposed_form:
+        options:
+          submit_button: Filtrer
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+      filters:
+        combine:
+          expose:
+            label: 'Le nom ou l''e-mail contient'
+        status:
+          group_info:
+            label: Statut
+            group_items:
+              1:
+                title: Actif
+              2:
+                title: Bloqué
+        roles_target_id:
+          expose:
+            label: Rôle
+  list:
+    display_title: 'Liste des artistes'
+  page_1:
+    display_options:
+      menu:
+        title: Liste
