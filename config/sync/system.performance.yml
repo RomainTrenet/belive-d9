@@ -1,8 +1,9 @@
 _core:
   default_config_hash: b2cssrj-lOmATIbdehfCqfCFgVR0qCdxxWhwqa2KBVQ
+langcode: fr
 cache:
   page:
-    max_age: 0
+    max_age: 21600
 css:
   preprocess: true
   gzip: true

@@ -35,6 +35,7 @@ module:
   entity: 0
   field: 0
   field_group: 0
+  field_ui: 0
   file: 0
   filter: 0
   front_page: 0
@@ -71,6 +72,7 @@ module:
   update: 0
   user: 0
   vanilla_select_box: 0
+  views_ui: 0
   workflows: 0
   pathauto: 1
   views: 10

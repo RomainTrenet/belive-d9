@@ -9,15 +9,9 @@ weight: 0
 folder: ../config/dev
 module:
   devel: 0
-  field_ui: 0
   menu_ui: 0
-  migrate: 0
-  migrate_drupal: 0
-  migrate_drupal_ui: 0
   module_filter: 0
-  views_ui: 0
   webprofiler: 0
-  content_translation: 10
 theme: {  }
 blacklist: {  }
 graylist:
