@@ -1,6 +1,6 @@
 type: module
 name: Band Booking Artist
-description: 'Custom artist functionnalities'
+description: 'Custom artist functionalities'
 package: Custom
 core_version_requirement: ^8 || ^9
 dependencies:

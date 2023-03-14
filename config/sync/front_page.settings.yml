@@ -10,10 +10,9 @@ rid_administrator:
   weigth: '0'
   path: ''
 rid_artist:
-  enabled: '1'
   weigth: '0'
-  path: mes-prestations
+  path: ''
 rid_manager:
   enabled: '1'
   weigth: '0'
-  path: admin/band_booking_dashboard
+  path: /admin/band_booking_dashboard

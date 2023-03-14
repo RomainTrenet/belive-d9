@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Returns responses for POP Produit routes.
+ * Returns performance node add form.
  */
 final class BandBookingCreatePerformance extends ControllerBase {
 
@@ -53,17 +53,15 @@ final class BandBookingCreatePerformance extends ControllerBase {
   }
 
   /**
-   * Returns customized user register form.
-   *
-   * @see band_booking_artist_entity_type_build.
+   * Create form.
    */
   public function content(): array {
     $entity = $this->entityTypeManager
-      ->getStorage('user')
-      ->create([]);
+      ->getStorage('node')
+      ->create(['type' => 'performance']);
 
     $formObject = $this->entityTypeManager
-      ->getFormObject('user', 'band_booking_artist_register')
+      ->getFormObject('node', 'default')
       ->setEntity($entity);
 
     return $this->formBuilder->getForm($formObject);

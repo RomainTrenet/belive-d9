@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Implements hook_page_attachments().
+ */
+function band_booking_performance_page_attachments(&$variables) {
+  $variables['#attached']['library'][] = 'band_booking_performance/style';
+}
