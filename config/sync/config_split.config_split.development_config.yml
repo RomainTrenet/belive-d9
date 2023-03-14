@@ -8,6 +8,8 @@ description: 'Configuration for the development environment'
 weight: 0
 folder: ../config/dev
 module:
+  field_ui: 0
+  views_ui: 0
   devel: 0
   menu_ui: 0
   module_filter: 0
