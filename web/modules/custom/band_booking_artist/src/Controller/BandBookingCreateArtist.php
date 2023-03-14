@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Returns responses for POP Produit routes.
+ * Returns user register form with "artist" role.
  */
 final class BandBookingCreateArtist extends ControllerBase {
 
