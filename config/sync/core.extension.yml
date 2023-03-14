@@ -14,6 +14,7 @@ module:
   backup_migrate: 0
   band_booking_artist: 0
   band_booking_performance: 0
+  bb_dev: 0
   big_pipe: 0
   block: 0
   block_content: 0
@@ -34,6 +35,7 @@ module:
   entity: 0
   field: 0
   field_group: 0
+  field_ui: 0
   file: 0
   filter: 0
   front_page: 0
@@ -47,9 +49,6 @@ module:
   logintoboggan: 0
   menu_link_content: 0
   metatag: 0
-  migrate: 0
-  migrate_drupal: 0
-  migrate_drupal_ui: 0
   mobile_number: 0
   mysql: 0
   node: 0
@@ -73,6 +72,7 @@ module:
   update: 0
   user: 0
   vanilla_select_box: 0
+  views_ui: 0
   workflows: 0
   pathauto: 1
   views: 10
