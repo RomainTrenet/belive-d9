@@ -54,8 +54,6 @@ final class BandBookingCreatePerformance extends ControllerBase {
 
   /**
    * Create form.
-   *
-   * @see band_booking_artist_entity_type_build.
    */
   public function content(): array {
     $entity = $this->entityTypeManager

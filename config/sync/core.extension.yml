@@ -13,6 +13,7 @@ module:
   automated_cron: 0
   backup_migrate: 0
   band_booking_artist: 0
+  band_booking_dashboard: 0
   band_booking_performance: 0
   bb_dev: 0
   big_pipe: 0

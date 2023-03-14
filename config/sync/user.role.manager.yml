@@ -8,6 +8,7 @@ dependencies:
     - taxonomy.vocabulary.position
   module:
     - band_booking_artist
+    - band_booking_dashboard
     - contextual
     - filter
     - mobile_number
@@ -48,3 +49,4 @@ permissions:
   - 'view the administration theme'
   - 'view user email addresses'
   - 'override performance published option'
+  - 'access band booking dashboard'
