@@ -1,9 +1,10 @@
 type: module
-name: Registration
-description: 'Band booking registration system'
+name: Band Booking Registration
+description: 'Band booking registration'
 package: Custom
 core_version_requirement: ^8 || ^9
 dependencies:
-  - state_machine:state_machine
+  - registration
+  - registration_workflow
 tags:
  - custom
