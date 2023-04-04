@@ -1,7 +1,6 @@
 <?php
 
-namespace Drupal\band_booking_performance\Plugin\Block;
-
+namespace Drupal\band_booking_registration\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 
 /**

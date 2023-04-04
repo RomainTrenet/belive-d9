@@ -1,0 +1,4 @@
+services:
+  plugin.manager.registration:
+    class: Drupal\band_booking_registration\RegistrationPluginManager
+    parent: default_plugin_manager

@@ -22,6 +22,7 @@ label: Gérant
 weight: 5
 is_admin: null
 permissions:
+  - 'access band booking dashboard'
   - 'access contextual links'
   - 'access toolbar'
   - 'access user profiles'
@@ -40,6 +41,7 @@ permissions:
   - 'edit own performance content'
   - 'edit terms in position'
   - 'manage artists'
+  - 'override performance published option'
   - 'update any profil_artist profile'
   - 'update own profil_artist profile'
   - 'use text format full_html'
@@ -48,5 +50,3 @@ permissions:
   - 'view own unpublished content'
   - 'view the administration theme'
   - 'view user email addresses'
-  - 'override performance published option'
-  - 'access band booking dashboard'

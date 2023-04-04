@@ -1,4 +1,7 @@
 services:
+  plugin.manager.registration:
+    class: Drupal\band_booking_registration\RegistrationPluginManager
+    parent: default_plugin_manager
   band_booking_registration.performance_guard:
     class: Drupal\band_booking_registration\Guard\PerformanceGuard
     arguments: ['@current_user', '@plugin.manager.workflow']

@@ -1,0 +1,5 @@
+entity.registration_type.collection:
+  title: 'Registration types'
+  description: 'Manage and CRUD actions on Registration type.'
+  parent: system.admin_structure
+  route_name: entity.registration_type.collection

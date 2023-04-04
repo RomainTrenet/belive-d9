@@ -20,9 +20,9 @@ third_party_settings:
   field_group:
     group_relaunch:
       children:
-        - field_relaunch
         - field_mail_object
         - field_mail_content
+        - field_relaunch
       label: Relances
       region: content
       parent_name: ''

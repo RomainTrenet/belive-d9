@@ -17,7 +17,7 @@ base_field: nid
 display:
   default:
     id: default
-    display_title: 'Par défaut'
+    display_title: Default
     display_plugin: default
     position: 0
     display_options:
@@ -46,7 +46,7 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: Titre
+          label: Title
           exclude: false
           alter:
             alter_text: false
@@ -69,7 +69,7 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: field
-          label: 'Type de contenu'
+          label: 'Content type'
           exclude: false
           alter:
             alter_text: false
@@ -132,7 +132,7 @@ display:
           entity_type: user
           entity_field: name
           plugin_id: field
-          label: Auteur
+          label: Author
           exclude: false
           alter:
             alter_text: false
@@ -172,7 +172,7 @@ display:
           entity_type: node
           entity_field: changed
           plugin_id: field
-          label: 'Mis à jour'
+          label: Updated
           exclude: false
           alter:
             alter_text: false
@@ -195,7 +195,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: entity_operations
-          label: Actions
+          label: Operations
           exclude: false
           alter:
             alter_text: false
@@ -242,17 +242,17 @@ display:
         options:
           items_per_page: 50
           tags:
-            next: 'Suivant ›'
-            previous: '‹ Précédent'
-            first: '« Premier'
-            last: 'Dernier »'
+            next: 'Next ›'
+            previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
       exposed_form:
         type: basic
         options:
-          submit_button: Filtrer
+          submit_button: Filter
           reset_button: true
-          reset_button_label: Réinitialiser
-          exposed_sorts_label: 'Trier par'
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -289,7 +289,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: Titre
+            label: Title
             description: ''
             use_operator: false
             operator: title_op
@@ -331,7 +331,7 @@ display:
           exposed: true
           expose:
             operator_id: type_op
-            label: 'Type de contenu'
+            label: 'Content type'
             description: ''
             use_operator: false
             operator: type_op
@@ -422,7 +422,7 @@ display:
           exposed: true
           expose:
             operator_id: langcode_op
-            label: Langue
+            label: Language
             description: ''
             use_operator: false
             operator: langcode_op
