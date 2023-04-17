@@ -15,3 +15,5 @@ services:
     arguments: ['@band_booking_registration.workflow.helper']
     tags:
       - { name: event_subscriber }
+  band_booking_registration.registration_helper:
+    class: Drupal\band_booking_registration\RegistrationHelper

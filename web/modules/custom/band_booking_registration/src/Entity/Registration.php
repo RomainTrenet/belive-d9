@@ -1,5 +1,7 @@
 <?php
 
+// TODO : clean baseFieldDefinitions + calories and order.
+
 namespace Drupal\band_booking_registration\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
@@ -12,6 +14,8 @@ use Drupal\user\EntityOwnerTrait;
 
 /**
  * Defines the registration entity class.
+ *
+ * @ingroup registration
  *
  * @ContentEntityType(
  *   id = "registration",
@@ -106,21 +110,6 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
       ])
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['description'] = BaseFieldDefinition::create('text_long')
-      ->setTranslatable(TRUE)
-      ->setLabel(t('Description'))
-      ->setDisplayOptions('form', [
-        'type' => 'text_textarea',
-        'weight' => 10,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayOptions('view', [
-        'type' => 'text_default',
-        'label' => 'above',
-        'weight' => 10,
-      ])
-      ->setDisplayConfigurable('view', TRUE);
-
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setTranslatable(TRUE)
       ->setLabel(t('Author'))
@@ -163,6 +152,33 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
       ->setLabel(t('Changed'))
       ->setTranslatable(TRUE)
       ->setDescription(t('The time that the registration was last edited.'));
+
+    $fields['registration_user_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('User'))
+      ->setDescription(t('The user registered.'))
+      ->setSetting('target_type', 'user')
+      ->setSetting('handler', 'default')
+      // TODO : get role id from registration type.
+      //->setSetting('handler_settings', ['target_bundles' => ['custom_vocabulary' => 'custom_vocabulary']]);
+      //handler_settings
+      // @todo : check
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'author',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 5,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder' => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     return $fields;
   }

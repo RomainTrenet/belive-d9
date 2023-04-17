@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - band_booking_registration.registration_type.performance
+    - field.storage.registration.field_entity_id
+    - node.type.performance
+id: registration.performance.field_entity_id
+field_name: field_entity_id
+entity_type: registration
+bundle: performance
+label: Performance
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      performance: performance
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
