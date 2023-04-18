@@ -1,3 +1,0 @@
-# Registration type form
-msgid "Choose roles whose users are allowed to be registered."
-msgstr "Choisissez des rôles dont les utilisateurs ont le droit d'être inscrits"

@@ -7,3 +7,6 @@ dependencies:
   - state_machine:state_machine
 tags:
  - custom
+project: band_booking_registration
+'interface translation project': band_booking_registration
+'interface translation server pattern': modules/custom/%project/translations/%project.%language.po

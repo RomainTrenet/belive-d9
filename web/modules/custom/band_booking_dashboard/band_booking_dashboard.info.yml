@@ -7,5 +7,7 @@ dependencies:
   - user
 tags:
   - custom
+
+project: band_booking_dashboard
 'interface translation project': band_booking_dashboard
-'interface translation server pattern': modules/custom/band_booking_dashboard/translations/band_booking_dashboard-fr.po
+'interface translation server pattern': modules/custom/%project/translations/%project.%language.po
