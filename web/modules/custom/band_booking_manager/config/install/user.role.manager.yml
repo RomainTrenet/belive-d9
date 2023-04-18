@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - node.type.performance
+    - taxonomy.vocabulary.position
+  module:
+    - band_booking_artist
+    - band_booking_manager
+    - contextual
+    - filter
+    - mobile_number
+    - node
+    - override_node_options
+    - system
+    - taxonomy
+    - toolbar
+id: manager
+label: Gérant
+weight: 5
+is_admin: null
+permissions:
+  - 'access band booking dashboard'
+  - 'access contextual links'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'administer users'
+  - 'bypass mobile number verification requirement'
+  - 'change own username'
+  - 'create performance content'
+  - 'create profil_artist profile'
+  - 'create terms in position'
+  - 'delete any performance content'
+  - 'delete any profil_artist profile'
+  - 'delete own performance content'
+  - 'delete own profil_artist profile'
+  - 'delete terms in position'
+  - 'edit any performance content'
+  - 'edit own performance content'
+  - 'edit terms in position'
+  - 'manage artists'
+  - 'override performance published option'
+  - 'update any profil_artist profile'
+  - 'update own profil_artist profile'
+  - 'use text format full_html'
+  - 'view any profil_artist profile'
+  - 'view own profil_artist profile'
+  - 'view own unpublished content'
+  - 'view the administration theme'
+  - 'view user email addresses'
