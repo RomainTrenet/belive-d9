@@ -3,3 +3,5 @@ status: true
 dependencies: {  }
 id: performance
 label: 'Inscriptions aux performances'
+allowed_roles:
+  artist: artist
