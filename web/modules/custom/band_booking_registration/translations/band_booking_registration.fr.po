@@ -16,3 +16,22 @@ msgstr "Choisissez des rôles dont les utilisateurs ont le droit d'être inscrit
 
 msgid "The human-readable name of this registration type."
 msgstr "Nom lisible par l'homme de ce type d'enregistrement."
+
+msgid "Registration types"
+msgstr "Types d'inscription"
+
+msgid "Add registration type"
+msgstr "Ajouter un type d'inscription"
+
+msgid "Save registration type"
+msgstr "Enregistrer le type d'inscription"
+
+msgid "Delete registration type"
+msgstr "Supprimer le type d'inscription"
+
+msgid ""
+"No registration types available. <a "
+"href=\":link\">Add registration type</a>."
+msgstr ""
+"Pas de type d'inscription disponible. <a "
+"href=\":link\">Ajouter un type d'inscription</a>."
