@@ -150,7 +150,7 @@ display:
           entity_type: node
           entity_field: status
           plugin_id: field
-          label: État
+          label: Status
           exclude: false
           alter:
             alter_text: false
@@ -374,7 +374,7 @@ display:
           exposed: true
           expose:
             operator_id: ''
-            label: État
+            label: Status
             description: ''
             use_operator: false
             operator: status_op

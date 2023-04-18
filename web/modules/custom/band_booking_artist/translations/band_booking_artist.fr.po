@@ -27,3 +27,6 @@ msgstr "Liste"
 
 msgid "Positions"
 msgstr "Postes"
+
+msgid "List of artists"
+msgstr "Liste des artistes"

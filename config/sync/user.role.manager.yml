@@ -1,5 +1,5 @@
-uuid: a8fa713e-a694-43b3-95f5-2bab30e7c45b
-langcode: en
+uuid: b57b4632-8cf2-4703-9ea8-3a87d1f4c502
+langcode: fr
 status: true
 dependencies:
   config:
@@ -7,8 +7,7 @@ dependencies:
     - node.type.performance
     - taxonomy.vocabulary.position
   module:
-    - band_booking_artist
-    - band_booking_dashboard
+    - band_booking_manager
     - contextual
     - filter
     - mobile_number
@@ -17,6 +16,8 @@ dependencies:
     - system
     - taxonomy
     - toolbar
+_core:
+  default_config_hash: lhZ1rIXIdnwSIIdMjYTGdD2eHfnuly_wnhZ3RmMuAYc
 id: manager
 label: Gérant
 weight: 5
@@ -40,7 +41,6 @@ permissions:
   - 'edit any performance content'
   - 'edit own performance content'
   - 'edit terms in position'
-  - 'manage artists'
   - 'override performance published option'
   - 'update any profil_artist profile'
   - 'update own profil_artist profile'

@@ -142,7 +142,7 @@ display:
           exposed: false
           expose:
             operator_id: access_op
-            label: 'Dernier accès'
+            label: 'Last access'
             description: 'Durée pendant laquelle on considère qu''un utilisateur est en ligne après qu''il ait vu une page pour la dernière fois.'
             use_operator: false
             operator: access_op

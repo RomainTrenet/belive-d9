@@ -1,7 +1,9 @@
-uuid: 0469ac40-77db-436f-953c-7092fbf3de9e
-langcode: en
+uuid: 7e23f1ba-abb9-4a39-bd35-90f49dc533c3
+langcode: fr
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: glCMSNkDHMkGl-qf_rIGsqTidZDNssFjAyNeNxR9pwc
 id: artist
 label: Artist
 weight: 4
