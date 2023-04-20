@@ -4,8 +4,9 @@
 
 namespace Drupal\band_booking_registration;
 
-// use Drupal\Core\Entity\EntityTypeManagerInterface;
 // use Drupal\Core\Extension\ModuleHandlerInterface;
+// use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
 
 /**
@@ -15,17 +16,16 @@ class RegistrationHelper implements RegistrationHelperInterface {
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   * /
-  protected $entityTypeManager;
+   */
+  //protected $entityTypeManager;
 
   /**
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    * /
-  protected $moduleHandler;
-
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler) {
+  //protected $moduleHandler;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {//, ModuleHandlerInterface $module_handler) {
     $this->entityTypeManager = $entity_type_manager;
-    $this->moduleHandler = $module_handler;
+    //$this->moduleHandler = $module_handler;
   }*/
 
   /**
@@ -42,6 +42,27 @@ class RegistrationHelper implements RegistrationHelperInterface {
     }
 
     return $roles;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTaxonomyTermsOptions(string $vid): array
+  {
+    $options = [];
+    $query = \Drupal::entityQuery('taxonomy_term');
+    $query->condition('vid', $vid);
+    $query->condition('status', 1);
+    $query->sort('weight');
+    $tids = $query->execute();
+    $terms = Term::loadMultiple($tids);
+
+    // TODO : check translation, check order ?
+    foreach ($terms as $term) {
+      $options[$term->id()] = $term->label();
+    }
+
+    return $options;
   }
 
 }

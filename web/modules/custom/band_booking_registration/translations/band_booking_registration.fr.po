@@ -35,3 +35,16 @@ msgid ""
 msgstr ""
 "Pas de type d'inscription disponible. <a "
 "href=\":link\">Ajouter un type d'inscription</a>."
+
+msgid "Relaunch waiting registrations"
+msgstr "Relancer les inscriptions en attente"
+
+#TEMPORARY TODO DELETE after config for register block.
+msgid "Filter by position"
+msgstr "Filtrer par poste"
+msgid "Select the artists position to filter artists list."
+msgstr "Sélectionnez les postes des artistes pour filtrer la liste des artistes."
+msgid "Add artist"
+msgstr "Ajouter des artistes"
+msgid "Select the artists you want to add. The artists already added will not appear."
+msgstr "Sélectionnez les postes des artistes pour filtrer la liste des artistes."
