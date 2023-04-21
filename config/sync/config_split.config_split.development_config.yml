@@ -12,6 +12,7 @@ module:
   examples: 0
   field_ui: 0
   form_api_example: 0
+  mix: 0
   module_filter: 0
   plugin_type_example: 0
   views_ui: 0

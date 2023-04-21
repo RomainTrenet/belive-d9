@@ -5,10 +5,12 @@
 
 namespace Drupal\band_booking_registration\Plugin\Block;
 
+use Drupal\band_booking_registration\RegistrationHelperInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Routing\CurrentRouteMatch;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -37,6 +39,18 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $entityTypeManager;
 
   /**
+   * The current route match.
+   *
+   * @var \Drupal\Core\Routing\CurrentRouteMatch
+   */
+  protected $currentRouteMatch;
+
+  /**
+   * @var \Drupal\band_booking_registration\RegistrationHelperInterface
+   */
+  protected RegistrationHelperInterface $registrationHelper;
+
+  /**
    * Constructor.
    *
    * @param array $configuration
@@ -46,6 +60,10 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
    *   The entity type manager.
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The form builder.
+   * @param \Drupal\Core\Routing\CurrentRouteMatch $currentRouteMatch
+   *   The current route match.
+   * @param \Drupal\band_booking_registration\RegistrationHelperInterface $registrationHelper
+   *   The bb registration helper.
    */
   public function __construct(
     array $configuration,
@@ -53,10 +71,14 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
     $plugin_definition,
     EntityTypeManagerInterface $entity_type_manager,
     FormBuilderInterface $form_builder,
+    CurrentRouteMatch $currentRouteMatch,
+    RegistrationHelperInterface $registrationHelper,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
     $this->formBuilder = $form_builder;
+    $this->currentRouteMatch = $currentRouteMatch;
+    $this->registrationHelper = $registrationHelper;
   }
 
   /**
@@ -77,7 +99,9 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
       $plugin_id,
       $plugin_definition,
       $container->get('entity_type.manager'),
-      $container->get('form_builder')
+      $container->get('form_builder'),
+      $container->get('current_route_match'),
+      $container->get('band_booking_registration.registration_helper')
     );
   }
 
@@ -85,29 +109,51 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
-    $form = $this->formBuilder->getForm(
-      'Drupal\band_booking_registration\Form\RegisterUserForm',
-      // TODO : dynamic arguments.
-      [
-        // Register type from node ?
-        'register_type' => 'performance',
-        // Taxonomy id from register type or from block config ?
-        'taxonomy_id' => 'position',
-        // Role id form register type.
-        'roles_id' => ['artist'],
-        // @todo get it from config.
-        'filter_title' => $this->t('Filter by position'),
-        'filter_description' => $this->t('Select the artists position to filter artists list.'),
-        'add_title' => $this->t('Add artist'),
-        'add_description' => $this->t('Select the artists you want to add. The artists already added will not appear.'),
-      ],
-    );
+    // Get contextual node id.
+    $nid = $this->currentRouteMatch->getRawParameter('node');
 
-    return [
-      '#theme' => 'admin_registration_block',
-      '#registered' => 'ALREADY',
-      '#register_form' => $form,
-    ];
+    // Return content only if node id is defined.
+    if ($nid) {
+      // Settings.
+      // TODO Register type from node ?
+      $register_bundle = 'performance';
+      // TODO Role id form register type.
+      $allowed_roles = ['artist'];
+      // Taxonomy id from register type or from block config ?
+      $taxonomy_id = 'position';
+
+      // Calculate.
+      $registered_users_id = $this->registrationHelper->getRegisteredUsersId($nid);
+      $registered_users = $this->registrationHelper->getOptionsUserList($registered_users_id);
+      $unregistered_users_id = $this->registrationHelper->getUnregisteredUsersId($allowed_roles, $registered_users_id);
+      $unregistered_users = $this->registrationHelper->getOptionsUserList($unregistered_users_id);
+      $taxonomy_terms = $this->registrationHelper->getTaxonomyTermsOptions($taxonomy_id);
+
+      $form = $this->formBuilder->getForm(
+        'Drupal\band_booking_registration\Form\RegisterUserForm',
+        [
+          'context_nid' => $nid,
+          'register_bundle' => $register_bundle,
+          'taxonomy_id' => $taxonomy_id,
+          'taxonomy_terms' => $taxonomy_terms,
+          'users' => $unregistered_users,
+          'registered_users' => $registered_users,
+          // @todo get it from config.
+          'filter_title' => $this->t('Filter by position'),
+          'filter_description' => $this->t('Select the artists position to filter artists list.'),
+          'add_title' => $this->t('Add artist'),
+          'add_description' => $this->t('Select the artists you want to add. The artists already added will not appear.'),
+        ],
+      );
+
+      return [
+        '#theme' => 'admin_registration_block',
+        '#register_form' => $form,
+      ];
+    }
+    else {
+      return [];
+    }
   }
 
   /**

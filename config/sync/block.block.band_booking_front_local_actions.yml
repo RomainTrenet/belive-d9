@@ -9,7 +9,7 @@ _core:
 id: band_booking_front_local_actions
 theme: band_booking_front
 region: content
-weight: -10
+weight: -5
 provider: null
 plugin: local_actions_block
 settings:

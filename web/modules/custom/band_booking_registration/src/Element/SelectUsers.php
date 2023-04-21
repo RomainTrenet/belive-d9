@@ -2,7 +2,6 @@
 
 namespace Drupal\band_booking_registration\Element;
 
-use Drupal\band_booking_registration\RegistrationHelper;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -25,11 +24,12 @@ class SelectUsers extends Element\FormElement {
         [$class, 'preRenderGroup'],
       ],
       '#theme' => 'selectusers_form',
+      '#theme_wrappers' => ['selectusers_wrapper'],
       '#title' => '',
       '#description' => '',
-      '#theme_wrappers' => ['selectusers_wrapper'],
       '#taxonomy_id' => '',
-      '#users_rid' => [],
+      '#taxonomy_terms' => [],
+      '#users' => [],
       '#filter_title' => '',
       '#filter_description' => '',
       '#add_title' => '',
@@ -44,14 +44,11 @@ class SelectUsers extends Element\FormElement {
   }
 
   public static function processSelectUsers(&$element, FormStateInterface $form_state, &$complete_form) {
-    $element['#tree'] = TRUE;
-    $users_rid = $element['#users_rid'];
-
-    // Use helper for this static method.
-    /** @var $registration_helper \Drupal\band_booking_registration\RegistrationHelper */
-    $registration_helper = \Drupal::service('band_booking_registration.registration_helper');
-
+    // Variables.
     $taxonomy_id = $element['#taxonomy_id'];
+
+    // Construct element.
+    $element['#tree'] = TRUE;
     if (!empty($taxonomy_id)) {
       $element[$taxonomy_id] = [
         //'#type' => 'selectbox',
@@ -59,13 +56,16 @@ class SelectUsers extends Element\FormElement {
         '#title' => $element['#filter_title'] ?? '',
         '#description' => $element['#filter_description'] ?? '',
         '#required' => FALSE,
+
+        // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
         '#multiple' => TRUE,
         '#attributes' => [
           'multiple' => TRUE,
           'direction' => 'left',
         ],
+
         '#size' => 3,
-        '#options' => $registration_helper->getTaxonomyTermsOptions($taxonomy_id),
+        '#options' => $element['#taxonomy_terms'] ?? '',
         '#default_value' => $element['#default_value']['terms_id']
       ];
     }
@@ -75,20 +75,17 @@ class SelectUsers extends Element\FormElement {
       '#type' => 'select',
       '#title' => $element['#add_title'] ?? '',
       '#description' => $element['#add_description'] ?? '',
-      '#required' => FALSE,
+      '#required' => TRUE,
+
+      // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
       '#multiple' => TRUE,
       '#attributes' => [
         'multiple' => TRUE,
         'direction' => 'left',
       ],
+
       '#size' => 3,
-      '#options' => [
-        '0' => 'User 0',
-        '1' => 'User 1',
-        '2' => 'User 2',
-        '3' => 'User 3',
-        '4' => 'User 4',
-      ],
+      '#options' => $element['#users'] ?? [],
       '#default_value' => $element['#default_value']['users_id']
     ];
 
@@ -96,9 +93,7 @@ class SelectUsers extends Element\FormElement {
   }
 
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
-    // TODO improve.
-    //$element['#taxonomy_id'];
-    // Load terms id ? load users ?
+    // TODO clean.
 
     // Provide default values if there are none.
     if (!isset($element['#default_value']['terms_id'])) {

@@ -17,4 +17,4 @@ services:
       - { name: event_subscriber }
   band_booking_registration.registration_helper:
     class: Drupal\band_booking_registration\RegistrationHelper
-    arguments: ['@entity_type.manager']
+    arguments: ['@entity_type.manager', '@string_translation', '@messenger']

@@ -1,0 +1,28 @@
+uuid: 24ab2eaf-d382-44a7-a56f-08c820c795c2
+langcode: fr
+status: false
+dependencies:
+  module:
+    - band_booking_registration
+    - node
+  theme:
+    - band_booking_front
+id: adminregistration
+theme: band_booking_front
+region: hidden
+weight: -4
+provider: null
+plugin: registration_block
+settings:
+  id: registration_block
+  label: 'Admin registration'
+  label_display: visible
+  provider: band_booking_registration
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      performance: performance

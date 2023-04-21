@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\band_booking_registration\RegistrationInterface;
+use Drupal\registration\Entity\RegistrationTypeInterface;
 use Drupal\user\EntityOwnerTrait;
 
 /**
@@ -69,6 +70,18 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
 
   use EntityChangedTrait;
   use EntityOwnerTrait;
+
+  /**
+   * TODO CHECK.
+   * {@inheritdoc}
+   */
+  public function getType() {
+    return $this->bundle();
+  }
+  /*
+  public function getType(): RegistrationTypeInterface {
+    return $this->type->entity;
+  }*/
 
   /**
    * {@inheritdoc}
@@ -159,6 +172,33 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
       // TODO : get role id from registration type.
+      //->setSetting('handler_settings', ['target_bundles' => ['custom_vocabulary' => 'custom_vocabulary']]);
+      //handler_settings
+      // @todo : check
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'author',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 5,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder' => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['nid'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Node'))
+      ->setDescription(t('The node to which register.'))
+      ->setSetting('target_type', 'node')
+      ->setSetting('handler', 'default')
+      // TODO : get bundle id from ?.
       //->setSetting('handler_settings', ['target_bundles' => ['custom_vocabulary' => 'custom_vocabulary']]);
       //handler_settings
       // @todo : check

@@ -5,6 +5,7 @@
  * Provides a registration entity type.
  */
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\user\UserInterface;
 
@@ -19,7 +20,6 @@ function band_booking_registration_theme(): array
     ],
     'admin_registration_block' => [
       'variables' => [
-        'registered' => '',
         'register_form' => '',
       ],
     ],
@@ -30,6 +30,15 @@ function band_booking_registration_theme(): array
       'render element' => 'element',
     ]
   ];
+}
+
+/**
+ * TODO improve vanilla-select-box to be called with big pipe elements.
+ * Implements hook_block_build_BASE_BLOCK_ID_alter().
+ */
+function band_booking_registration_block_build_registration_block_alter(array &$build, \Drupal\Core\Block\BlockPluginInterface $block) {
+  // Disable placeholdering of this block.
+  $build['#create_placeholder'] = FALSE;
 }
 
 /**

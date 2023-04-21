@@ -70,6 +70,7 @@ class PerformanceRegisterForm extends FormBase {
     // Group submit handlers in an actions element with a key of "actions" so
     // that it gets styled correctly, and so that other modules may add actions
     // to the form. This is not required, but is convention.
+    /*
     $form['actions'] = [
       '#type' => 'actions',
     ];
@@ -79,6 +80,14 @@ class PerformanceRegisterForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Submit'),
     ];
+    */
+
+    $form['actions']['#type'] = 'actions';
+    $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => $this->t('Submit !'),
+      '#button_type' => 'primary',
+    );
 
     return $form;
 
@@ -124,8 +133,9 @@ class PerformanceRegisterForm extends FormBase {
     // Call the Static Service Container wrapper
     // We should inject the messenger service, but its beyond the scope of this example.
     $messenger = \Drupal::messenger();
-    $messenger->addMessage('Title: '.$form_state->getValue('title'));
-    $messenger->addMessage('Accept: '.$form_state->getValue('accept'));
+    //$messenger->addMessage('Title: '.$form_state->getValue('title'));
+    //$messenger->addMessage('Accept: '.$form_state->getValue('accept'));
+    $truc = $form_state->getValue('selectbox');
 
     // Redirect to home
     $form_state->setRedirect('<front>');
