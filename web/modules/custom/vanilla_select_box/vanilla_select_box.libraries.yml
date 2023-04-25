@@ -7,7 +7,7 @@ select-box:
     - core/drupalSettings
     - vanilla_select_box/vanilla-select-box
 vanilla-select-box:
-  version: 1.0.4
+  version: 1.0.5
   css:
     theme:
       vendor://philippemarcmeyer/vanillaselectbox/vanillaSelectBox.css: {}

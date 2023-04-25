@@ -5,12 +5,10 @@
  */
 namespace Drupal\band_booking_registration\Form;
 
-use Drupal\band_booking_registration\Entity\Registration;
 use Drupal\band_booking_registration\Plugin\Block\RegistrationBlock;
 use Drupal\band_booking_registration\RegistrationHelperInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\user\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class RegisterUserForm extends FormBase {

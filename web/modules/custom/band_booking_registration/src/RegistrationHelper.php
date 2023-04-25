@@ -5,6 +5,7 @@
 namespace Drupal\band_booking_registration;
 
 use Drupal\band_booking_registration\Entity\Registration;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -134,14 +135,15 @@ class RegistrationHelper implements RegistrationHelperInterface {
 
   /**
    * {@inheritdoc}
+   * @throws EntityStorageException
    */
   public function registerUsers(int $nid, string $registration_bundle, array $users): void
   {
     // Prepare entity.
-    //$storage = \Drupal::entityTypeManager()->getStorage('registration');
     $storage = $this->entityTypeManager->getStorage('registration');
 
     foreach ($users as $user_id) {
+      // TODO : improve and ensure entity is created before sending messages.
       $storage->create([
         'bundle' => $registration_bundle,
         'nid' => $nid,

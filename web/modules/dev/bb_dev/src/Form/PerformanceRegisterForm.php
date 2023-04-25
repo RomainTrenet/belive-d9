@@ -34,16 +34,28 @@ class PerformanceRegisterForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['selectbox'] = [
-      '#type' => 'selectbox',
+      //'#type' => 'selectbox',
+      '#type' => 'select',
       '#title' => $this->t('My select box'),
       '#description' => $this->t('My description'),
-      '#required' => TRUE,
+      //'#required' => TRUE,
+      // MULTIPLE do the trick.
       '#multiple' => TRUE,
+      //'#input' => TRUE,
+      //'#tree' => FALSE,
       '#attributes' => [
         'multiple' => TRUE,
-        'direction' => 'left',
+        //'direction' => 'left',
+        // TODO : remove this class, added by the selectbox field.
+        'class' => ['vanilla-select-box']
       ],
-      '#size' => 3,
+      // TODO : remove this library, added by the selectbox field.
+      '#attached' => [
+        'library' => [
+          'vanilla_select_box/select-box'
+        ]
+      ],
+      //'#size' => 3,
       '#options' => [
         '1a' => $this
           ->t('One a'),
@@ -64,7 +76,7 @@ class PerformanceRegisterForm extends FormBase {
         '5' => $this
           ->t('Five'),
       ],
-      '#default_value' => ['3', '4']
+      //'#default_value' => ['3', '4']
     ];
 
     // Group submit handlers in an actions element with a key of "actions" so
@@ -83,11 +95,11 @@ class PerformanceRegisterForm extends FormBase {
     */
 
     $form['actions']['#type'] = 'actions';
-    $form['actions']['submit'] = array(
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit !'),
       '#button_type' => 'primary',
-    );
+    ];
 
     return $form;
 
@@ -103,6 +115,7 @@ class PerformanceRegisterForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
+    /*
     $title = $form_state->getValue('title');
     $accept = $form_state->getValue('accept');
 
@@ -114,7 +127,7 @@ class PerformanceRegisterForm extends FormBase {
     if (empty($accept)){
       // Set an error for the form element with a key of "accept".
       $form_state->setErrorByName('accept', $this->t('You must accept the terms of use to continue'));
-    }
+    }*/
 
   }
 
@@ -133,12 +146,14 @@ class PerformanceRegisterForm extends FormBase {
     // Call the Static Service Container wrapper
     // We should inject the messenger service, but its beyond the scope of this example.
     $messenger = \Drupal::messenger();
+    $messenger->addMessage('Submit bbdev');
+    $truc = $form_state->getValue('selectbox');
+    //$messenger->addMessage(implode(', ', $truc));
     //$messenger->addMessage('Title: '.$form_state->getValue('title'));
     //$messenger->addMessage('Accept: '.$form_state->getValue('accept'));
-    $truc = $form_state->getValue('selectbox');
 
     // Redirect to home
-    $form_state->setRedirect('<front>');
+    //$form_state->setRedirect('<front>');
 
   }
 }

@@ -27,7 +27,17 @@
 
       // If there is a selectBox.
       if (self.$selectBox) {
-        new vanillaSelectBox('#' + selectBox.id,{"maxHeight":200,search:true});
+        // @todo : get infos from select data.
+        new vanillaSelectBox(
+          '#' + selectBox.id,
+          {
+            "placeHolder": Drupal.t('Select'),
+            //"maxSelect":3,
+            //translations: { "all": "All", "items": "Cars" },
+            "maxHeight":200,
+            search:true
+          }
+        );
         //self.bindHandlers();
       }
     },
@@ -119,6 +129,17 @@
       once('selectBox', 'html', context).forEach(() => {
         /* eslint no-param-reassign:["error",
         { "props": true, "ignorePropertyModificationsFor": ["drupalSettings"] }]
+        */
+        /*
+        TODO : remove, for tests.
+        let selectCars = new vanillaSelectBox(
+          ".vanilla-select-box",
+          {
+            "placeHolder":"Choose your car",
+            "maxSelect":3,
+            translations: { "all": "All", "items": "Cars" }
+          }
+        );
         */
         if (!drupalSettings.selectBoxManager) {
           drupalSettings.selectBoxManager = {};

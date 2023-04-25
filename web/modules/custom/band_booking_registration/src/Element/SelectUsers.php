@@ -61,10 +61,17 @@ class SelectUsers extends Element\FormElement {
         '#multiple' => TRUE,
         '#attributes' => [
           'multiple' => TRUE,
-          'direction' => 'left',
+          //'direction' => 'left',
+          // TODO remove.
+          'class' => ['vanilla-select-box'],
         ],
-
-        '#size' => 3,
+        // TODO remove.
+        '#attached' => [
+          'library' => [
+            'vanilla_select_box/select-box'
+          ]
+        ],
+        //'#size' => 3,
         '#options' => $element['#taxonomy_terms'] ?? '',
         '#default_value' => $element['#default_value']['terms_id']
       ];
@@ -78,10 +85,19 @@ class SelectUsers extends Element\FormElement {
       '#required' => TRUE,
 
       // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
+      // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
       '#multiple' => TRUE,
       '#attributes' => [
         'multiple' => TRUE,
-        'direction' => 'left',
+        //'direction' => 'left',
+        // TODO remove.
+        'class' => ['vanilla-select-box'],
+      ],
+      // TODO remove.
+      '#attached' => [
+        'library' => [
+          'vanilla_select_box/select-box'
+        ]
       ],
 
       '#size' => 3,
