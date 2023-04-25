@@ -1,5 +1,7 @@
 <?php
 
+// TODO : check if used.
+
 namespace Drupal\vanilla_select_box\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;

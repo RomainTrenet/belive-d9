@@ -3,5 +3,7 @@ name: Vanilla select box
 description: 'Vanilla javascript library for creating select boxes'
 package: Custom
 core_version_requirement: ^8 || ^9
+dependencies:
+  - vendor_stream_wrapper
 tags:
   - custom

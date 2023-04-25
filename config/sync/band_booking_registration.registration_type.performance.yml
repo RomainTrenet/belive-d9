@@ -1,0 +1,10 @@
+uuid: d82bf408-a78a-4044-9f03-ca8488713bd3
+langcode: fr
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: E853nCb-qaQPXZJNcb2sssNC7fwfAPyxvS6jGMJq2DE
+id: performance
+label: 'Inscriptions aux performances'
+allowed_roles:
+  artist: artist

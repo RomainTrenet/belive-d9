@@ -1,5 +1,5 @@
 uuid: 351390c6-c7f7-4431-ba63-6aaa55c6d242
-langcode: en
+langcode: fr
 status: true
 dependencies:
   config:
@@ -20,9 +20,9 @@ third_party_settings:
   field_group:
     group_relaunch:
       children:
-        - field_relaunch
         - field_mail_object
         - field_mail_content
+        - field_relaunch
       label: Relances
       region: content
       parent_name: ''

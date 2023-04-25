@@ -2,6 +2,7 @@
 
 namespace Drupal\band_booking_registration\Entity;
 
+use Drupal\band_booking_registration\RegistrationTypeInterface;
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 
 /**
@@ -34,6 +35,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
+ *     "allowed_roles" = "allowed_roles",
  *     "uuid" = "uuid"
  *   },
  *   links = {
@@ -45,11 +47,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   config_export = {
  *     "id",
  *     "label",
+ *     "allowed_roles",
  *     "uuid",
  *   }
  * )
  */
-class RegistrationType extends ConfigEntityBundleBase {
+class RegistrationType extends ConfigEntityBundleBase implements RegistrationTypeInterface {
 
   /**
    * The machine name of this registration type.
@@ -65,4 +68,32 @@ class RegistrationType extends ConfigEntityBundleBase {
    */
   protected $label;
 
+  /**
+   * An array of user roles allowed to be registered.
+   *
+   * @var array
+   */
+  protected array $allowed_roles;
+
+  /**
+   * The default registration state. TODO
+   *
+   * @var string
+   */
+  //protected string $defaultState = 'pending';
+
+  /**
+   * {@inheritdoc}
+   * /
+  public function getAllowedRoles(): array {
+    return $this->allowed_roles;
+  }
+
+  /**
+   * {@inheritdoc}
+   * /
+  public function setAllowedRoles($roles): RegistrationTypeInterface {
+    $this->allowed_roles = $roles;
+    return $this;
+  }*/
 }

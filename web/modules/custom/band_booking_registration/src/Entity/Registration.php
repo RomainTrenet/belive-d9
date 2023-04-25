@@ -1,5 +1,7 @@
 <?php
 
+// TODO : clean baseFieldDefinitions + calories and order.
+
 namespace Drupal\band_booking_registration\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
@@ -8,10 +10,13 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\band_booking_registration\RegistrationInterface;
+use Drupal\registration\Entity\RegistrationTypeInterface;
 use Drupal\user\EntityOwnerTrait;
 
 /**
  * Defines the registration entity class.
+ *
+ * @ingroup registration
  *
  * @ContentEntityType(
  *   id = "registration",
@@ -67,6 +72,18 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
   use EntityOwnerTrait;
 
   /**
+   * TODO CHECK.
+   * {@inheritdoc}
+   */
+  public function getType() {
+    return $this->bundle();
+  }
+  /*
+  public function getType(): RegistrationTypeInterface {
+    return $this->type->entity;
+  }*/
+
+  /**
    * {@inheritdoc}
    */
   public function preSave(EntityStorageInterface $storage) {
@@ -103,21 +120,6 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
         'settings' => [
           'format' => 'enabled-disabled',
         ],
-      ])
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['description'] = BaseFieldDefinition::create('text_long')
-      ->setTranslatable(TRUE)
-      ->setLabel(t('Description'))
-      ->setDisplayOptions('form', [
-        'type' => 'text_textarea',
-        'weight' => 10,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayOptions('view', [
-        'type' => 'text_default',
-        'label' => 'above',
-        'weight' => 10,
       ])
       ->setDisplayConfigurable('view', TRUE);
 
@@ -164,7 +166,95 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
       ->setTranslatable(TRUE)
       ->setDescription(t('The time that the registration was last edited.'));
 
+    $fields['registration_user_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('User'))
+      ->setDescription(t('The user registered.'))
+      ->setSetting('target_type', 'user')
+      ->setSetting('handler', 'default')
+      // TODO : get role id from registration type.
+      //->setSetting('handler_settings', ['target_bundles' => ['custom_vocabulary' => 'custom_vocabulary']]);
+      //handler_settings
+      // @todo : check
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'author',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 5,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder' => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['nid'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Node'))
+      ->setDescription(t('The node to which register.'))
+      ->setSetting('target_type', 'node')
+      ->setSetting('handler', 'default')
+      // TODO : get bundle id from ?.
+      //->setSetting('handler_settings', ['target_bundles' => ['custom_vocabulary' => 'custom_vocabulary']]);
+      //handler_settings
+      // @todo : check
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'author',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 5,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder' => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     return $fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function description() {
+    // Retrieve the @description property from the annotation and return it.
+    return $this->pluginDefinition['description'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calories() {
+    // Retrieve the @calories property from the annotation and return it.
+    return (float) $this->pluginDefinition['calories'];
+  }
+
+  /**
+   * Place an order for a sandwich.
+   *
+   * This is just an example method on our plugin that we can call to get
+   * something back.
+   *
+   * @param array $extras
+   *   Array of extras to include with this order.
+   *
+   * @return string
+   *   A description of the sandwich ordered.
+   */
+  public function order(array $extras) {
+    $ingredients = ['ham, mustard', 'rocket', 'sun-dried tomatoes'];
+    $sandwich = array_merge($ingredients, $extras);
+    return 'You ordered an ' . implode(', ', $sandwich) . ' sandwich. Enjoy!';
   }
 
 }

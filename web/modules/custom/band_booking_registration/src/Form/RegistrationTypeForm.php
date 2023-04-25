@@ -5,11 +5,33 @@ namespace Drupal\band_booking_registration\Form;
 use Drupal\Core\Entity\BundleEntityFormBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\band_booking_registration\RegistrationHelper;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form handler for registration type forms.
  */
 class RegistrationTypeForm extends BundleEntityFormBase {
+
+  private RegistrationHelper $helper;
+
+  /**
+   * @param \Drupal\band_booking_registration\RegistrationHelper $helper
+   */
+  public function __construct(RegistrationHelper $helper) {
+    $this->helper = $helper;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    // Instantiates this form class.
+    return new static(
+      // Load the service required to construct this class.
+      $container->get('band_booking_registration.registration_helper')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -18,8 +40,13 @@ class RegistrationTypeForm extends BundleEntityFormBase {
     $form = parent::form($form, $form_state);
 
     $entity_type = $this->entity;
+
+    // Only if entity already exist.
     if ($this->operation == 'edit') {
       $form['#title'] = $this->t('Edit %label registration type', ['%label' => $entity_type->label()]);
+      $allowed_roles = $entity_type->get('allowed_roles');
+    } else {
+      $allowed_roles = [];
     }
 
     $form['label'] = [
@@ -40,6 +67,17 @@ class RegistrationTypeForm extends BundleEntityFormBase {
         'source' => ['label'],
       ],
       '#description' => $this->t('A unique machine-readable name for this registration type. It must only contain lowercase letters, numbers, and underscores.'),
+    ];
+
+    $form['allowed_roles'] = [
+      '#title' => $this->t('Roles'),
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#default_value' => $allowed_roles,
+      '#description' => $this->t('Choose roles whose users are allowed to be registered.'),
+      '#required' => TRUE,
+      '#size' => 5,
+      '#options' => $this->helper->getSiteRoles(),
     ];
 
     return $this->protectBundleIdElement($form);

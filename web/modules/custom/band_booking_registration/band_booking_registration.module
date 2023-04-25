@@ -5,19 +5,40 @@
  * Provides a registration entity type.
  */
 
-use Drupal\Core\Render\Element;
-use Drupal\band_booking_registration\Entity\Registration;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\user\UserInterface;
 
 /**
  * Implements hook_theme().
  */
-function band_booking_registration_theme() {
+function band_booking_registration_theme(): array
+{
   return [
     'registration' => [
       'render element' => 'elements',
     ],
+    'admin_registration_block' => [
+      'variables' => [
+        'register_form' => '',
+      ],
+    ],
+    'selectusers_form' => [
+      'render element' => 'element',
+    ],
+    'selectusers_wrapper' => [
+      'render element' => 'element',
+    ]
   ];
+}
+
+/**
+ * TODO improve vanilla-select-box to be called with big pipe elements.
+ * Implements hook_block_build_BASE_BLOCK_ID_alter().
+ */
+function band_booking_registration_block_build_registration_block_alter(array &$build, \Drupal\Core\Block\BlockPluginInterface $block) {
+  // Disable placeholdering of this block.
+  $build['#create_placeholder'] = FALSE;
 }
 
 /**
@@ -39,6 +60,51 @@ function template_preprocess_registration(array &$variables) {
   }
 }
 */
+
+function template_preprocess_selectusers_form(array &$variables): void
+{
+  $element = $variables['element'];
+
+  $variables['attributes'] = [];
+  if (isset($element['#id'])) {
+    $variables['attributes']['id'] = $element['#id'];
+  }
+  if (!empty($element['#attributes']['class'])) {
+    $variables['attributes']['class'] = (array) $element['#attributes']['class'];
+  }
+
+  $variables['content'] = $element;
+}
+
+function template_preprocess_selectusers_wrapper(&$variables): void
+{
+  $element = $variables['element'];
+
+  if (!empty($element['#title'])) {
+    $variables['title'] = $element['#title'];
+  }
+
+  // Suppress error messages.
+  $variables['errors'] = NULL;
+
+  $variables['description'] = NULL;
+  if (!empty($element['#description'])) {
+    $description_attributes = [];
+    if (!empty($element['#id'])) {
+      $description_attributes['id'] = $element['#id'] . '--description';
+    }
+    $variables['description'] = $element['#description'];
+    $variables['description_attributes'] = new Attribute($description_attributes);
+  }
+
+  $variables['required'] = FALSE;
+  // For required selectusers fields 'form-required' & 'js-form-required' classes
+  // are appended to the label attributes.
+  if (!empty($element['#required'])) {
+    $variables['required'] = TRUE;
+  }
+  $variables['content'] = $element['#children'];
+}
 
 /**
  * Implements hook_user_cancel().

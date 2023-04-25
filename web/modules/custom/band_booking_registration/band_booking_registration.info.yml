@@ -1,9 +1,14 @@
 type: module
-name: Registration
+name: Band Booking Registration
 description: 'Band booking registration system'
 package: Custom
 core_version_requirement: ^8 || ^9
 dependencies:
   - state_machine:state_machine
+  - drupal:block
+  - drupal:config
 tags:
  - custom
+project: band_booking_registration
+'interface translation project': band_booking_registration
+'interface translation server pattern': modules/custom/%project/translations/%project.%language.po

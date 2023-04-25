@@ -8,5 +8,11 @@ band_booking_registration.registration_type.*:
     label:
       type: label
       label: 'Label'
+    allowed_roles:
+      type: sequence
+      label: 'Roles allowed'
+      sequence:
+        type: string
+        label: 'Role'
     uuid:
       type: string

@@ -21,16 +21,17 @@ class SelectBox extends FormElement
     // You can use any standard render array property here, and you can also
     // custom properties that are specific to your new element type.
     return [
-      '#options' => [],
-      '#sort_options' => FALSE,
-      '#sort_start' => 0,
+      //'#options' => [],
+      //'#sort_options' => FALSE,
+      //'#sort_start' => 0,
       '#empty_option' => $this->t('Select'),
-      '#default_value' => NULL,
-      '#required' => FALSE,
-      '#size' => 5,
-      '#input' => TRUE,
+      //'#default_value' => NULL,
+      //'#required' => FALSE,
+      //'#size' => 5,
+      //'#input' => TRUE,
       // See render_example_theme() where this new theme hook is declared.
       '#theme' => 'select',
+      '#multiple' => TRUE,
       '#theme_wrappers' => ['form_element'],
       // Define a default #pre_render method. We will use this to handle
       // additional processing for the custom attributes we add below.
@@ -42,10 +43,12 @@ class SelectBox extends FormElement
           'vanilla_select_box/select-box'
         ]
       ],
+      /*
       '#attributes' => [
         'multiple' => FALSE,
         'direction' => 'left',
       ]
+      */
     ];
   }
 
@@ -64,6 +67,9 @@ class SelectBox extends FormElement
     $element['#attributes']['type'] = 'select';
     // Ensure keeping class when overriding attributes.
     $element['#attributes']['class'] = ['vanilla-select-box'];
+    // TODO : clean. Nouveau pour test :
+    $element['#attributes']['multiple'] = TRUE;
+    $element['#multiple'] = TRUE;
     return $element;
   }
 }

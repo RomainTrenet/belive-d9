@@ -1,3 +1,0 @@
-# Artist list action
-msgid "Dashboard"
-msgstr "Tableau de bord"

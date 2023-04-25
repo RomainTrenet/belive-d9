@@ -7,5 +7,6 @@ dependencies:
   - node
 tags:
   - custom
+project: band_booking_performance
 'interface translation project': band_booking_performance
-'interface translation server pattern': modules/custom/band_booking_performance/translations/band_booking_performance-fr.po
+'interface translation server pattern': modules/custom/%project/translations/%project.%language.po

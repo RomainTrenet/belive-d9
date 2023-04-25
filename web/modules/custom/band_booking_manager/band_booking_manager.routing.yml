@@ -1,0 +1,9 @@
+band_booking_manager.band_booking_dashboard:
+  path: '/admin/band_booking_dashboard'
+  defaults:
+    _title: 'Dashboard'
+    _controller: '\Drupal\band_booking_manager\Controller\BandBookingDashboard::content'
+  requirements:
+    _permission: 'access band booking dashboard'
+  options:
+    _admin_route: TRUE

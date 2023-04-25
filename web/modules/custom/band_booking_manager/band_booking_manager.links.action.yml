@@ -1,0 +1,5 @@
+band_booking_manager.create_performance:
+  route_name: band_booking_performance.create
+  title: 'Add a performance'
+  appears_on:
+    - band_booking_manager.band_booking_dashboard
