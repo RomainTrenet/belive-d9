@@ -42,6 +42,7 @@ permissions:
   - 'edit any performance content'
   - 'edit own performance content'
   - 'edit terms in position'
+  - 'manage artists'
   - 'override performance published option'
   - 'update any profil_artist profile'
   - 'update own profil_artist profile'
@@ -51,4 +52,3 @@ permissions:
   - 'view own unpublished content'
   - 'view the administration theme'
   - 'view user email addresses'
-  - 'manage artists'

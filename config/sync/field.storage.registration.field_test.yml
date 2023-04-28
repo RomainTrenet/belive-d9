@@ -1,0 +1,20 @@
+uuid: 500cbfd6-7247-462c-831a-5815c00f7a8c
+langcode: fr
+status: true
+dependencies:
+  module:
+    - band_booking_registration
+    - node
+id: registration.field_test
+field_name: field_test
+entity_type: registration
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

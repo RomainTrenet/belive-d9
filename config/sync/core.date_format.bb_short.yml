@@ -1,0 +1,8 @@
+uuid: bf74a81d-4e28-40c9-b825-2aa165e5915a
+langcode: fr
+status: true
+dependencies: {  }
+id: bb_short
+label: 'Date courte'
+locked: false
+pattern: d/m/Y
