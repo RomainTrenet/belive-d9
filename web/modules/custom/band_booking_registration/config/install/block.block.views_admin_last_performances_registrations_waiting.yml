@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - views.view.band_booking_administration_last_performances_registrations
+  module:
+    - system
+    - views
+  theme:
+    - band_booking_admin
+id: views_admin_last_performances_registrations_waiting
+theme: band_booking_admin
+region: sidebar_second
+weight: 0
+provider: null
+plugin: 'views_block:band_booking_administration_last_performances_registrations-last_waiting_registrations'
+settings:
+  id: 'views_block:band_booking_administration_last_performances_registrations-last_waiting_registrations'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /admin/band_booking_dashboard
