@@ -1,17 +1,16 @@
-uuid: 500cbfd6-7247-462c-831a-5815c00f7a8c
+uuid: 87881312-97d0-44bd-ae23-3004323562da
 langcode: fr
 status: true
 dependencies:
   module:
     - band_booking_registration
-    - node
-id: registration.field_test
-field_name: field_test
+    - state_machine
+id: registration.field_state
+field_name: field_state
 entity_type: registration
-type: entity_reference
-settings:
-  target_type: node
-module: core
+type: state
+settings: {  }
+module: state_machine
 locked: false
 cardinality: 1
 translatable: true

@@ -1,0 +1,22 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - band_booking_registration.registration_type.performance
+    - field.storage.registration.field_state
+  module:
+    - state_machine
+id: registration.performance.field_state
+field_name: field_state
+entity_type: registration
+bundle: performance
+label: state
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  workflow: performance_default
+  workflow_callback: ''
+field_type: state
