@@ -26,4 +26,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /admin/band_booking_dashboard
+    pages: /admin/dashboard

@@ -8,6 +8,8 @@ dependencies:
     - views
   theme:
     - band_booking_admin
+_core:
+  default_config_hash: KPda75acu_a2POvzULiExydxfuyop2jv92hpGFSZrjY
 id: views_admin_last_performances_registrations_no_waiting
 theme: band_booking_admin
 region: sidebar_second
@@ -25,4 +27,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /admin/band_booking_dashboard
+    pages: /admin/dashboard

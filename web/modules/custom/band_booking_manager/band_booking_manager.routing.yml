@@ -1,5 +1,5 @@
-band_booking_manager.band_booking_dashboard:
-  path: '/admin/band_booking_dashboard'
+band_booking_manager.dashboard:
+  path: '/admin/dashboard'
   defaults:
     _title: 'Dashboard'
     _controller: '\Drupal\band_booking_manager\Controller\BandBookingDashboard::content'

@@ -3,3 +3,8 @@ entity.registration_type.collection:
   description: 'Manage and CRUD actions on Registration type.'
   parent: system.admin_structure
   route_name: entity.registration_type.collection
+entity.registration.collection:
+  title: 'Registrations'
+  description: 'Manage and CRUD actions on Registrations.'
+  parent: system.admin_content
+  route_name: entity.registration.collection
