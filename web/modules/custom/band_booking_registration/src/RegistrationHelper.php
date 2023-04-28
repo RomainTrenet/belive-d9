@@ -99,7 +99,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
     foreach ($registrations as $registration) {
       $value = $registration->get('registration_user_id')->getValue();
       if (isset($value[0]['target_id'])) {
-        $usersId[] = $value[0]['target_id'];
+        $usersId[$registration->id()] = $value[0]['target_id'];
       }
     }
 
@@ -113,7 +113,9 @@ class RegistrationHelper implements RegistrationHelperInterface {
     $query = \Drupal::entityQuery('user');
     $query->condition('status', 1);
     $query->condition('roles', $allowed_roles, 'IN');
-    $query->condition('uid', $registeredUsersId, 'NOT IN');
+    if (!empty($registeredUsersId)) {
+      $query->condition('uid', $registeredUsersId, 'NOT IN');
+    }
     return $query->execute();
   }
 
@@ -131,28 +133,83 @@ class RegistrationHelper implements RegistrationHelperInterface {
     return $options;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getOptionsUserRegistrationList(array $uids): array {
+    $users = User::loadMultiple($uids);
 
+    $options = [];
+    foreach ($uids as $rid => $uid) {
+      $options[$rid] = $users[$uid]->getAccountName();
+    }
+    return $options;
+  }
+
+  public function registerUsers(int $nid, string $registration_bundle, array $uids): void {
+    if (!empty($uids)) {
+      // Prepare entity.
+      $storage = $this->entityTypeManager->getStorage('registration');
+      $users = User::loadMultiple($uids);
+
+      $usernames = [];
+      foreach ($uids as $uid) {
+        // TODO : improve and ensure entity is created before sending messages.
+        $storage->create([
+          'bundle' => $registration_bundle,
+          'nid' => $nid,
+          'registration_user_id' => $uid
+        ])->save();
+
+        $usernames[] = $users[$uid]->getAccountName();
+      }
+
+      // Message.
+      $message = $this->t('Users successfully registered : @users.', array('@users' => implode(', ', $usernames)));
+      $this->messenger->addMessage($message, 'status', TRUE);
+    }
+    else {
+      $message = $this->t('No user to register.');
+      $this->messenger->addMessage($message, 'status', TRUE);
+    }
+  }
 
   /**
    * {@inheritdoc}
    * @throws EntityStorageException
    */
-  public function registerUsers(int $nid, string $registration_bundle, array $users): void
-  {
-    // Prepare entity.
-    $storage = $this->entityTypeManager->getStorage('registration');
+  public function unRegisterUsers(array $rids): void {
+    if (!empty($rids)) {
+      $storage = $this->entityTypeManager->getStorage('registration');
+      $registrations = $storage->loadMultiple($rids);
+      $storage->delete($registrations);
 
-    foreach ($users as $user_id) {
       // TODO : improve and ensure entity is created before sending messages.
-      $storage->create([
-        'bundle' => $registration_bundle,
-        'nid' => $nid,
-        'registration_user_id' => $user_id
-      ])->save();
 
-      $output = $this->t('Register user : @uid.', array('@uid' => $user_id));
-      $type = 'status';
-      $this->messenger->addMessage($output, $type, TRUE);
+      // Get list of user id and load users.
+      $usersId = [];
+      foreach ($registrations as $registration) {
+        $value = $registration->get('registration_user_id')->getValue();
+        if (isset($value[0]['target_id'])) {
+          $usersId[$registration->id()] = $value[0]['target_id'];
+        }
+      }
+
+      // Create array of usernames.
+      $users = User::loadMultiple($usersId);
+      $usernames = [];
+      foreach ($rids as $rid) {
+        $uid = $usersId[$rid];
+        $usernames[] = $users[$uid]->getAccountName();
+      }
+
+      // Message.
+      $message = $this->t('Users successfully unregistered : @users.', array('@users' => implode(', ', $usernames)));
+      $this->messenger->addMessage($message, 'status', TRUE);
+    }
+    else {
+      $message = $this->t('No user to unregister.');
+      $this->messenger->addMessage($message, 'status', TRUE);
     }
   }
 

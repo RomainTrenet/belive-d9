@@ -21,6 +21,7 @@ function band_booking_registration_theme(): array
     'admin_registration_block' => [
       'variables' => [
         'register_form' => '',
+        'unregister_form' => '',
       ],
     ],
     'selectusers_form' => [

@@ -74,11 +74,15 @@ class RegisterUserForm extends FormBase {
     $terms_id = $value['register_user'][$taxonomy_id] ?? [];
     $users_id = $value['register_user']['users'] ?? [];
 
-    //$registered_users_id = $this->registrationHelper->getRegisteredUsersId($nid);
+    if (empty($registered_users)) {
+      $markup = $this->t('No artist already registered.');
+    } else {
+      $markup = $this->t('Artists already registered : @users.', array('@users' => implode(', ', $registered_users)));
+    }
     $form['already_registered'] = [
       '#type' => 'markup',
       '#title' => 'Already :',
-      '#markup' => '<p>Déja inscrits : '. implode(', ', $registered_users) . '</p>',
+      '#markup' => $markup,
     ];
 
     $form['register_user'] = [
