@@ -146,10 +146,6 @@ class RegistrationHelper implements RegistrationHelperInterface {
     return $options;
   }
 
-  /**
-   * {@inheritdoc}
-   * @throws EntityStorageException
-   */
   public function registerUsers(int $nid, string $registration_bundle, array $uids): void {
     if (!empty($uids)) {
       // Prepare entity.

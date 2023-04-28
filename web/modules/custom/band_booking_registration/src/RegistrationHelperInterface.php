@@ -73,22 +73,13 @@ interface RegistrationHelperInterface {
   public function getOptionsUserRegistrationList(array $uids): array;
 
   /**
-   * Get options list of users.
-   *
-   * @param array $uids
-   *   An array of users id.
-   *
-   * @return array
-   *   An array of users.
-   */
-
-  /**
    * Register users.
    *
    * @param int $nid
    *   The node id to which register.
-   * @param string $registration_type
+   * @param string $registration_bundle
    *   The registration bundle to create.
+   *
    * @param array $uids
    *   A list of users id.
    *
