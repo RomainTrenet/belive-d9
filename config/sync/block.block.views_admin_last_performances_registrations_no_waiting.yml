@@ -1,4 +1,4 @@
-uuid: e8a229fa-cced-4cb3-a297-7e817b8c2f4d
+uuid: 31131532-43e7-40db-9608-7f5bfe801ef7
 langcode: fr
 status: true
 dependencies:
@@ -9,6 +9,8 @@ dependencies:
     - views
   theme:
     - band_booking_admin
+_core:
+  default_config_hash: A7e6hw2bH8Taq8hRv33cV0qGKMXCoVojPYWy0yG7s00
 id: views_admin_last_performances_registrations_no_waiting
 theme: band_booking_admin
 region: sidebar_second

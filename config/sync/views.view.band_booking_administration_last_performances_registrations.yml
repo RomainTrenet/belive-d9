@@ -1,4 +1,4 @@
-uuid: c7b0425a-8d02-46a1-99cb-af0397ca340a
+uuid: bc248438-a0be-4f5c-854f-9201db7eb533
 langcode: fr
 status: true
 dependencies:
@@ -6,6 +6,8 @@ dependencies:
     - band_booking_registration.registration_type.performance
   module:
     - band_booking_registration
+_core:
+  default_config_hash: 6HtSvL2WrTdxaHacYK8H7yyGKbOXPm9nJEwsIvFqNQo
 id: band_booking_administration_last_performances_registrations
 label: 'Band booking | Administration : Last performances registrations'
 module: views

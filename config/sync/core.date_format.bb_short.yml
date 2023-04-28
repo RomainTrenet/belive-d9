@@ -1,7 +1,9 @@
-uuid: bf74a81d-4e28-40c9-b825-2aa165e5915a
+uuid: 922d9ab4-399b-4f29-975a-03a63fe4dcf7
 langcode: fr
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: JZHB3GbIpwJRaGXH-9Pa_klPRLqwzlQztTytTbmb3LM
 id: bb_short
 label: 'Date courte'
 locked: false

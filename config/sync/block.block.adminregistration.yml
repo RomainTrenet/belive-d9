@@ -1,21 +1,23 @@
-uuid: 24ab2eaf-d382-44a7-a56f-08c820c795c2
+uuid: 9cef2f4f-f6ef-4c33-a340-71dafb809ed1
 langcode: fr
-status: false
+status: true
 dependencies:
   module:
     - band_booking_registration
     - node
   theme:
     - band_booking_front
+_core:
+  default_config_hash: N84sC_oG0IVVbeJzycl4TicutixOcGTTVvu8cwlto_A
 id: adminregistration
 theme: band_booking_front
-region: hidden
-weight: -4
+region: sidebar_first
+weight: -5
 provider: null
 plugin: registration_block
 settings:
   id: registration_block
-  label: 'Admin registration'
+  label: 'Inscrire des artistes'
   label_display: visible
   provider: band_booking_registration
 visibility:

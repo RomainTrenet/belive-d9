@@ -1,4 +1,3 @@
-uuid: 78587652-379e-4701-a51f-21392f3e55a9
 langcode: fr
 status: true
 dependencies:
@@ -7,7 +6,7 @@ dependencies:
     - node
   theme:
     - band_booking_front
-id: adminregistration_2
+id: adminregistration
 theme: band_booking_front
 region: sidebar_first
 weight: -5
