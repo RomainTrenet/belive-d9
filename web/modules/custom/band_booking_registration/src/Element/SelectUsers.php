@@ -85,7 +85,6 @@ class SelectUsers extends Element\FormElement {
       '#required' => TRUE,
 
       // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
-      // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
       '#multiple' => TRUE,
       '#attributes' => [
         'multiple' => TRUE,

@@ -125,11 +125,12 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
       // Calculate.
       $registered_users_id = $this->registrationHelper->getRegisteredUsersId($nid);
       $registered_users = $this->registrationHelper->getOptionsUserList($registered_users_id);
+      $registered_users_by_rid = $this->registrationHelper->getOptionsUserRegistrationList($registered_users_id);
       $unregistered_users_id = $this->registrationHelper->getUnregisteredUsersId($allowed_roles, $registered_users_id);
       $unregistered_users = $this->registrationHelper->getOptionsUserList($unregistered_users_id);
       $taxonomy_terms = $this->registrationHelper->getTaxonomyTermsOptions($taxonomy_id);
 
-      $form = $this->formBuilder->getForm(
+      $register_form = $this->formBuilder->getForm(
         'Drupal\band_booking_registration\Form\RegisterUserForm',
         [
           'context_nid' => $nid,
@@ -146,9 +147,22 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
         ],
       );
 
+      $unregister_form = $this->formBuilder->getForm(
+        'Drupal\band_booking_registration\Form\UnregisterUserForm',
+        [
+          'context_nid' => $nid,
+          'register_bundle' => $register_bundle,
+          'registered_users_by_rid' => $registered_users_by_rid,
+          // @todo get it from config.
+          'remove_title' => $this->t('Unregister artists'),
+          'remove_description' => $this->t('Select the artists you want to unregister.'),
+        ],
+      );
+
       return [
         '#theme' => 'admin_registration_block',
-        '#register_form' => $form,
+        '#register_form' => $register_form,
+        '#unregister_form' => $unregister_form,
       ];
     }
     else {
