@@ -6,7 +6,7 @@ dependencies:
     - band_booking_registration.registration_type.performance
     - field.field.registration.performance.field_state
   module:
-    - options
+    - state_machine
     - user
 _core:
   default_config_hash: S3GRFV7VG4lFqw4_TQbn18v6QV_EAtjeXEzi1gV6LvM
@@ -26,9 +26,11 @@ content:
     weight: 20
     region: content
   field_state:
-    type: list_default
+    type: state_transition_form
     label: above
-    settings: {  }
+    settings:
+      require_confirmation: false
+      use_modal: false
     third_party_settings: {  }
     weight: 21
     region: content

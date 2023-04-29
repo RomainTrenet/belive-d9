@@ -39,6 +39,15 @@ msgstr ""
 msgid "Relaunch waiting registrations"
 msgstr "Relancer les inscriptions en attente"
 
+msgid "Standby"
+msgstr "Mettre en attente"
+
+msgid "Accept"
+msgstr "Accepter"
+
+msgid "Refuse"
+msgstr "Refuser"
+
 #TEMPORARY TODO DELETE after config for register block.
 msgid "Filter by position"
 msgstr "Filtrer par poste"
