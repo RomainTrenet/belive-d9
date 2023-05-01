@@ -1,11 +1,16 @@
 uuid: 7e23f1ba-abb9-4a39-bd35-90f49dc533c3
 langcode: fr
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - band_booking_registration
 _core:
   default_config_hash: glCMSNkDHMkGl-qf_rIGsqTidZDNssFjAyNeNxR9pwc
 id: artist
 label: Artist
 weight: 4
 is_admin: null
-permissions: {  }
+permissions:
+  - 'edit registration'
+  - 'use accept transition in performance_default'
+  - 'use refuse transition in performance_default'
