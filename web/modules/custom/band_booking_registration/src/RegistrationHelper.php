@@ -146,31 +146,142 @@ class RegistrationHelper implements RegistrationHelperInterface {
     return $options;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function registerUsers(int $nid, string $registration_bundle, array $uids): void {
     if (!empty($uids)) {
-      // Prepare entity.
-      $storage = $this->entityTypeManager->getStorage('registration');
       $users = User::loadMultiple($uids);
 
-      $usernames = [];
-      foreach ($uids as $uid) {
-        // TODO : improve and ensure entity is created before sending messages.
-        $storage->create([
-          'bundle' => $registration_bundle,
-          'nid' => $nid,
-          'registration_user_id' => $uid
-        ])->save();
+      $operations = [];
+      $amountOperations = 'rien';
 
-        $usernames[] = $users[$uid]->getAccountName();
-      }
+      // Only one operation, but loop inside operation with limit.
+      $operations[] = [
+        '\Drupal\band_booking_registration\RegistrationHelper::batch_register_users_operation',
+        [
+          $users,
+          $uids,
+          $registration_bundle,
+          $nid,
+          $this->t('(--- @operation)', ['@operation' => $amountOperations]),
+        ],
+      ];
 
-      // Message.
-      $message = $this->t('Users successfully registered : @users.', array('@users' => implode(', ', $usernames)));
-      $this->messenger->addMessage($message, 'status', TRUE);
+      $batch = [
+        'title' => $this->t('Creating an array of @num operations', ['@num' => $amountOperations]),
+        'operations' => $operations,
+        'finished' => '\Drupal\band_booking_registration\RegistrationHelper::batch_register_users_finished',
+      ];
+      batch_set($batch);
     }
     else {
       $message = $this->t('No user to register.');
       $this->messenger->addMessage($message, 'status', TRUE);
+    }
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function batch_register_users_operation($users, $uids, $registration_bundle, $nid, $operation_details, &$context) :void {
+    // Use the $context['sandbox'] at your convenience to store the
+    // information needed to track progression between successive calls.
+    if (empty($context['sandbox'])) {
+      $context['sandbox'] = [];
+      $context['sandbox']['progress'] = 0;
+      $context['sandbox']['current_node'] = 0;
+      $context['sandbox']['max'] = count($uids);
+      $context['sandbox']['usernames'] = [];
+    }
+
+    // Process in groups of 2 (arbitrary value).
+    $limit = 1; // 2 as it begins with 0.
+
+    // Retrieve the next group.
+    $result = range($context['sandbox']['current_node'], $context['sandbox']['current_node'] + $limit);
+
+    foreach ($result as $row) {
+      // Do not go above maximum results.
+      if ($row > $context['sandbox']['max'] - 1) {
+        return;
+      }
+
+      // Register entity.
+      $uid = $uids[$row];
+      $storage = \Drupal::entityTypeManager()->getStorage('registration');
+      $registration = $storage->create([
+        'bundle' => $registration_bundle,
+        'nid' => $nid,
+        'registration_user_id' => $uid
+      ])->save();
+
+      // Results passed to the 'finished' callback.
+      $context['results'][] = [
+        'status' => $registration ? 'status' : 'error',
+        'account_name' => $users[$uid]->getAccountName()
+      ];
+
+      // Update our progress information.
+      $context['sandbox']['progress']++;
+      $context['sandbox']['current_node'] = $row + 1;
+      $context['message'] = t('Running Batch "@id" for user n* @uid',
+        ['@id' => $row, '@uid' => $uids[$row]]
+      );
+    }
+
+    // Finished ? TODO Check if id is ok.
+    if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+      $context['finished'] = ($context['sandbox']['progress'] > $context['sandbox']['max']);
+    }
+  }
+
+  /**
+   * Batch 'finished' callback used by both batch 1 and batch 2.
+   */
+  public static function batch_register_users_finished($success, $results, $operations) {
+    $messenger = \Drupal::messenger();
+    if ($success) {
+      // Prepare users vs status.
+      $successRegistrations = [];
+      $errorRegistrations = [];
+
+      foreach ($results as $result) {
+        if ($result['status'] == 'error') {
+          $errorRegistrations[] = $result['account_name'];
+        } else {
+          $successRegistrations[] = $result['account_name'];
+        }
+      }
+
+      // Here we could do something meaningful with the results.
+      // We just display the number of nodes we processed...
+      $messenger->addMessage(t('@count results processed.', ['@count' => count($results)]));
+
+      // Print results.
+      // TODO improve singular / plural.
+      if (count($successRegistrations) >= 1) {
+        $message = t('Users successfully registered : @users.', array('@users' => implode(', ', $successRegistrations)));
+        $messenger->addMessage($message, 'status', TRUE);
+      }
+      if (count($errorRegistrations) >= 1) {
+        $message = t('Users not registered : @users.', array('@users' => implode(', ', $errorRegistrations)));
+        $messenger->addMessage($message, 'error', TRUE);
+      }
+    }
+    else {
+      // An error occurred.
+      // $operations contains the operations that remained unprocessed.
+      $error_operation = reset($operations);
+      $messenger->addMessage(
+        t('An error occurred while processing @operation with arguments : @args',
+          [
+            '@operation' => $error_operation[0],
+            '@args' => print_r($error_operation[0], TRUE),
+          ]
+        )
+      );
     }
   }
 

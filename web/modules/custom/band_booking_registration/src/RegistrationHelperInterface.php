@@ -88,6 +88,25 @@ interface RegistrationHelperInterface {
   public function registerUsers(int $nid, string $registration_bundle, array $uids): void;
 
   /**
+   * Operation for register users batch.
+   *
+   * @param $users
+   *   A list of loaded user.
+   * @param $uids
+   *   A list of user id.
+   * @param $registration_bundle
+   *   The registration bundle.
+   * @param $nid
+   *   The node id to which register.
+   * @param $operation_details
+   *   The operation details.
+   * @param $context
+   *   The batch context.
+   * @return void
+   */
+  public static function batch_register_users_operation($users, $uids, $registration_bundle, $nid, $operation_details, &$context): void;
+
+  /**
    * Unregister users.
    *
    * @param array $rids
