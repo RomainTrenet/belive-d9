@@ -10,7 +10,11 @@ dependencies:
     - field.field.node.performance.field_mail_content
     - field.field.node.performance.field_mail_object
     - field.field.node.performance.field_place
+    - field.field.node.performance.field_register_mail_content
+    - field.field.node.performance.field_register_mail_object
     - field.field.node.performance.field_relaunch
+    - field.field.node.performance.field_unregister_mail_content
+    - field.field.node.performance.field_unregister_mail_object
     - node.type.performance
   module:
     - text
@@ -39,5 +43,9 @@ hidden:
   field_mail_content: true
   field_mail_object: true
   field_place: true
+  field_register_mail_content: true
+  field_register_mail_object: true
   field_relaunch: true
+  field_unregister_mail_content: true
+  field_unregister_mail_object: true
   langcode: true

@@ -1,0 +1,21 @@
+uuid: 4423e6eb-04ba-420a-8928-839a92eee9ad
+langcode: fr
+status: true
+dependencies:
+  module:
+    - band_booking_registration
+    - state_machine
+_core:
+  default_config_hash: tWgKRy9ZOG3iUHiQjv9VmePqmPea_JiFeeFZv1oD3rk
+id: registration.field_state
+field_name: field_state
+entity_type: registration
+type: state
+settings: {  }
+module: state_machine
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
