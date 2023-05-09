@@ -2,6 +2,10 @@
 
 namespace Drupal\band_booking_registration;
 
+use Drupal\band_booking_registration\Entity\Registration;
+use Drupal\node\Entity\Node;
+use Drupal\user\Entity\User;
+
 /**
  * Provides an interface defining a registration helper.
  */
@@ -88,6 +92,18 @@ interface RegistrationHelperInterface {
   public function registerUsers(int $nid, string $registration_bundle, array $uids): void;
 
   /**
+   * TODO
+   * Send mail when register user in batch.
+   *
+   * @param Node $performance
+   * @param Registration $registration
+   * @param User $user
+   * @return void
+   */
+  public static function batchRegisterSendMail(Node $performance, Registration $registration, User $user): void;
+
+  /**
+   * TODO
    * Operation for register users batch.
    *
    * @param $users
@@ -104,7 +120,17 @@ interface RegistrationHelperInterface {
    *   The batch context.
    * @return void
    */
-  public static function batch_register_users_operation($users, $uids, $registration_bundle, $nid, $operation_details, &$context): void;
+  public static function batchRegisterUsersOperation($users, $uids, $registration_bundle, $nid, $operation_details, &$context): void;
+
+  /**
+   * Batch 'finished' callback used by both batch 1 and batch 2.
+   *
+   * @param $success
+   * @param $results
+   * @param $operations
+   * @return void
+   */
+  public static function batchRegisterUsersFinished($success, $results, $operations): void;
 
   /**
    * Unregister users.

@@ -7,9 +7,12 @@ namespace Drupal\band_booking_registration;
 use Drupal\band_booking_registration\Entity\Registration;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
@@ -158,7 +161,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
 
       // Only one operation, but loop inside operation with limit.
       $operations[] = [
-        '\Drupal\band_booking_registration\RegistrationHelper::batch_register_users_operation',
+        '\Drupal\band_booking_registration\RegistrationHelper::batchRegisterUsersOperation',
         [
           $users,
           $uids,
@@ -171,7 +174,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
       $batch = [
         'title' => $this->t('Creating an array of @num operations', ['@num' => $amountOperations]),
         'operations' => $operations,
-        'finished' => '\Drupal\band_booking_registration\RegistrationHelper::batch_register_users_finished',
+        'finished' => '\Drupal\band_booking_registration\RegistrationHelper::batchRegisterUsersFinished',
       ];
       batch_set($batch);
     }
@@ -181,11 +184,82 @@ class RegistrationHelper implements RegistrationHelperInterface {
     }
   }
 
-
   /**
    * {@inheritdoc}
    */
-  public static function batch_register_users_operation($users, $uids, $registration_bundle, $nid, $operation_details, &$context) :void {
+  public static function batchRegisterSendMail($performance, $registration, $user): void {
+    $messenger = \Drupal::messenger();
+    $token_service = \Drupal::token();
+
+    $tokenMailMessage = $performance->get('field_register_mail_content')->getValue();
+    $tokenMailObject = $performance->get('field_register_mail_object')->getValue();
+
+    $message = [];
+    if (isset($tokenMailMessage[0]['value'])) {
+      $message =  $token_service->replace(
+        $tokenMailMessage[0]['value'],
+        [
+          'registration' => $registration,
+        ],
+        [
+          'langcode' => $user->getPreferredLangcode(),
+          //part of the Token replacement service; A boolean flag indicating
+          // that tokens should be removed from the final text if no replacement
+          // value can be generated
+          'clear' => TRUE,
+        ]
+      );
+    }
+    $object = [];
+    if (isset($tokenMailObject[0]['value'])) {
+      $object =  $token_service->replace(
+        $tokenMailObject[0]['value'],
+        [
+          'registration' => $registration,
+        ],
+        [
+          'langcode' => $user->getPreferredLangcode(),
+          //part of the Token replacement service; A boolean flag indicating
+          // that tokens should be removed from the final text if no replacement
+          // value can be generated
+          'clear' => TRUE,
+        ]
+      );
+    }
+
+    /** @var MailManagerInterface $mailManager */
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    // See band_booking_registration_module function.
+    $module = 'band_booking_registration';
+    $key = 'node_insert';
+    $to = $user->get('mail')->getValue()[0]['value'];
+    /** @var User $owner */
+    $owner = $registration->getOwner();
+    $params['from'] = $owner->get('mail')->getValue()[0]['value'];
+    $params['message'] = Markup::create($message);
+    $params['title'] = $object;
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $send = true;
+
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+
+    if (!$result['result']) {
+      $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
+      $messenger->addMessage($message, 'error', TRUE);
+      //\Drupal::logger('mail-log')->error($message);
+      return;
+    }
+
+    $message = t('An email notification has been sent to @email ', array('@email' => $to));
+    $messenger->addMessage($message, 'status', TRUE);
+    //\Drupal::logger('mail-log')->notice($message);
+  }
+
+  /**
+   * {@inheritdoc}
+   * @throws EntityStorageException
+   */
+  public static function batchRegisterUsersOperation($users, $uids, $registration_bundle, $nid, $operation_details, &$context) :void {
     // Use the $context['sandbox'] at your convenience to store the
     // information needed to track progression between successive calls.
     if (empty($context['sandbox'])) {
@@ -211,11 +285,23 @@ class RegistrationHelper implements RegistrationHelperInterface {
       // Register entity.
       $uid = $uids[$row];
       $storage = \Drupal::entityTypeManager()->getStorage('registration');
+      $registrationEntity = $storage->create([
+        'bundle' => $registration_bundle,
+        'nid' => $nid,
+        'registration_user_id' => $uid
+      ]);
+      /*
       $registration = $storage->create([
         'bundle' => $registration_bundle,
         'nid' => $nid,
         'registration_user_id' => $uid
-      ])->save();
+      ])->save();*/
+      $registration = $registrationEntity->save();
+
+      // Send mail.
+      $performance = Node::load($nid);
+      //$registration_entity = Registration::load()
+      RegistrationHelper::batchRegisterSendMail($performance, $registrationEntity, $users[$uid]);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
@@ -238,9 +324,9 @@ class RegistrationHelper implements RegistrationHelperInterface {
   }
 
   /**
-   * Batch 'finished' callback used by both batch 1 and batch 2.
+   * {@inheritdoc}
    */
-  public static function batch_register_users_finished($success, $results, $operations) {
+  public static function batchRegisterUsersFinished($success, $results, $operations):void {
     $messenger = \Drupal::messenger();
     if ($success) {
       // Prepare users vs status.
