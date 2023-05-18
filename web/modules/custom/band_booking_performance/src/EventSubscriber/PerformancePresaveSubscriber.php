@@ -41,10 +41,10 @@ class PerformancePresaveSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Subscribe to the user login event dispatched.
+   * Subscribe to the performance presave dispatched.
    *
    * @param PerformancePresaveEvent $event
-   *   Dat event object yo.
+   *   The event.
    */
   public function onPerformancePresave(PerformancePresaveEvent $event) {
     // Save non utc date.

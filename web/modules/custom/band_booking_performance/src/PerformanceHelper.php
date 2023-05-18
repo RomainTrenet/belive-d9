@@ -52,6 +52,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
     $node = Node::load(5);
     $field_relaunch = $node->get('field_relaunch');
     $field_date = $node->get('field_date')->getValue();
+    $field_date_non_utc = $node->get('field_date_non_utc')->getValue();
 
     // If nodes are not specified.
     if (empty($nids)) {
@@ -129,12 +130,12 @@ class PerformanceHelper implements PerformanceHelperInterface {
     $current_date = strtotime("-1 day");// -> relances d'hier.
     // Won't work fot the moment because of wrong UTC time (-2h) coming from
     // node.
-    $min_day = date('Y-m-d 00:00:00', $current_date);
+    $min_day = date('Y-m-d', $current_date);
     // So the trick is -1 day.
     //$min_day = date('Y-m-d 00:00:00', strtotime('-1 day', $current_date));
 
-    $query2->leftjoin('node__field_date', 'dt', 'dt.entity_id = n.nid');
-    $query2->where('dt.field_date_value >= :min_day', [
+    $query2->leftjoin('node__field_date_non_utc', 'dt', 'dt.entity_id = n.nid');
+    $query2->where('dt.field_date_non_utc_value >= :min_day', [
       ':min_day' => $min_day,
     ]);
 

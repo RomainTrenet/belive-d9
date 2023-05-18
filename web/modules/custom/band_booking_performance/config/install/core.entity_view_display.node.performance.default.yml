@@ -5,6 +5,7 @@ dependencies:
     - field.field.node.performance.body
     - field.field.node.performance.field_confirmation
     - field.field.node.performance.field_date
+    - field.field.node.performance.field_date_non_utc
     - field.field.node.performance.field_mail_content
     - field.field.node.performance.field_mail_object
     - field.field.node.performance.field_place
@@ -46,6 +47,15 @@ content:
       format_type: long
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_date_non_utc:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_place:
     type: string

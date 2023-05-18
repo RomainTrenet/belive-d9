@@ -3,7 +3,6 @@
 namespace Drupal\band_booking_performance\Event;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\user\UserInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**

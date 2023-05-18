@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.performance.body
     - field.field.node.performance.field_confirmation
     - field.field.node.performance.field_date
+    - field.field.node.performance.field_date_non_utc
     - field.field.node.performance.field_mail_content
     - field.field.node.performance.field_mail_object
     - field.field.node.performance.field_place
@@ -130,7 +131,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 9
+    weight: 10
     region: content
     settings:
       rows: 9
@@ -158,7 +159,7 @@ content:
     third_party_settings: {  }
   field_mail_content:
     type: text_textarea
-    weight: 11
+    weight: 10
     region: content
     settings:
       rows: 5
@@ -240,7 +241,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 10
+    weight: 11
     region: content
     settings:
       display_label: true
@@ -270,4 +271,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_date_non_utc: true
