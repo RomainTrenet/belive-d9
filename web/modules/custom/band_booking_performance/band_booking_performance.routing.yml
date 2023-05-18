@@ -7,3 +7,12 @@ band_booking_performance.create:
     _permission: 'create performance content'
   options:
     _admin_route: TRUE
+band_booking_performance.reminder:
+  path: '/admin/performance/reminder'
+  defaults:
+    _title: 'Reminder'
+    _controller: '\Drupal\band_booking_performance\Controller\BandBookingPerformanceReminder::content'
+  requirements:
+    _permission: 'create performance content'
+  options:
+    _admin_route: TRUE

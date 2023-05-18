@@ -49,6 +49,7 @@ module:
   linkit: 0
   locale: 0
   logintoboggan: 0
+  mailsystem: 0
   menu_link_content: 0
   metatag: 0
   mobile_number: 0

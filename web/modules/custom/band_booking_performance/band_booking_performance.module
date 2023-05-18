@@ -1,8 +1,24 @@
 <?php
 
+use Drupal\band_booking_performance\Event\PerformancePresaveEvent;
+
 /**
  * Implements hook_page_attachments().
  */
 function band_booking_performance_page_attachments(&$variables) {
   $variables['#attached']['library'][] = 'band_booking_performance/style';
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function band_booking_performance_entity_presave(\Drupal\Core\Entity\EntityInterface $entity): void
+{
+  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'performance') {
+    // Dispatch event.
+    $event = new PerformancePresaveEvent($entity);
+    // TODO dependency injection ?
+    $event_dispatcher = \Drupal::service('event_dispatcher');
+    $event_dispatcher->dispatch(PerformancePresaveEvent::EVENT_NAME, $event);
+  }
 }
