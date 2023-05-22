@@ -93,17 +93,6 @@ interface RegistrationHelperInterface {
 
   /**
    * TODO
-   * Send mail when register user in batch.
-   *
-   * @param Node $performance
-   * @param Registration $registration
-   * @param User $user
-   * @return void
-   */
-  public static function batchRegisterSendMail(Node $performance, Registration $registration, User $user): void;
-
-  /**
-   * TODO
    * Operation for register users batch.
    *
    * @param $users
@@ -123,7 +112,7 @@ interface RegistrationHelperInterface {
   public static function batchRegisterUsersOperation($users, $uids, $registration_bundle, $nid, $operation_details, &$context): void;
 
   /**
-   * Batch 'finished' callback used by both batch 1 and batch 2.
+   * Batch 'finished' callback for register users batch.
    *
    * @param $success
    * @param $results
@@ -141,4 +130,71 @@ interface RegistrationHelperInterface {
    * @return void
    */
   public function unRegisterUsers(array $rids): void;
+
+  /**
+   * Get default registration mail object for former content.
+   *
+   * @return array
+   */
+  public static function getDefaultRegistrationMailObject(): array;
+
+  /**
+   * Get default registration mail content for former content.
+   *
+   * @return array
+   */
+  public static function getDefaultRegistrationMailMessage(): array;
+
+  /**
+   * Get default registration mail object for former content.
+   * TODO Should be deleted after import in D9.
+   *
+   * @return array
+   */
+  public static function getDefaultUnregistrationMailObject(): array;
+
+  /**
+   * Get default registration mail content for former content.
+   * TODO Should be deleted after import in D9.
+   *
+   * @return array
+   */
+  public static function getDefaultUnregistrationMailMessage(): array;
+
+  /**
+   * TODO replace usage for registrationSendMail.
+   * Send mail when register user in batch.
+   *
+   * @param Node $performance
+   * @param Registration $registration
+   * @param User $user
+   * @return void
+   */
+  public static function batchRegisterSendMail(Node $performance, Registration $registration, User $user): void;
+
+  /**
+   * TODO
+   * Send mail for registration.
+   *
+   * @param string $module.
+   *   The module string used in send_mail.
+   * @param string $key.
+   *   The key string used in send_mail.
+   * @param string $op.
+   *   The operation, either register, unregister or reminder.
+   * @param Node $node
+   *   The event node.
+   * @param Registration $registration
+   *   The registration for which send mail.
+   * @param User $user
+   *   The user to which send mail.
+   * @param string $originalObject
+   *   The object containing tokens.
+   * @param string $originalMessage
+   *   The message containing tokens.
+   *
+   * @return array
+   *  Array with sending mail result, 'to'.
+   */
+  public static function registrationSendMail(string $op, string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array;
 }

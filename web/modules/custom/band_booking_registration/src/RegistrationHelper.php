@@ -156,103 +156,41 @@ class RegistrationHelper implements RegistrationHelperInterface {
     if (!empty($uids)) {
       $users = User::loadMultiple($uids);
 
-      $operations = [];
+      // Prepare title.
+      $usersName = [];
+      foreach ($users as $user) {
+        $usersName[] = $user->getAccountName();
+      }
+
+      // TODO : degager.
       $amountOperations = 'rien';
 
+      $batch = [
+        'title' => $this->t('Registering @usersName', ['@usersName' => implode(', ', $usersName)]),
+        'operations' => [],
+        'finished' => '\Drupal\band_booking_registration\RegistrationHelper::batchRegisterUsersFinished',
+      ];
+
       // Only one operation, but loop inside operation with limit.
-      $operations[] = [
+      $batch['operations'][] = [
         '\Drupal\band_booking_registration\RegistrationHelper::batchRegisterUsersOperation',
         [
           $users,
           $uids,
           $registration_bundle,
           $nid,
+          // TODO name.
           $this->t('(--- @operation)', ['@operation' => $amountOperations]),
+          //$this->t('Registering @usersName', ['@usersName' => implode(', ', $usersName)]),
         ],
       ];
 
-      $batch = [
-        'title' => $this->t('Creating an array of @num operations', ['@num' => $amountOperations]),
-        'operations' => $operations,
-        'finished' => '\Drupal\band_booking_registration\RegistrationHelper::batchRegisterUsersFinished',
-      ];
       batch_set($batch);
     }
     else {
       $message = $this->t('No user to register.');
       $this->messenger->addMessage($message, 'status', TRUE);
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function batchRegisterSendMail($performance, $registration, $user): void {
-    $messenger = \Drupal::messenger();
-    $token_service = \Drupal::token();
-
-    $tokenMailMessage = $performance->get('field_register_mail_content')->getValue();
-    $tokenMailObject = $performance->get('field_register_mail_object')->getValue();
-
-    $message = [];
-    if (isset($tokenMailMessage[0]['value'])) {
-      $message =  $token_service->replace(
-        $tokenMailMessage[0]['value'],
-        [
-          'registration' => $registration,
-        ],
-        [
-          'langcode' => $user->getPreferredLangcode(),
-          //part of the Token replacement service; A boolean flag indicating
-          // that tokens should be removed from the final text if no replacement
-          // value can be generated
-          'clear' => TRUE,
-        ]
-      );
-    }
-    $object = [];
-    if (isset($tokenMailObject[0]['value'])) {
-      $object =  $token_service->replace(
-        $tokenMailObject[0]['value'],
-        [
-          'registration' => $registration,
-        ],
-        [
-          'langcode' => $user->getPreferredLangcode(),
-          //part of the Token replacement service; A boolean flag indicating
-          // that tokens should be removed from the final text if no replacement
-          // value can be generated
-          'clear' => TRUE,
-        ]
-      );
-    }
-
-    /** @var MailManagerInterface $mailManager */
-    $mailManager = \Drupal::service('plugin.manager.mail');
-    // See band_booking_registration_module function.
-    $module = 'band_booking_registration';
-    $key = 'node_insert';
-    $to = $user->get('mail')->getValue()[0]['value'];
-    /** @var User $owner */
-    $owner = $registration->getOwner();
-    $params['from'] = $owner->get('mail')->getValue()[0]['value'];
-    $params['message'] = Markup::create($message);
-    $params['title'] = $object;
-    $langcode = \Drupal::currentUser()->getPreferredLangcode();
-    $send = true;
-
-    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
-
-    if (!$result['result']) {
-      $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
-      $messenger->addMessage($message, 'error', TRUE);
-      //\Drupal::logger('mail-log')->error($message);
-      return;
-    }
-
-    $message = t('An email notification has been sent to @email ', array('@email' => $to));
-    $messenger->addMessage($message, 'status', TRUE);
-    //\Drupal::logger('mail-log')->notice($message);
   }
 
   /**
@@ -291,6 +229,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
         'registration_user_id' => $uid
       ]);
       /*
+       * TODO check and clean.
       $registration = $storage->create([
         'bundle' => $registration_bundle,
         'nid' => $nid,
@@ -300,7 +239,6 @@ class RegistrationHelper implements RegistrationHelperInterface {
 
       // Send mail.
       $performance = Node::load($nid);
-      //$registration_entity = Registration::load()
       RegistrationHelper::batchRegisterSendMail($performance, $registrationEntity, $users[$uid]);
 
       // Results passed to the 'finished' callback.
@@ -408,6 +346,196 @@ class RegistrationHelper implements RegistrationHelperInterface {
       $message = $this->t('No user to unregister.');
       $this->messenger->addMessage($message, 'status', TRUE);
     }
+  }
+
+  /**
+   * TODO : translate of delete after import.
+   * {@inheritdoc}
+   */
+  public static function getDefaultRegistrationMailObject(): array {
+    return [
+      0 => [
+        'value' => '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">à cette adresse</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>',
+        'format' => 'full_html',
+      ]
+    ];
+  }
+
+  /**
+   * TODO : translate of delete after import.
+   * {@inheritdoc}
+   */
+  public static function getDefaultRegistrationMailMessage(): array {
+    return [
+      0 => [
+        'value' => '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]',
+      ]
+    ];
+  }
+
+  /**
+   * TODO : translate of delete after import.
+   * {@inheritdoc}
+   */
+  public static function getDefaultUnregistrationMailObject(): array {
+    return [
+      0 => [
+        'value' => '',
+        'format' => 'full_html',
+      ]
+    ];
+  }
+
+  /**
+   * TODO : translate of delete after import.
+   * {@inheritdoc}
+   */
+  public static function getDefaultUnregistrationMailMessage(): array {
+    return [
+      0 => [
+        'value' => '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]',
+      ]
+    ];
+  }
+
+  /**
+   * TODO replace usage with registrationSendMail.
+   * {@inheritdoc}
+   */
+  public static function batchRegisterSendMail($performance, $registration, $user): void {
+    $messenger = \Drupal::messenger();
+    $token_service = \Drupal::token();
+
+    // Get values.
+    $tokenMailObject = $performance->get('field_register_mail_object')->getValue();
+    $tokenMailMessage = $performance->get('field_register_mail_content')->getValue();
+    // Ensure message is not empty, for older content. Could be deleted.
+    $tokenMailObject = empty($tokenMailObject) ? RegistrationHelper::getDefaultRegistrationMailObject() : $tokenMailObject;
+    $tokenMailMessage = empty($tokenMailMessage) ? RegistrationHelper::getDefaultRegistrationMailMessage() : $tokenMailMessage;
+
+    $object = [];
+    if (isset($tokenMailObject[0]['value'])) {
+      $object =  $token_service->replace(
+        $tokenMailObject[0]['value'],
+        [
+          'registration' => $registration,
+        ],
+        [
+          'langcode' => $user->getPreferredLangcode(),
+          //part of the Token replacement service; A boolean flag indicating
+          // that tokens should be removed from the final text if no replacement
+          // value can be generated
+          'clear' => TRUE,
+        ]
+      );
+    }
+
+    $message = [];
+    if (isset($tokenMailMessage[0]['value'])) {
+      $message =  $token_service->replace(
+        $tokenMailMessage[0]['value'],
+        [
+          'registration' => $registration,
+        ],
+        [
+          'langcode' => $user->getPreferredLangcode(),
+          //part of the Token replacement service; A boolean flag indicating
+          // that tokens should be removed from the final text if no replacement
+          // value can be generated
+          'clear' => TRUE,
+        ]
+      );
+    }
+
+    /** @var MailManagerInterface $mailManager */
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    // See band_booking_registration_module function.
+    $module = 'band_booking_registration';
+    $key = 'node_insert';
+    $to = $user->get('mail')->getValue()[0]['value'];
+    /** @var User $owner */
+    $owner = $registration->getOwner();
+    $params['from'] = $owner->get('mail')->getValue()[0]['value'];
+    $params['message'] = Markup::create($message);
+    $params['title'] = $object;
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $send = true;
+
+    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+
+    if (!$result['result']) {
+      $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
+      $messenger->addMessage($message, 'error', TRUE);
+      // TODO log.
+      //\Drupal::logger('mail-log')->error($message);
+      return;
+    }
+
+    $message = t('An email notification has been sent to @email ', array('@email' => $to));
+    $messenger->addMessage($message, 'status', TRUE);
+    //\Drupal::logger('mail-log')->notice($message);
+  }
+
+  /**
+   * TODO, replace former function.
+   * {@inheritdoc}
+   */
+  public static function registrationSendMail(string $op, string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array {
+    $token_service = \Drupal::token();
+
+    $object = '';
+    if (isset($originalObject)) {
+      $object =  $token_service->replace(
+        $originalObject,
+        ['registration' => $registration],
+        [
+          'langcode' => $user->getPreferredLangcode(),
+          'clear' => TRUE,
+        ]
+      );
+    }
+
+    $message = '';
+    if (isset($originalMessage)) {
+      $message =  $token_service->replace(
+        $originalMessage,
+        ['registration' => $registration],
+        [
+          'langcode' => $user->getPreferredLangcode(),
+          'clear' => TRUE,
+        ]
+      );
+    }
+
+    /** @var MailManagerInterface $mailManager */
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $to = $user->get('mail')->getValue()[0]['value'];
+    /** @var User $owner */
+    $owner = $registration->getOwner();
+    $params['from'] = $owner->get('mail')->getValue()[0]['value'];
+    $params['message'] = Markup::create($message);
+    $params['title'] = $object;
+    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+
+    return $mailManager->mail($module, $key, $to, $langcode, $params, NULL, TRUE);
+
+    // TODO return result with 'to' ?
+    /*
+    $messenger = \Drupal::messenger();
+    if (!$result['result']) {
+      $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
+      $messenger->addMessage($message, 'error', TRUE);
+      // TODO log.
+      //\Drupal::logger('mail-log')->error($message);
+      return;
+    }
+
+    $message = t('An email notification has been sent to @email ', array('@email' => $to));
+    $messenger->addMessage($message, 'status', TRUE);
+    //\Drupal::logger('mail-log')->notice($message);
+    */
+
+    //TODO : return something to check.
   }
 
 }
