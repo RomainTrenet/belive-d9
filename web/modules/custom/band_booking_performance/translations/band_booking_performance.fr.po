@@ -24,3 +24,39 @@ msgstr "Liste des prestations"
 
 msgid "Former performances"
 msgstr "Anciennes prestations"
+
+msgid "\"@user\" on the \"@event\" performance"
+msgstr "\"@user\" pour la performance \"@event\""
+
+msgid "Running Batch \"@id\" for user \"@user\" on event \"@event\""
+msgstr "Exécution du lot \"@id\" pour l'utilisateur \"@user\" sur l'événement \"@event\"."
+
+msgid "Reminders for event \"@node\""
+msgstr "Relances pour l'événement \"@node\""
+
+msgid "Reminders for event \"@node\""
+msgstr "Relances pour l'événement \"@node\""
+
+msgid "Sending a single reminder"
+msgid_plural "Sending @count reminders"
+msgstr[0] "Envoi d'une seule relance"
+msgstr[1] "Envoi de @count relances"
+
+msgid "No reminder to send."
+msgstr "Aucune relance à envoyer."
+
+msgid "One single successful reminder :"
+msgid_plural "@count successful reminders :"
+msgstr[0] "Une seule relance réussie :"
+msgstr[1] "@count relances réussies :"
+
+msgid "One single failed reminder :"
+msgid_plural "@count failed reminders :"
+msgstr[0] "Une seule relance échouée :"
+msgstr[1] "@count relances échouées :"
+
+msgid "Successful reminders :"
+msgstr "Aucune relance à envoyer."
+
+msgid "No reminder to send."
+msgstr "Aucune relance à envoyer."

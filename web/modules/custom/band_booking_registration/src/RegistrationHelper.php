@@ -198,18 +198,15 @@ class RegistrationHelper implements RegistrationHelperInterface {
    * @throws EntityStorageException
    */
   public static function batchRegisterUsersOperation($users, $uids, $registration_bundle, $nid, $operation_details, &$context) :void {
-    // Use the $context['sandbox'] at your convenience to store the
-    // information needed to track progression between successive calls.
     if (empty($context['sandbox'])) {
       $context['sandbox'] = [];
       $context['sandbox']['progress'] = 0;
       $context['sandbox']['current_node'] = 0;
       $context['sandbox']['max'] = count($uids);
-      $context['sandbox']['usernames'] = [];
     }
 
     // Process in groups of 2 (arbitrary value).
-    $limit = 1; // 2 as it begins with 0.
+    $limit = 1; // "1" for group of 2 as it begins with 0.
 
     // Retrieve the next group.
     $result = range($context['sandbox']['current_node'], $context['sandbox']['current_node'] + $limit);
@@ -477,10 +474,10 @@ class RegistrationHelper implements RegistrationHelperInterface {
   }
 
   /**
-   * TODO, replace former function.
+   * Common registration mail sender. See also band_booking_registration_mail.
    * {@inheritdoc}
    */
-  public static function registrationSendMail(string $op, string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array {
+  public static function registrationSendMail(string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array {
     $token_service = \Drupal::token();
 
     $object = '';
@@ -517,25 +514,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
     $params['title'] = $object;
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
 
-    return $mailManager->mail($module, $key, $to, $langcode, $params, NULL, TRUE);
-
-    // TODO return result with 'to' ?
-    /*
-    $messenger = \Drupal::messenger();
-    if (!$result['result']) {
-      $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
-      $messenger->addMessage($message, 'error', TRUE);
-      // TODO log.
-      //\Drupal::logger('mail-log')->error($message);
-      return;
-    }
-
-    $message = t('An email notification has been sent to @email ', array('@email' => $to));
-    $messenger->addMessage($message, 'status', TRUE);
-    //\Drupal::logger('mail-log')->notice($message);
-    */
-
-    //TODO : return something to check.
+    return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);
   }
 
 }

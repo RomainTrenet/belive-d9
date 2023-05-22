@@ -63,12 +63,6 @@ final class BandBookingPerformanceReminder extends ControllerBase {
   public function content(): array {
     // TODO : contextual node id + others.
     return $this->formBuilder->getForm('Drupal\band_booking_performance\Form\ReminderForm');
-
-    /*
-    return [
-      '#markup' => '<p>REMINDER</p>'
-    ];
-    */
   }
 
 }

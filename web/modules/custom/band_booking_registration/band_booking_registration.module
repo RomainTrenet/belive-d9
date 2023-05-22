@@ -153,20 +153,23 @@ function band_booking_registration_user_predelete(UserInterface $account) {
   $storage->delete($registrations);
 }
 
-function band_booking_registration_mail($key, &$message, $params) {
+/**
+ * @param $key
+ * @param $message
+ * @param $params
+ * @return void
+ */
+
+/**
+ * This is needed by RegistrationHelper::registrationSendMail.
+ * Implements hook_mail().
+ */
+function band_booking_registration_mail($key, &$message, $params):void {
   switch ($key) {
     case 'node_insert':
-    case 'reminder':
-      $from = $params['from'] ?? \Drupal::config('system.site')->get('mail');
-      $message['from'] = $params['from'] ?? \Drupal::config('system.site')->get('mail');
+    case 'performance_reminder':
       $message['subject'] = $params['title'];
       $message['body'][] = $params['message'];
-      $message['headers'] = array(
-        //'content-type' => 'text/html',
-        //'MIME-Version' => '1.0',
-        'reply-to' => $from,
-        'from' => 'sender name <'.$from.'>'
-      );
       break;
   }
 }

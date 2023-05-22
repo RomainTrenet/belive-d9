@@ -12,7 +12,7 @@ use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
 
 /**
- * Service to provide ....
+ * Service to provide helpers functions to performance module.
  */
 class PerformanceHelper implements PerformanceHelperInterface {
 
@@ -50,25 +50,23 @@ class PerformanceHelper implements PerformanceHelperInterface {
     // Get list of reminders.
     $sortedReminders = $this->getPerformancesRemindersSortedByNode($nids, $contextualTimestamp, $current_date);
 
-    // Batch : une opération = 1 node
-    // Dans le batch, tous les 5 utilisateurs on découpe.
+    // Batch : one operation = 1 node.
     if (!empty($sortedReminders)) {
-      // Prepare nodes.
+      // Prepare variables.
       $nodes = Node::loadMultiple(array_keys($sortedReminders));
-
-
       $countReminders = 0;
       $operations = [];
 
       // Foreach node containing reminders.
       foreach ($sortedReminders as $nid => $reminders) {
+        $countReminders += count($reminders);
+
+        // Prepare users array.
         $users_id = [];
         foreach ($reminders as $reminder){
           $users_id[] = $reminder['uid'];
         }
         $users = User::loadMultiple($users_id);
-
-        $countReminders += count($reminders);
 
         // Add node's reminders. Reminders will be splited inside operation.
         $operations[] = [
@@ -77,17 +75,18 @@ class PerformanceHelper implements PerformanceHelperInterface {
             $nodes[$nid],
             $users,
             $reminders,
-            // TODO.
-            //$this->t('(Amount of operations : @operations)', ['@operations' => $currentOperationRemindersCount]),
-            $this->t('(Reminders for event : @node)', ['@node' => $nodes[$nid]->getTitle()]),
+            $this->t('Reminders for event "@node"', ['@node' => $nodes[$nid]->getTitle()]),
           ],
         ];
       }
 
       // Prepare operations, 1 op = 1 node.
       $batch = [
-        // TODO plural + count reminders.
-        'title' => $this->t('Send @num reminders', ['@num' => $countReminders]),
+        'title' => $this->formatPlural(
+          $countReminders,
+          'Sending a single reminder', 'Sending @count reminders',
+          ['@count' => $countReminders]
+        ),
         'operations' => $operations,
         'finished' => '\Drupal\band_booking_performance\PerformanceHelper::batchPerformanceReminderFinished',
       ];
@@ -95,8 +94,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
       batch_set($batch);
     }
     else {
-      // TODO.
-      $message = $this->t('No user to register.');
+      $message = $this->t('No reminder to send.');
       $this->messenger->addMessage($message, 'status', TRUE);
     }
   }
@@ -115,6 +113,8 @@ class PerformanceHelper implements PerformanceHelperInterface {
     $query->where('n.type = :type', [
       ':type' => 'performance',
     ]);
+
+    // TODO : if nids.
 
     // Ensure node is published.
     $query->leftjoin('node_field_data', 'nfd', 'nfd.nid = n.nid');
@@ -138,6 +138,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
     $day = date('Y-m-d', $contextualTimestamp ?? time());
     $query->leftjoin('node__field_relaunch', 'rl', 'rl.entity_id = n.nid');
     // If timestamp is given, relaunch only for the day, otherwise relaunch up to the day.
+    // TODO : up to relaunch, or equal relaunch : with option in function.
     if (isset($contextualTimestamp)) {
       $query->where('rl.field_relaunch_value = :day', [
         ':day' => $day,
@@ -156,7 +157,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
       ':state' => 'waiting',
     ]);
 
-    // Get necessary fields. TODO : check if all necessary.
+    // Get necessary fields.
     $query->fields('n', ['nid']);
     $query->fields('rfd', ['id', 'registration_user_id']);
 
@@ -182,7 +183,6 @@ class PerformanceHelper implements PerformanceHelperInterface {
         $sortedReminders[$current_nid] = [];
       }
 
-      //$sortedReminders[$current_nid][$reminder->id] = $reminder->registration_user_id;
       $sortedReminders[$current_nid][] = [
         'rid' => $reminder->id,
         'uid' => $reminder->registration_user_id,
@@ -198,20 +198,15 @@ class PerformanceHelper implements PerformanceHelperInterface {
    * @throws EntityStorageException
    */
   public static function batchPerformanceReminderOperation(Node $node, array $users, array $reminders, $operation_details, &$context) :void {
-    // Use the $context['sandbox'] at your convenience to store the
-    // information needed to track progression between successive calls.
     if (empty($context['sandbox'])) {
       $context['sandbox'] = [];
       $context['sandbox']['progress'] = 0;
       $context['sandbox']['current_node'] = 0;
       $context['sandbox']['max'] = count($reminders);
-      // TODO.
-      $context['sandbox']['usernames'] = [];
     }
 
-    // TODO.
     // Process in groups of 2 (arbitrary value).
-    $limit = 2; // 5 as it begins with 0.
+    $limit = 4; // "4" for group of 5 as it begins with 0.
 
     // Retrieve the next group.
     $result = range($context['sandbox']['current_node'], $context['sandbox']['current_node'] + $limit);
@@ -235,14 +230,15 @@ class PerformanceHelper implements PerformanceHelperInterface {
       // Ensure message is not empty, for older content. Could be deleted.
       $originalObject = $originalObject[0]['value'] ?? PerformanceHelper::getDefaultReminderMailObject();
       $originalMessage = $originalMessage[0]['value'] ?? PerformanceHelper::getDefaultReminderMailMessage();
-      // For 'key' and module ?, see band_booking_registration_mail.
-      $result = RegistrationHelper::registrationSendMail('reminder', 'band_booking_registration', 'reminder', $node, $registration, $user, $originalObject, $originalMessage);
+      // For 'key' see band_booking_registration_mail.
+      $module = 'band_booking_registration';
+      $key = 'performance_reminder';
+      $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $user, $originalObject, $originalMessage);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
-        'status' => $result['result'] ? 'status' : 'error',
-        //TODO : add translation.
-        'reminder_name' => t('"@user" on event "@event"',
+        'status' => $mailResult['result'] ? 'status' : 'error',
+        'reminder_name' => t('"@user" on the "@event" performance',
           [
             '@user' => $user->getAccountName(),
             '@event' => $node->getTitle(),
@@ -253,7 +249,6 @@ class PerformanceHelper implements PerformanceHelperInterface {
       // Update our progress information.
       $context['sandbox']['progress']++;
       $context['sandbox']['current_node'] = $row + 1;
-      //TODO : add translation.
       $context['message'] = t('Running Batch "@id" for user "@user" on event "@event"',
         [
           '@id' => $row,
@@ -263,7 +258,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
       );
     }
 
-    // Finished ? TODO Check if id is ok.
+    // Finished ? TODO check if correctly used, works perfectly for the moment.
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = ($context['sandbox']['progress'] > $context['sandbox']['max']);
     }
@@ -274,6 +269,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
    */
   public static function batchPerformanceReminderFinished($success, $results, $operations):void {
     $messenger = \Drupal::messenger();
+    $translation = \Drupal::translation();
     if ($success) {
       // Prepare users vs status.
       $successes = [];
@@ -287,61 +283,47 @@ class PerformanceHelper implements PerformanceHelperInterface {
         }
       }
 
-      // Global message.
-      // TODO : translate or adapt message.
-      // TODO improve singular / plural.
-      $messenger->addMessage(t('@count reminder processed.', ['@count' => count($results)]));
-      /*
-      $message = \Drupal::translation()->formatPlural(
-        count($results),
-        'One post processed.', '@count posts processed.'
-      );
-      */
-
-      /*
-      TODO clean, for example.
-      $messenger = \Drupal::messenger();
-      if (!$result['result']) {
-        $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
-        $messenger->addMessage($message, 'error', TRUE);
-        // TODO log.
-        //\Drupal::logger('mail-log')->error($message);
-        return;
-      }
-
-      $message = t('An email notification has been sent to @email ', array('@email' => $to));
-      $messenger->addMessage($message, 'status', TRUE);
-      //\Drupal::logger('mail-log')->notice($message);
-      */
-
       // Success messages.
       if (count($successes) >= 1) {
-        $messenger->addMessage(t('Successful reminders :'), 'status', FALSE);
+        $messenger->addMessage(
+          $translation->formatPlural(
+            count($successes),
+            'One single successful reminder :', '@count successful reminders :',
+            ['@count' => count($successes)]
+          ),
+          'status',
+        );
         foreach ($successes as $success) {
           $messenger->addMessage($success, 'status', TRUE);
         }
       }
       // Errors messages.
       if (count($errors) >= 1) {
-        $messenger->addMessage(t('Failed reminders :'), 'status', FALSE);
+        $messenger->addMessage(
+          $translation->formatPlural(
+            count($errors),
+            'One single failed reminder :', '@count failed reminders :',
+            ['@count' => count($errors)]
+          ),
+          'error',
+        );
         foreach ($errors as $error) {
-          $messenger->addMessage($error, 'status', TRUE);
+          $messenger->addMessage($error, 'error', TRUE);
+          \Drupal::logger('band_booking_performance')->error($error);
         }
       }
     }
     else {
       // An error occurred.
-      // $operations contains the operations that remained unprocessed.
       $error_operation = reset($operations);
-      $messenger->addMessage(
-        // TODO translate.
-        t('An error occurred while processing @operation with arguments : @args',
-          [
-            '@operation' => $error_operation[0],
-            '@args' => print_r($error_operation[0], TRUE),
-          ]
-        )
+      $message = t('An error occurred while processing @operation with arguments : @args',
+        [
+          '@operation' => $error_operation[0],
+          '@args' => print_r($error_operation[0], TRUE),
+        ]
       );
+      $messenger->addMessage($message);
+      \Drupal::logger('band_booking_performance')->error($message);
     }
   }
 

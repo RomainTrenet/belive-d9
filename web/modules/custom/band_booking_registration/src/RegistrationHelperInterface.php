@@ -180,8 +180,6 @@ interface RegistrationHelperInterface {
    *   The module string used in send_mail.
    * @param string $key.
    *   The key string used in send_mail.
-   * @param string $op.
-   *   The operation, either register, unregister or reminder.
    * @param Node $node
    *   The event node.
    * @param Registration $registration
@@ -196,5 +194,5 @@ interface RegistrationHelperInterface {
    * @return array
    *  Array with sending mail result, 'to'.
    */
-  public static function registrationSendMail(string $op, string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array;
+  public static function registrationSendMail(string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array;
 }
