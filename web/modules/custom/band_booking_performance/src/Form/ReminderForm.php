@@ -10,12 +10,26 @@ use Drupal\Core\Form\FormStateInterface;
  * Form with examples on how to use batch api.
  */
 class ReminderForm extends FormBase {
+  /**
+   * Keep track of how many times the form
+   * is placed on a page.
+   *
+   * @var int
+   */
+  protected static $instanceId;
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'band_booking_performance_reminder_form';
+    if (empty(self::$instanceId)) {
+      self::$instanceId = 1;
+    }
+    else {
+      self::$instanceId++;
+    }
+
+    return 'band_booking_performance_reminder_form_' . self::$instanceId;
   }
 
   /**
@@ -27,7 +41,8 @@ class ReminderForm extends FormBase {
 
     $form['reminder'] = array(
       '#type' => 'submit',
-      '#value' => $this->t('Reminder'),
+      '#button_type' => 'primary',
+      '#value' => $this->t('Relaunch', array(), array('context' => 'Reminder form')),
     );
     return $form;
   }
@@ -44,9 +59,10 @@ class ReminderForm extends FormBase {
 
     $performanceHelper->performanceReminder(
       TRUE,
+      $arg['force'] ?? false,// Avoid ? We don't want to send default value.
       $arg['nids'] ?? [],
-      $arg['contextualTimestamp'] ?? null,
       $arg['startFromContextualTs'] ?? false,// Avoid ? We don't want to send default value.
+      $arg['contextualTimestamp'] ?? null,
       $arg['current_date'] ?? null,
     );
   }

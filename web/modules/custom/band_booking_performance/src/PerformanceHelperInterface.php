@@ -14,57 +14,65 @@ interface PerformanceHelperInterface {
    *
    * @param bool $manual
    *   Wether this is a manual call or automatic.
+   * @param bool $force
+   *   Ignore reminder date, can be used with $startFromContextualTs. It shunts $nids.
    * @param array $nids
    *   An optional list of nodes.
-   * @param int|null $contextualTimestamp
-   *   The timestamp for an optional specific date.
    * @param bool $startFromContextualTs
    *   Get every node starting from contextual timestamp, or just for the day.
+   * @param int|null $contextualTimestamp
+   *   The timestamp for an optional specific date.
    * @param int|null $current_date
    *   Optional current date, for dev purpose.
    *
    * @return void
    */
-  public function performanceReminder(bool $manual = false, array $nids = [], int $contextualTimestamp = null, bool $startFromContextualTs = false, int $current_date = null): void;
+  public function performanceReminder(bool $manual = false, bool $force = false, array $nids = [], bool $startFromContextualTs = false, int $contextualTimestamp = null, int $current_date = null): void;
 
   /**
+   * TODO : improve description.
    * Get list of reminder to send. If nids are specified, it shunts the
    * contextual timestamp. If $startFromContextualTs is set to true, it takes
    * every node starting from this day. Otherwise, it only takes into account
    * nodes for the day. If no contextual timestamp is given, it takes the
    * current day instead.
+   * $force avoid using $nids option and get every node ignoring relaunch day.
    * Only if node is published, event is not canceled, event is coming.
    *
+   * @param bool $force
+   *   Ignore reminder date, can be used with $startFromContextualTs. It shunts $nids.
    * @param array $nids
    *   An optional list of nodes.
-   * @param int|null $contextualTimestamp
-   *   The timestamp for an optional specific date.
    * @param bool $startFromContextualTs
    *   Get every node starting from contextual timestamp, or just for the day.
+   * @param int|null $contextualTimestamp
+   *   The timestamp for an optional specific date.
    * @param int|null $current_date
    *   Optional current date, for dev purpose.
    *
    * @return array
    *   A list of registrations.
    */
-  public function getPerformancesReminders(array $nids = [], int $contextualTimestamp = null, bool $startFromContextualTs = false, int $current_date = null): array;
+  public function getPerformancesReminders(bool $force = false, array $nids = [], bool $startFromContextualTs = false, int $contextualTimestamp = null, int $current_date = null): array;
 
   /**
    * Get list of reminder sort by node id > registration id > user id.
    *
+   * @param bool $force
+   *   Ignore reminder date, can be used with $startFromContextualTs. It shunts $nids.
    * @param array $nids
    *   An optional list of nodes.
-   * @param int|null $contextualTimestamp
-   *   The timestamp for an optional specific date.
    * @param bool $startFromContextualTs
    *   Get every node starting from contextual timestamp, or just for the day.
+   * @param int|null $contextualTimestamp
+   *   The timestamp for an optional specific date.
    * @param int|null $current_date
    *   Optional current date, for dev purpose.
    *
    * @return array
    *   A list of registrations sorted by node.
    */
-  public function getPerformancesRemindersSortedByNode(array $nids = [], int $contextualTimestamp = null, bool $startFromContextualTs = false, int $current_date = null): array;
+  public function getPerformancesRemindersSortedByNode(bool $force = false, array $nids = [], bool $startFromContextualTs = false, int $contextualTimestamp = null, int $current_date = null): array;
 
   /**
    * TODO improve arg.
