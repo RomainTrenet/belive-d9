@@ -167,6 +167,18 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
         ],
       );
 
+      $unregister_form = $this->formBuilder->getForm(
+        'Drupal\band_booking_registration\Form\UnregisterUserForm',
+        [
+          'context_nid' => $nid,
+          'register_bundle' => $register_bundle,
+          'registered_users_by_rid' => $registered_users_by_rid,
+          // @todo get it from config.
+          'remove_title' => $this->t('Unregister artists'),
+          'remove_description' => $this->t('Select the artists you want to unregister.'),
+        ],
+      );
+
       return [
         '#theme' => 'admin_registration_block',
         '#register_form' => $register_form,
