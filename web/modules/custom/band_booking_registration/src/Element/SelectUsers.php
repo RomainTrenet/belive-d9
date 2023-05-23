@@ -49,13 +49,52 @@ class SelectUsers extends Element\FormElement {
 
     // Construct element.
     $element['#tree'] = TRUE;
-    if (!empty($taxonomy_id)) {
-      $element[$taxonomy_id] = [
+
+    if (!empty($element['#users'])) {
+
+      // Display taxonomy filter.
+      if (!empty($taxonomy_id) && !empty($element['#taxonomy_terms'])) {
+        $element[$taxonomy_id] = [
+          //'#type' => 'selectbox',
+          '#type' => 'select',
+          '#title' => $element['#filter_title'] ?? '',
+          '#description' => $element['#filter_description'] ?? '',
+          '#required' => FALSE,
+
+          // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
+          '#multiple' => TRUE,
+          '#attributes' => [
+            'multiple' => TRUE,
+            //'direction' => 'left',
+            // TODO remove.
+            'class' => ['vanilla-select-box'],
+          ],
+          // TODO remove.
+          '#attached' => [
+            'library' => [
+              'vanilla_select_box/select-box'
+            ]
+          ],
+          //'#size' => 3,
+          '#options' => $element['#taxonomy_terms'],
+          '#default_value' => $element['#default_value']['terms_id']
+        ];
+      } else {
+        $element[$taxonomy_id] = [
+          '#type' => 'item',
+          '#title' => $element['#filter_title'] ?? '',
+          '#markup' => $element['#no_taxonomy'] ?? '',
+        ];
+      }
+
+      // Display users.
+      $element['users'] = [
         //'#type' => 'selectbox',
         '#type' => 'select',
-        '#title' => $element['#filter_title'] ?? '',
-        '#description' => $element['#filter_description'] ?? '',
-        '#required' => FALSE,
+        // TODO : title no showing.
+        '#title' => $element['#add_title'] ?? '',
+        '#description' => $element['#add_description'] ?? '',
+        '#required' => TRUE,
 
         // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
         '#multiple' => TRUE,
@@ -71,38 +110,21 @@ class SelectUsers extends Element\FormElement {
             'vanilla_select_box/select-box'
           ]
         ],
-        //'#size' => 3,
-        '#options' => $element['#taxonomy_terms'] ?? '',
-        '#default_value' => $element['#default_value']['terms_id']
+
+        '#size' => 3,
+        '#options' => $element['#users'] ?? [],
+        '#default_value' => $element['#default_value']['users_id']
       ];
     }
 
-    $element['users'] = [
-      //'#type' => 'selectbox',
-      '#type' => 'select',
-      '#title' => $element['#add_title'] ?? '',
-      '#description' => $element['#add_description'] ?? '',
-      '#required' => TRUE,
-
-      // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
-      '#multiple' => TRUE,
-      '#attributes' => [
-        'multiple' => TRUE,
-        //'direction' => 'left',
-        // TODO remove.
-        'class' => ['vanilla-select-box'],
-      ],
-      // TODO remove.
-      '#attached' => [
-        'library' => [
-          'vanilla_select_box/select-box'
-        ]
-      ],
-
-      '#size' => 3,
-      '#options' => $element['#users'] ?? [],
-      '#default_value' => $element['#default_value']['users_id']
-    ];
+    // Empty users.
+    else {
+      $element['users'] = [
+        '#type' => 'item',
+        '#title' => $element['#add_title'] ?? '',
+        '#markup' => $element['#no_artist'] ?? '',
+      ];
+    }
 
     return $element;
   }

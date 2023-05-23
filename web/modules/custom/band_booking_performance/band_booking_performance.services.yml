@@ -1,0 +1,9 @@
+services:
+  band_booking_performance.performance_helper:
+    class: Drupal\band_booking_performance\PerformanceHelper
+    arguments: ['@entity_type.manager', '@string_translation', '@messenger']
+  band_booking_performance.performance_save_subscriber:
+    class: Drupal\band_booking_performance\EventSubscriber\PerformancePresaveSubscriber
+    arguments: [ '@date.formatter' ]
+    tags:
+      - { name: 'event_subscriber' }

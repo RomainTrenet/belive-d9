@@ -1,0 +1,10 @@
+uuid: 4c0d9196-2a80-4a29-8332-0f0a89fa3349
+langcode: fr
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: JZHB3GbIpwJRaGXH-9Pa_klPRLqwzlQztTytTbmb3LM
+id: bb_short
+label: 'Date courte'
+locked: false
+pattern: d/m/Y

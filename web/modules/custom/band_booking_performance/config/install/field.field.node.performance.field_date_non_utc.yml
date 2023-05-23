@@ -1,0 +1,23 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_non_utc
+    - node.type.performance
+  module:
+    - datetime
+id: node.performance.field_date_non_utc
+field_name: field_date_non_utc
+entity_type: node
+bundle: performance
+label: 'Date non UTC'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: relative
+    default_date: '+60 days'
+default_value_callback: ''
+settings: {  }
+field_type: datetime

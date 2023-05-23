@@ -10,8 +10,9 @@ rid_administrator:
   weigth: '0'
   path: ''
 rid_artist:
+  enabled: '1'
   weigth: '0'
-  path: ''
+  path: /my-performances
 rid_manager:
   enabled: '1'
   weigth: '0'

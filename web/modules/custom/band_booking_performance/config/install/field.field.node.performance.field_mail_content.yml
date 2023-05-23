@@ -16,7 +16,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: "<p>Bonjour [user:name],</p>\r\n\r\n<p>Votre inscription à \"[node:title]\"est en attente, pensez à donner votre disponibilité <a href=\"[site:url]node/[node:nid]/state_registration/[user:uid]\">ici</a>.</p>\r\n\r\n<p>Merci d'avance. Benjamin</p>\r\n"
+    value: '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Votre inscription à "[registration:nid:entity:title]" est en attente, pensez à donner votre disponibilité <a href="[registration:url]/edit">ici</a>.</p><p>Merci d''avance, [registration:uid:entity:display-name].</p>'
     format: full_html
 default_value_callback: ''
 settings: {  }

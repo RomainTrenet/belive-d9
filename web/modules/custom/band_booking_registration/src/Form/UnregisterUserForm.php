@@ -54,48 +54,69 @@ class UnregisterUserForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $arg = NULL) {
-    // Prepare values for submit.
-    $form_state->set('context_nid', $arg['context_nid'] ?? '');
-    $form_state->set('register_bundle', $arg['register_bundle'] ?? '');
-
     $registered_users_by_rid = $arg['registered_users_by_rid'] ?? [];
 
     // Text.
-    $remove_title = $arg['remove_title'] ?? [];
-    $remove_description = $arg['remove_description'] ?? [];
+    $form_title = $arg['form_title'] ?? [];
 
-    $form['unregister_user'] = [
-      //'#type' => 'selectbox',
-      '#type' => 'select',
-      '#title' => $remove_title,
-      '#description' => $remove_description,
-      '#required' => TRUE,
+    if ($form_title) {
+      $form['title'] = [
+        '#type' => 'markup',
+        '#markup' => '<h3>' . $form_title . '</h3>',
+      ];
+    }
 
-      // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
-      '#multiple' => TRUE,
-      '#attributes' => [
-        'multiple' => TRUE,
-        //'direction' => 'left',
+    if (!empty($registered_users_by_rid)) {
+      // Text.
+      $remove_title = $arg['remove_title'] ?? [];
+      $remove_description = $arg['remove_description'] ?? [];
+      // Prepare values for submit.
+      $form_state->set('context_nid', $arg['context_nid'] ?? '');
+      $form_state->set('register_bundle', $arg['register_bundle'] ?? '');
+
+      $form['unregister_user'] = [
+        //'#type' => 'selectbox',
+        '#type' => 'select',
+        '#title' => $remove_title,
+        '#description' => $remove_description,
+        '#required' => TRUE,
+
+        // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
+        '#multiple' => TRUE,
+        '#attributes' => [
+          'multiple' => TRUE,
+          //'direction' => 'left',
+          // TODO remove.
+          'class' => ['vanilla-select-box'],
+        ],
         // TODO remove.
-        'class' => ['vanilla-select-box'],
-      ],
-      // TODO remove.
-      '#attached' => [
-        'library' => [
-          'vanilla_select_box/select-box'
-        ]
-      ],
+        '#attached' => [
+          'library' => [
+            'vanilla_select_box/select-box'
+          ]
+        ],
 
-      '#size' => 3,
-      '#options' => $registered_users_by_rid,
-    ];
+        '#size' => 3,
+        '#options' => $registered_users_by_rid,
+      ];
 
-    $form['actions']['#type'] = 'actions';
-    $form['actions']['submit'] = array(
-      '#type' => 'submit',
-      '#value' => $this->t('Unregister'),
-      '#button_type' => 'primary',
-    );
+      $form['actions']['#type'] = 'actions';
+      $form['actions']['submit'] = array(
+        '#type' => 'submit',
+        '#value' => $this->t('Unregister'),
+        '#button_type' => 'primary',
+      );
+    }
+    else {
+      // Text.
+      $no_artist = $arg['no_artist'] ?? [];
+
+      $form['unregister_user'] = [
+        '#type' => 'item',
+        '#markup' => $no_artist,
+      ];
+    }
+
     return $form;
   }
 

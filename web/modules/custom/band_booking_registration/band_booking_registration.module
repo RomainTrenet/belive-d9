@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Template\Attribute;
 use Drupal\user\UserInterface;
 
@@ -150,4 +151,26 @@ function band_booking_registration_user_predelete(UserInterface $account) {
     ->execute();
   $registrations = $storage->loadMultiple($registration_ids);
   $storage->delete($registrations);
+}
+
+/**
+ * @param $key
+ * @param $message
+ * @param $params
+ * @return void
+ */
+
+/**
+ * This is needed by RegistrationHelper::registrationSendMail.
+ * Implements hook_mail().
+ */
+function band_booking_registration_mail($key, &$message, $params):void {
+  switch ($key) {
+    case 'user_register':
+    case 'user_unregister':
+    case 'performance_reminder':
+      $message['subject'] = $params['title'];
+      $message['body'][] = $params['message'];
+      break;
+  }
 }

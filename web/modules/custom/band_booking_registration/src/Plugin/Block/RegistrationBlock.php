@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Block(
  *   id = "registration_block",
- *   admin_label = @Translation("Register artist"),
+ *   admin_label = @Translation("Artists registration"),
  *   category = @Translation("Band Booking"),
  * )
  */
@@ -139,11 +139,31 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
           'taxonomy_terms' => $taxonomy_terms,
           'users' => $unregistered_users,
           'registered_users' => $registered_users,
+
           // @todo get it from config.
+          'form_title' => $this->t('Add artist'),
+          'already_title' => $this->t('Artists already registered'),
+          'already_no_user' => $this->t('No artist already registered.'),
           'filter_title' => $this->t('Filter by position'),
           'filter_description' => $this->t('Select the artists position to filter artists list.'),
-          'add_title' => $this->t('Add artist'),
+          'add_title' => $this->t('Artists'),
           'add_description' => $this->t('Select the artists you want to add. The artists already added will not appear.'),
+          'no_taxonomy' => $this->t('No position available.'),
+          'no_artist' => $this->t('No artist to register.'),
+        ],
+      );
+
+      $unregister_form = $this->formBuilder->getForm(
+        'Drupal\band_booking_registration\Form\UnregisterUserForm',
+        [
+          'context_nid' => $nid,
+          'register_bundle' => $register_bundle,
+          'registered_users_by_rid' => $registered_users_by_rid,
+          // @todo get it from config.
+          'form_title' => $this->t('Unregister artists'),
+          'remove_title' => $this->t('Artists'),
+          'remove_description' => $this->t('Select the artists you want to unregister.'),
+          'no_artist' => $this->t('No artist to unregister.'),
         ],
       );
 
