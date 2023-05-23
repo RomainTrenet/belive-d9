@@ -166,7 +166,8 @@ function band_booking_registration_user_predelete(UserInterface $account) {
  */
 function band_booking_registration_mail($key, &$message, $params):void {
   switch ($key) {
-    case 'node_insert':
+    case 'user_register':
+    case 'user_unregister':
     case 'performance_reminder':
       $message['subject'] = $params['title'];
       $message['body'][] = $params['message'];

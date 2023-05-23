@@ -162,11 +162,8 @@ class RegistrationHelper implements RegistrationHelperInterface {
         $usersName[] = $user->getAccountName();
       }
 
-      // TODO : degager.
-      $amountOperations = 'rien';
-
       $batch = [
-        'title' => $this->t('Registering @usersName', ['@usersName' => implode(', ', $usersName)]),
+        'title' => $this->t('Registering : @users.', ['@users' => implode(', ', $usersName)]),
         'operations' => [],
         'finished' => '\Drupal\band_booking_registration\RegistrationHelper::batchRegisterUsersFinished',
       ];
@@ -179,9 +176,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
           $uids,
           $registration_bundle,
           $nid,
-          // TODO name.
-          $this->t('(--- @operation)', ['@operation' => $amountOperations]),
-          //$this->t('Registering @usersName', ['@usersName' => implode(', ', $usersName)]),
+          $this->t('Registering : @users.', ['@users' => implode(', ', $usersName)]),
         ],
       ];
 
@@ -195,6 +190,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
 
   /**
    * {@inheritdoc}
+   *
    * @throws EntityStorageException
    */
   public static function batchRegisterUsersOperation($users, $uids, $registration_bundle, $nid, $operation_details, &$context) :void {
@@ -220,39 +216,48 @@ class RegistrationHelper implements RegistrationHelperInterface {
       // Register entity.
       $uid = $uids[$row];
       $storage = \Drupal::entityTypeManager()->getStorage('registration');
+      // TODO @var should come from bundle name.
+      /** @var Registration $registrationEntity */
       $registrationEntity = $storage->create([
         'bundle' => $registration_bundle,
         'nid' => $nid,
         'registration_user_id' => $uid
       ]);
-      /*
-       * TODO check and clean.
-      $registration = $storage->create([
-        'bundle' => $registration_bundle,
-        'nid' => $nid,
-        'registration_user_id' => $uid
-      ])->save();*/
       $registration = $registrationEntity->save();
 
       // Send mail.
-      $performance = Node::load($nid);
-      RegistrationHelper::batchRegisterSendMail($performance, $registrationEntity, $users[$uid]);
+      $node = Node::load($nid);
+      $originalObject = $node->get('field_register_mail_object')->getValue();
+      $originalMessage = $node->get('field_register_mail_content')->getValue();
+      // Ensure message is not empty, for older content. Could be deleted.
+      $originalObject = $originalObject[0]['value'] ?? RegistrationHelper::getDefaultRegistrationMailObject();
+      $originalMessage = $originalMessage[0]['value'] ?? RegistrationHelper::getDefaultRegistrationMailMessage();
+
+      // For 'key' see band_booking_registration_mail.
+      //RegistrationHelper::batchRegisterSendMail($node, $registrationEntity, $users[$uid]);
+      $module = 'band_booking_registration';
+      $key = 'user_register';
+      $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registrationEntity, $users[$uid], $originalObject, $originalMessage);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
         'status' => $registration ? 'status' : 'error',
+        // TODO pass mail result.
         'account_name' => $users[$uid]->getAccountName()
       ];
 
       // Update our progress information.
       $context['sandbox']['progress']++;
       $context['sandbox']['current_node'] = $row + 1;
-      $context['message'] = t('Running Batch "@id" for user n* @uid',
-        ['@id' => $row, '@uid' => $uids[$row]]
+      $context['message'] = t('Running Batch "@id" for user "@user"',
+        [
+          '@id' => $row,
+          '@user' => $users[$uid]->getAccountName(),
+        ]
       );
     }
 
-    // Finished ? TODO Check if id is ok.
+    // Finished ? TODO check if correctly used, works perfectly for the moment.
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = ($context['sandbox']['progress'] > $context['sandbox']['max']);
     }
@@ -262,7 +267,9 @@ class RegistrationHelper implements RegistrationHelperInterface {
    * {@inheritdoc}
    */
   public static function batchRegisterUsersFinished($success, $results, $operations):void {
+    $translation = \Drupal::translation();
     $messenger = \Drupal::messenger();
+
     if ($success) {
       // Prepare users vs status.
       $successRegistrations = [];
@@ -276,18 +283,28 @@ class RegistrationHelper implements RegistrationHelperInterface {
         }
       }
 
-      // Here we could do something meaningful with the results.
-      // We just display the number of nodes we processed...
-      $messenger->addMessage(t('@count results processed.', ['@count' => count($results)]));
+      // TODO : show the number of nodes we processed ?
+      // $messenger->addMessage(t('@count results processed.', ['@count' => count($results)]));
 
       // Print results.
-      // TODO improve singular / plural.
-      if (count($successRegistrations) >= 1) {
-        $message = t('Users successfully registered : @users.', array('@users' => implode(', ', $successRegistrations)));
+      $amountSuccessful = count($successRegistrations);
+      if ($amountSuccessful >= 1) {
+        $message = $translation->formatPlural(
+          $amountSuccessful,
+          'User successfully registered : @users.', 'Users successfully registered : @users.',
+          ['@users' => implode(', ', $successRegistrations)],
+        );
         $messenger->addMessage($message, 'status', TRUE);
       }
-      if (count($errorRegistrations) >= 1) {
-        $message = t('Users not registered : @users.', array('@users' => implode(', ', $errorRegistrations)));
+
+      // Errors messages.
+      $amountFailed = count($errorRegistrations);
+      if ($amountFailed >= 1) {
+        $message = $translation->formatPlural(
+          $amountFailed,
+          'User not registered : @users.', 'Users not registered : @users.',
+          ['@users' => implode(', ', $errorRegistrations)],
+        );
         $messenger->addMessage($message, 'error', TRUE);
       }
     }
@@ -316,7 +333,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
       $registrations = $storage->loadMultiple($rids);
       $storage->delete($registrations);
 
-      // TODO : improve and ensure entity is created before sending messages.
+      // TODO : improve and ensure entity is deleted before sending messages.
 
       // Get list of user id and load users.
       $usersId = [];
@@ -349,128 +366,32 @@ class RegistrationHelper implements RegistrationHelperInterface {
    * TODO : translate of delete after import.
    * {@inheritdoc}
    */
-  public static function getDefaultRegistrationMailObject(): array {
-    return [
-      0 => [
-        'value' => '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">à cette adresse</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>',
-        'format' => 'full_html',
-      ]
-    ];
+  public static function getDefaultRegistrationMailObject(): string {
+    return '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]';
   }
 
   /**
    * TODO : translate of delete after import.
    * {@inheritdoc}
    */
-  public static function getDefaultRegistrationMailMessage(): array {
-    return [
-      0 => [
-        'value' => '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]',
-      ]
-    ];
+  public static function getDefaultRegistrationMailMessage(): string {
+    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">à cette adresse</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>';
   }
 
   /**
    * TODO : translate of delete after import.
    * {@inheritdoc}
    */
-  public static function getDefaultUnregistrationMailObject(): array {
-    return [
-      0 => [
-        'value' => '',
-        'format' => 'full_html',
-      ]
-    ];
+  public static function getDefaultUnregistrationMailObject(): string {
+    return '[site:name] | [registration:uid:entity:display-name] vous a retiré de l\'évènement [registration:nid:entity:title]';
   }
 
   /**
    * TODO : translate of delete after import.
    * {@inheritdoc}
    */
-  public static function getDefaultUnregistrationMailMessage(): array {
-    return [
-      0 => [
-        'value' => '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]',
-      ]
-    ];
-  }
-
-  /**
-   * TODO replace usage with registrationSendMail.
-   * {@inheritdoc}
-   */
-  public static function batchRegisterSendMail($performance, $registration, $user): void {
-    $messenger = \Drupal::messenger();
-    $token_service = \Drupal::token();
-
-    // Get values.
-    $tokenMailObject = $performance->get('field_register_mail_object')->getValue();
-    $tokenMailMessage = $performance->get('field_register_mail_content')->getValue();
-    // Ensure message is not empty, for older content. Could be deleted.
-    $tokenMailObject = empty($tokenMailObject) ? RegistrationHelper::getDefaultRegistrationMailObject() : $tokenMailObject;
-    $tokenMailMessage = empty($tokenMailMessage) ? RegistrationHelper::getDefaultRegistrationMailMessage() : $tokenMailMessage;
-
-    $object = [];
-    if (isset($tokenMailObject[0]['value'])) {
-      $object =  $token_service->replace(
-        $tokenMailObject[0]['value'],
-        [
-          'registration' => $registration,
-        ],
-        [
-          'langcode' => $user->getPreferredLangcode(),
-          //part of the Token replacement service; A boolean flag indicating
-          // that tokens should be removed from the final text if no replacement
-          // value can be generated
-          'clear' => TRUE,
-        ]
-      );
-    }
-
-    $message = [];
-    if (isset($tokenMailMessage[0]['value'])) {
-      $message =  $token_service->replace(
-        $tokenMailMessage[0]['value'],
-        [
-          'registration' => $registration,
-        ],
-        [
-          'langcode' => $user->getPreferredLangcode(),
-          //part of the Token replacement service; A boolean flag indicating
-          // that tokens should be removed from the final text if no replacement
-          // value can be generated
-          'clear' => TRUE,
-        ]
-      );
-    }
-
-    /** @var MailManagerInterface $mailManager */
-    $mailManager = \Drupal::service('plugin.manager.mail');
-    // See band_booking_registration_module function.
-    $module = 'band_booking_registration';
-    $key = 'node_insert';
-    $to = $user->get('mail')->getValue()[0]['value'];
-    /** @var User $owner */
-    $owner = $registration->getOwner();
-    $params['from'] = $owner->get('mail')->getValue()[0]['value'];
-    $params['message'] = Markup::create($message);
-    $params['title'] = $object;
-    $langcode = \Drupal::currentUser()->getPreferredLangcode();
-    $send = true;
-
-    $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
-
-    if (!$result['result']) {
-      $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
-      $messenger->addMessage($message, 'error', TRUE);
-      // TODO log.
-      //\Drupal::logger('mail-log')->error($message);
-      return;
-    }
-
-    $message = t('An email notification has been sent to @email ', array('@email' => $to));
-    $messenger->addMessage($message, 'status', TRUE);
-    //\Drupal::logger('mail-log')->notice($message);
+  public static function getDefaultUnregistrationMailMessage(): string {
+    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été retiré(e) de la prestation "[registration:nid:entity:title]".</p><p>Cordialement,&nbsp;<br>[registration:uid:entity:display-name].</p>';
   }
 
   /**

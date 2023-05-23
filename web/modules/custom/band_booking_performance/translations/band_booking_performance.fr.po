@@ -29,7 +29,7 @@ msgid "\"@user\" on the \"@event\" performance"
 msgstr "\"@user\" pour la performance \"@event\""
 
 msgid "Running Batch \"@id\" for user \"@user\" on event \"@event\""
-msgstr "Exécution du lot \"@id\" pour l'utilisateur \"@user\" sur l'événement \"@event\"."
+msgstr "Exécution du lot \"@id\" pour l'utilisateur \"@user\" sur l'événement \"@event\""
 
 msgid "Reminders for event \"@node\""
 msgstr "Relances pour l'événement \"@node\""
@@ -58,5 +58,8 @@ msgstr[1] "@count relances échouées :"
 msgid "Successful reminders :"
 msgstr "Aucune relance à envoyer."
 
-msgid "No reminder to send."
-msgstr "Aucune relance à envoyer."
+msgid "Successful reminder"
+msgstr "Relance réussie"
+
+msgid "Failed reminder"
+msgstr "Relance échouée"

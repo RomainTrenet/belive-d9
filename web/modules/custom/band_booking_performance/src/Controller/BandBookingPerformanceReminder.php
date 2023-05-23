@@ -61,8 +61,25 @@ final class BandBookingPerformanceReminder extends ControllerBase {
    * Create form.
    */
   public function content(): array {
+    // TODO remove.
+    $special_dev_date = '-2day';
+    $nids = [];
+    $contextualTimestamp = strtotime($special_dev_date);
+    $startFromContextualTs = true;
+    $current_date = strtotime($special_dev_date);
+
+
     // TODO : contextual node id + others.
-    return $this->formBuilder->getForm('Drupal\band_booking_performance\Form\ReminderForm');
+    return $this->formBuilder->getForm(
+      'Drupal\band_booking_performance\Form\ReminderForm',
+      [
+        'nids' => $nids,
+        //'contextualTimestamp' => $contextualTimestamp,
+        'contextualTimestamp' => null,
+        'startFromContextualTs' => $startFromContextualTs,
+        //'current_date' => $current_date,
+      ],
+    );
   }
 
 }

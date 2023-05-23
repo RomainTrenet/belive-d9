@@ -46,9 +46,9 @@ class PerformanceHelper implements PerformanceHelperInterface {
   /**
    * {@inheritdoc}
    */
-  public function performanceReminder(array $nids = [], int $contextualTimestamp = null, int $current_date = null): void {
+  public function performanceReminder(bool $manual = false, array $nids = [], int $contextualTimestamp = null, bool $startFromContextualTs = false, int $current_date = null): void {
     // Get list of reminders.
-    $sortedReminders = $this->getPerformancesRemindersSortedByNode($nids, $contextualTimestamp, $current_date);
+    $sortedReminders = $this->getPerformancesRemindersSortedByNode($nids, $contextualTimestamp, $startFromContextualTs, $current_date);
 
     // Batch : one operation = 1 node.
     if (!empty($sortedReminders)) {
@@ -72,6 +72,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
         $operations[] = [
           '\Drupal\band_booking_performance\PerformanceHelper::batchPerformanceReminderOperation',
           [
+            $manual,
             $nodes[$nid],
             $users,
             $reminders,
@@ -100,11 +101,9 @@ class PerformanceHelper implements PerformanceHelperInterface {
   }
 
   /**
-   * Todo = if nids !!!.
-   *
    * {@inheritdoc}
    */
-  public function getPerformancesReminders(array $nids = [], int $contextualTimestamp = null, int $current_date = null): array {
+  public function getPerformancesReminders(array $nids = [], int $contextualTimestamp = null, bool $startFromContextualTs = false, int $current_date = null): array {
     // Connection.
     $connection = \Drupal::database();
     $query = $connection->select('node', 'n');
@@ -113,8 +112,6 @@ class PerformanceHelper implements PerformanceHelperInterface {
     $query->where('n.type = :type', [
       ':type' => 'performance',
     ]);
-
-    // TODO : if nids.
 
     // Ensure node is published.
     $query->leftjoin('node_field_data', 'nfd', 'nfd.nid = n.nid');
@@ -134,21 +131,6 @@ class PerformanceHelper implements PerformanceHelperInterface {
       ':conf' => 'canceled',
     ]);
 
-    // Only node with relaunch for the date, or all after current day.
-    $day = date('Y-m-d', $contextualTimestamp ?? time());
-    $query->leftjoin('node__field_relaunch', 'rl', 'rl.entity_id = n.nid');
-    // If timestamp is given, relaunch only for the day, otherwise relaunch up to the day.
-    // TODO : up to relaunch, or equal relaunch : with option in function.
-    if (isset($contextualTimestamp)) {
-      $query->where('rl.field_relaunch_value = :day', [
-        ':day' => $day,
-      ]);
-    } else {
-      $query->where('rl.field_relaunch_value >= :day', [
-        ':day' => $day,
-      ]);
-    }
-
     // Join registrations ; only registration with "waiting" state.
     $query->leftjoin('registration_field_data', 'rfd', 'rfd.nid = n.nid');
     $query->isNotNull('rfd.registration_user_id');
@@ -157,18 +139,36 @@ class PerformanceHelper implements PerformanceHelperInterface {
       ':state' => 'waiting',
     ]);
 
+    // If nodes id are specified OR manage relaunch date, only if nids are not specified.
+    if (!empty($nids)) {
+      $query->condition('n.nid', $nids, 'IN');
+    } else {
+      // Get relaunch day to be taken into account.
+      $query->leftjoin('node__field_relaunch', 'rl', 'rl.entity_id = n.nid');
+      $day = date('Y-m-d', $contextualTimestamp ?? time());
+
+      // Takes every node after OR for the day.
+      if ($startFromContextualTs) {
+        // This generates duplicates, as this is multiple value field. So, we use distinct.
+        $query->condition('rl.field_relaunch_value', $day, '>=');
+      } else {
+        $query->condition('rl.field_relaunch_value', $day, '=');
+      }
+    }
+
     // Get necessary fields.
     $query->fields('n', ['nid']);
     $query->fields('rfd', ['id', 'registration_user_id']);
 
-    return $query->execute()->fetchAll();
+    // We use distinct because of the field_relaunch_value which is multiple value field.
+    return $query->distinct()->execute()->fetchAll();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getPerformancesRemindersSortedByNode(array $nids = [], int $contextualTimestamp = null, int $current_date = null): array {
-    $reminders = $this->getPerformancesReminders($nids, $contextualTimestamp, $current_date);
+  public function getPerformancesRemindersSortedByNode(array $nids = [], int $contextualTimestamp = null, bool $startFromContextualTs = false, int $current_date = null): array {
+    $reminders = $this->getPerformancesReminders($nids, $contextualTimestamp, $startFromContextualTs, $current_date);
     $sortedReminders = [];
     $current_nid = null;
 
@@ -197,7 +197,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
    * {@inheritdoc}
    * @throws EntityStorageException
    */
-  public static function batchPerformanceReminderOperation(Node $node, array $users, array $reminders, $operation_details, &$context) :void {
+  public static function batchPerformanceReminderOperation(bool $manual, Node $node, array $users, array $reminders, $operation_details, &$context) :void {
     if (empty($context['sandbox'])) {
       $context['sandbox'] = [];
       $context['sandbox']['progress'] = 0;
@@ -231,12 +231,13 @@ class PerformanceHelper implements PerformanceHelperInterface {
       $originalObject = $originalObject[0]['value'] ?? PerformanceHelper::getDefaultReminderMailObject();
       $originalMessage = $originalMessage[0]['value'] ?? PerformanceHelper::getDefaultReminderMailMessage();
       // For 'key' see band_booking_registration_mail.
-      $module = 'band_booking_registration';
+      $module = 'band_booking_performance';
       $key = 'performance_reminder';
       $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $user, $originalObject, $originalMessage);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
+        // TODO : check if mail() return a result key or nothing. Impossible to find.
         'status' => $mailResult['result'] ? 'status' : 'error',
         'reminder_name' => t('"@user" on the "@event" performance',
           [
@@ -244,6 +245,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
             '@event' => $node->getTitle(),
           ]
         ),
+        'manual' => $manual ?? false,
       ];
 
       // Update our progress information.
@@ -268,49 +270,68 @@ class PerformanceHelper implements PerformanceHelperInterface {
    * {@inheritdoc}
    */
   public static function batchPerformanceReminderFinished($success, $results, $operations):void {
-    $messenger = \Drupal::messenger();
     $translation = \Drupal::translation();
-    if ($success) {
-      // Prepare users vs status.
-      $successes = [];
-      $errors = [];
 
+    // Check only the first result, FALSE if nothing.
+    $manual = $results[0]['manual'] ?? FALSE;
+
+    if ($manual) {
+      $messenger = \Drupal::messenger();
+    }
+
+    if ($success) {
+      // Prepare results messages.
+      $successfulResults = [];
+      $failedResults = [];
       foreach ($results as $result) {
         if ($result['status'] == 'error') {
-          $errors[] = $result['reminder_name'];
+          $failedResults[] = $result['reminder_name'];
         } else {
-          $successes[] = $result['reminder_name'];
+          $successfulResults[] = $result['reminder_name'];
         }
       }
 
       // Success messages.
-      if (count($successes) >= 1) {
-        $messenger->addMessage(
-          $translation->formatPlural(
-            count($successes),
+      $amountSuccessful = count($successfulResults);
+      if ($amountSuccessful >= 1) {
+        if ($manual) {
+          $message = $translation->formatPlural(
+            $amountSuccessful,
             'One single successful reminder :', '@count successful reminders :',
-            ['@count' => count($successes)]
-          ),
-          'status',
-        );
-        foreach ($successes as $success) {
-          $messenger->addMessage($success, 'status', TRUE);
+            ['@count' => $amountSuccessful],
+          );
+          $messenger->addMessage($message, 'status');
+          foreach ($successfulResults as $successfulResult) {
+            $messenger->addMessage($successfulResult, 'status', TRUE);
+          }
+        } else {
+          foreach ($successfulResults as $successfulResult) {
+            $prefix = t('Successful reminder') . ' : ';
+            \Drupal::logger('band_booking_performance')->info($prefix . $successfulResult);
+          }
         }
       }
+
       // Errors messages.
-      if (count($errors) >= 1) {
-        $messenger->addMessage(
-          $translation->formatPlural(
-            count($errors),
+      $amountFailed = count($failedResults);
+      if ($amountFailed >= 1) {
+        if ($manual) {
+          $message = $translation->formatPlural(
+            $amountFailed,
             'One single failed reminder :', '@count failed reminders :',
-            ['@count' => count($errors)]
-          ),
-          'error',
-        );
-        foreach ($errors as $error) {
-          $messenger->addMessage($error, 'error', TRUE);
-          \Drupal::logger('band_booking_performance')->error($error);
+            ['@count' => $amountFailed],
+          );
+          $messenger->addMessage($message, 'error');
+          foreach ($failedResults as $failedResult) {
+            $messenger->addMessage($failedResult, 'error', TRUE);
+          }
+        } else {
+          $prefix = t('Failed reminder') . ' : ';
+          foreach ($failedResults as $failedResult) {
+            \Drupal::logger('band_booking_performance')->error($prefix . $failedResult);
+          }
         }
+
       }
     }
     else {
@@ -322,8 +343,12 @@ class PerformanceHelper implements PerformanceHelperInterface {
           '@args' => print_r($error_operation[0], TRUE),
         ]
       );
-      $messenger->addMessage($message);
-      \Drupal::logger('band_booking_performance')->error($message);
+
+      if ($manual) {
+        $messenger->addMessage($message);
+      } else {
+        \Drupal::logger('band_booking_performance')->error($message);
+      }
     }
   }
 
@@ -331,25 +356,16 @@ class PerformanceHelper implements PerformanceHelperInterface {
    * TODO : translate of delete after import.
    * {@inheritdoc}
    */
-  public static function getDefaultReminderMailObject(): array {
-    return [
-      0 => [
-        'value' => '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">à cette adresse</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>',
-        'format' => 'full_html',
-      ]
-    ];
+  public static function getDefaultReminderMailObject(): string {
+    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">à cette adresse</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>';
   }
 
   /**
    * TODO : translate of delete after import.
    * {@inheritdoc}
    */
-  public static function getDefaultReminderMailMessage(): array {
-    return [
-      0 => [
-        'value' => '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]',
-      ]
-    ];
+  public static function getDefaultReminderMailMessage(): string {
+    return '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]';
   }
 
 }

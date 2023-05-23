@@ -86,3 +86,19 @@ msgid "No artist already registered."
 msgstr "Aucun artiste déjà inscrit."
 msgid "No artist to unregister."
 msgstr "Aucun artiste à désinscrire."
+
+msgid "Registering : @users."
+msgstr "Inscription de : @users."
+
+msgid "Running Batch \"@id\" for user \"@user\""
+msgstr "Exécution du lot \"@id\" pour l'utilisateur \"@user\""
+
+msgid "User not registered : @users."
+msgid_plural "Users not registered : @users."
+msgstr[0] "Utilisateur non enregistré : @users."
+msgstr[1] "Utilisateurs non enregistrés : @users."
+
+msgid "User successfully registered : @users."
+msgid_plural "Users successfully registered : @users."
+msgstr[0] "Utilisateur enregistré avec succès : @users."
+msgstr[1] "Utilisateurs enregistrés avec succès : @users."

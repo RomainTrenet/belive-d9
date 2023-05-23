@@ -134,43 +134,32 @@ interface RegistrationHelperInterface {
   /**
    * Get default registration mail object for former content.
    *
-   * @return array
+   * @return string
    */
-  public static function getDefaultRegistrationMailObject(): array;
+  public static function getDefaultRegistrationMailObject(): string;
 
   /**
    * Get default registration mail content for former content.
    *
-   * @return array
+   * @return string
    */
-  public static function getDefaultRegistrationMailMessage(): array;
+  public static function getDefaultRegistrationMailMessage(): string;
 
   /**
    * Get default registration mail object for former content.
    * TODO Should be deleted after import in D9.
    *
-   * @return array
+   * @return string
    */
-  public static function getDefaultUnregistrationMailObject(): array;
+  public static function getDefaultUnregistrationMailObject(): string;
 
   /**
    * Get default registration mail content for former content.
    * TODO Should be deleted after import in D9.
    *
-   * @return array
+   * @return string
    */
-  public static function getDefaultUnregistrationMailMessage(): array;
-
-  /**
-   * TODO replace usage for registrationSendMail.
-   * Send mail when register user in batch.
-   *
-   * @param Node $performance
-   * @param Registration $registration
-   * @param User $user
-   * @return void
-   */
-  public static function batchRegisterSendMail(Node $performance, Registration $registration, User $user): void;
+  public static function getDefaultUnregistrationMailMessage(): string;
 
   /**
    * TODO
