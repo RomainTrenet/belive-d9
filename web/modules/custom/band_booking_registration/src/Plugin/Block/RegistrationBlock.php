@@ -6,11 +6,13 @@
 namespace Drupal\band_booking_registration\Plugin\Block;
 
 use Drupal\band_booking_registration\RegistrationHelperInterface;
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\CurrentRouteMatch;
+use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -86,6 +88,7 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
    * @param array $configuration
    * @param $plugin_id
    * @param $plugin_definition
+   *
    * @return RegistrationBlock
    */
   public static function create(
@@ -103,6 +106,13 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
       $container->get('current_route_match'),
       $container->get('band_booking_registration.registration_helper')
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function blockAccess(AccountInterface $account):AccessResult {
+    return AccessResult::allowedIfHasPermissions($account, ['create registration', 'delete registration']);
   }
 
   /**

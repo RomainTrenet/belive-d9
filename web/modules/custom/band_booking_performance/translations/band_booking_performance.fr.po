@@ -82,3 +82,12 @@ msgstr "Relancez les inscriptions en attente pour tous les jours"
 
 msgid "This includes every performances, and doesn\'t takes into account the days scheduled for relaunch"
 msgstr "Cela comprend toutes les prestations, et ne prend pas en compte les jours prévus pour la relance"
+
+msgid "Relaunch pending registrations for this performance"
+msgstr "Relancez les inscriptions en attente pour cette performance"
+
+msgid "This does not take into account scheduled reminders."
+msgstr "Cela ne tient pas compte des relances programmées."
+
+msgid "Place this block in a performance page"
+msgstr "Placez ce bloc dans une page de performance"

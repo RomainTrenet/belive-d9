@@ -9,6 +9,7 @@ dependencies:
   module:
     - band_booking_artist
     - band_booking_manager
+    - band_booking_performance
     - band_booking_registration
     - contextual
     - filter
@@ -51,7 +52,9 @@ permissions:
   - 'update any profil_artist profile'
   - 'update own profil_artist profile'
   - 'use accept transition in performance_default'
+  - 'use band booking reminder'
   - 'use refuse transition in performance_default'
+  - 'use reminder'
   - 'use standby transition in performance_default'
   - 'use text format full_html'
   - 'view any profil_artist profile'
