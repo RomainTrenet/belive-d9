@@ -46,9 +46,9 @@ class PerformanceHelper implements PerformanceHelperInterface {
   /**
    * {@inheritdoc}
    */
-  public function performanceReminder(bool $manual = false, array $nids = [], int $contextualTimestamp = null, bool $startFromContextualTs = false, int $current_date = null): void {
+  public function performanceReminder(bool $manual = false, bool $force = false, array $nids = [], bool $startFromContextualTs = false, int $contextualTimestamp = null, int $current_date = null): void {
     // Get list of reminders.
-    $sortedReminders = $this->getPerformancesRemindersSortedByNode($nids, $contextualTimestamp, $startFromContextualTs, $current_date);
+    $sortedReminders = $this->getPerformancesRemindersSortedByNode($force, $nids, $startFromContextualTs, $contextualTimestamp, $current_date);
 
     // Batch : one operation = 1 node.
     if (!empty($sortedReminders)) {
@@ -103,7 +103,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPerformancesReminders(array $nids = [], int $contextualTimestamp = null, bool $startFromContextualTs = false, int $current_date = null): array {
+  public function getPerformancesReminders(bool $force = false, array $nids = [], bool $startFromContextualTs = false, int $contextualTimestamp = null, int $current_date = null): array {
     // Connection.
     $connection = \Drupal::database();
     $query = $connection->select('node', 'n');
@@ -124,6 +124,8 @@ class PerformanceHelper implements PerformanceHelperInterface {
     $query->where('dt.field_date_non_utc_value >= :min_day', [
       ':min_day' => $min_day,
     ]);
+    // TODO : order by date. Doesn't work for the moment.
+    // $query->orderBy('dt.field_date_non_utc_value', 'DESC');
 
     // Ensure event is not canceled.
     $query->leftjoin('node__field_confirmation', 'nfc', 'nfc.entity_id = n.nid');
@@ -139,20 +141,23 @@ class PerformanceHelper implements PerformanceHelperInterface {
       ':state' => 'waiting',
     ]);
 
-    // If nodes id are specified OR manage relaunch date, only if nids are not specified.
-    if (!empty($nids)) {
-      $query->condition('n.nid', $nids, 'IN');
-    } else {
-      // Get relaunch day to be taken into account.
-      $query->leftjoin('node__field_relaunch', 'rl', 'rl.entity_id = n.nid');
-      $day = date('Y-m-d', $contextualTimestamp ?? time());
-
-      // Takes every node after OR for the day.
-      if ($startFromContextualTs) {
-        // This generates duplicates, as this is multiple value field. So, we use distinct.
-        $query->condition('rl.field_relaunch_value', $day, '>=');
+    // Force avoid using $nids option and get every node ignoring relaunch day.
+    if (!$force) {
+      // If nodes id are specified OR manage relaunch date, only if nids are not specified.
+      if (!empty($nids)) {
+        $query->condition('n.nid', $nids, 'IN');
       } else {
-        $query->condition('rl.field_relaunch_value', $day, '=');
+        // Get relaunch day to be taken into account.
+        $query->leftjoin('node__field_relaunch', 'rl', 'rl.entity_id = n.nid');
+        $day = date('Y-m-d', $contextualTimestamp ?? time());
+
+        // Takes every node after OR for the day.
+        if ($startFromContextualTs) {
+          // This generates duplicates, as this is multiple value field. So, we use distinct.
+          $query->condition('rl.field_relaunch_value', $day, '>=');
+        } else {
+          $query->condition('rl.field_relaunch_value', $day, '=');
+        }
       }
     }
 
@@ -167,8 +172,8 @@ class PerformanceHelper implements PerformanceHelperInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPerformancesRemindersSortedByNode(array $nids = [], int $contextualTimestamp = null, bool $startFromContextualTs = false, int $current_date = null): array {
-    $reminders = $this->getPerformancesReminders($nids, $contextualTimestamp, $startFromContextualTs, $current_date);
+  public function getPerformancesRemindersSortedByNode(bool $force = false, array $nids = [], bool $startFromContextualTs = false, int $contextualTimestamp = null, int $current_date = null): array {
+    $reminders = $this->getPerformancesReminders($force, $nids, $startFromContextualTs, $contextualTimestamp, $current_date);
     $sortedReminders = [];
     $current_nid = null;
 
@@ -230,8 +235,9 @@ class PerformanceHelper implements PerformanceHelperInterface {
       // Ensure message is not empty, for older content. Could be deleted.
       $originalObject = $originalObject[0]['value'] ?? PerformanceHelper::getDefaultReminderMailObject();
       $originalMessage = $originalMessage[0]['value'] ?? PerformanceHelper::getDefaultReminderMailMessage();
-      // For 'key' see band_booking_registration_mail.
-      $module = 'band_booking_performance';
+      // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
+      $module = 'band_booking_registration';
+      // For 'key' is used inside the hook_mail.
       $key = 'performance_reminder';
       $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $user, $originalObject, $originalMessage);
 

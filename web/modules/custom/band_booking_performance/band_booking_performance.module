@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\band_booking_performance\Event\PerformancePresaveEvent;
+use Drupal\band_booking_performance\PerformanceHelper;
 
 /**
  * Implements hook_page_attachments().
@@ -21,4 +22,14 @@ function band_booking_performance_entity_presave(\Drupal\Core\Entity\EntityInter
     $event_dispatcher = \Drupal::service('event_dispatcher');
     $event_dispatcher->dispatch(PerformancePresaveEvent::EVENT_NAME, $event);
   }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function band_booking_performance_cron() {
+  // Trigger performance registration reminder.
+  /** @var PerformanceHelper $performanceHelper */
+  $performanceHelper = \Drupal::service('band_booking_performance.performance_helper');
+  $performanceHelper->performanceReminder();
 }

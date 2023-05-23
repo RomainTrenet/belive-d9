@@ -18,3 +18,8 @@ band_booking_performance.menu.create:
   route_name: band_booking_performance.create
   parent: band_booking_performance.menu
   weight: 120
+band_booking_performance.menu.reminder:
+  title: 'Reminder'
+  route_name: band_booking_performance.reminder
+  parent: band_booking_performance.menu
+  weight: 130

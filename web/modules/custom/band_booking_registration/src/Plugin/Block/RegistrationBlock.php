@@ -6,11 +6,13 @@
 namespace Drupal\band_booking_registration\Plugin\Block;
 
 use Drupal\band_booking_registration\RegistrationHelperInterface;
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\CurrentRouteMatch;
+use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -86,6 +88,7 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
    * @param array $configuration
    * @param $plugin_id
    * @param $plugin_definition
+   *
    * @return RegistrationBlock
    */
   public static function create(
@@ -103,6 +106,13 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
       $container->get('current_route_match'),
       $container->get('band_booking_registration.registration_helper')
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function blockAccess(AccountInterface $account):AccessResult {
+    return AccessResult::allowedIfHasPermissions($account, ['create registration', 'delete registration']);
   }
 
   /**
@@ -164,18 +174,6 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
           'remove_title' => $this->t('Artists'),
           'remove_description' => $this->t('Select the artists you want to unregister.'),
           'no_artist' => $this->t('No artist to unregister.'),
-        ],
-      );
-
-      $unregister_form = $this->formBuilder->getForm(
-        'Drupal\band_booking_registration\Form\UnregisterUserForm',
-        [
-          'context_nid' => $nid,
-          'register_bundle' => $register_bundle,
-          'registered_users_by_rid' => $registered_users_by_rid,
-          // @todo get it from config.
-          'remove_title' => $this->t('Unregister artists'),
-          'remove_description' => $this->t('Select the artists you want to unregister.'),
         ],
       );
 

@@ -25,6 +25,13 @@ msgstr "Liste des prestations"
 msgid "Former performances"
 msgstr "Anciennes prestations"
 
+msgid "Reminder"
+msgstr "Relance"
+
+msgctxt 'Reminder form'
+msgid "Relaunch"
+msgstr "Relancer"
+
 msgid "\"@user\" on the \"@event\" performance"
 msgstr "\"@user\" pour la performance \"@event\""
 
@@ -63,3 +70,24 @@ msgstr "Relance réussie"
 
 msgid "Failed reminder"
 msgstr "Relance échouée"
+
+msgid "Relaunch pending registrations for today"
+msgstr "Relancez les inscriptions en attente pour aujourd'hui"
+
+msgid "This includes every performances, and takes into account the days scheduled for relaunch"
+msgstr "Cela comprend toutes les prestations, et prend en compte les jours prévus pour la relance"
+
+msgid "Relaunch pending registrations for all days"
+msgstr "Relancez les inscriptions en attente pour tous les jours"
+
+msgid "This includes every performances, and doesn\'t takes into account the days scheduled for relaunch"
+msgstr "Cela comprend toutes les prestations, et ne prend pas en compte les jours prévus pour la relance"
+
+msgid "Relaunch pending registrations for this performance"
+msgstr "Relancez les inscriptions en attente pour cette performance"
+
+msgid "This does not take into account scheduled reminders."
+msgstr "Cela ne tient pas compte des relances programmées."
+
+msgid "Place this block in a performance page"
+msgstr "Placez ce bloc dans une page de performance"

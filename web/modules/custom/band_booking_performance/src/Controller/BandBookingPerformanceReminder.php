@@ -61,25 +61,63 @@ final class BandBookingPerformanceReminder extends ControllerBase {
    * Create form.
    */
   public function content(): array {
-    // TODO remove.
-    $special_dev_date = '-2day';
+
+    // Reminder for today.
+    $item_list['today'] = [
+      'title' => [
+        '#markup' => '<h2>' . t('Relaunch pending registrations for today'). '</h2>',
+      ],
+      'description' => [
+        '#markup' => '<p>' . t('This includes every performances, and takes into account the days scheduled for relaunch'). '</p>',
+      ],
+      'form' => $this->formBuilder->getForm(
+        'Drupal\band_booking_performance\Form\ReminderForm'
+      ),
+      // TODO improve.
+      'sep' => [
+        '#markup' => '<br>',
+      ],
+    ];
+
+    // Reminder no matter what day.
+    $item_list['everyday'] = [
+      'title' => [
+        '#markup' => '<h2>' . t('Relaunch pending registrations for all days'). '</h2>',
+      ],
+      'description' => [
+        '#markup' => '<p>' . t('This includes every performances, and doesn\'t takes into account the days scheduled for relaunch'). '</p>',
+      ],
+      'form' => $this->formBuilder->getForm(
+        'Drupal\band_booking_performance\Form\ReminderForm',
+        ['force' => TRUE],
+      ),
+    ];
+
+    // TODO = remove. Dev prupose.
+    /*
+    $special_dev_date = '-2 day';
     $nids = [];
     $contextualTimestamp = strtotime($special_dev_date);
-    $startFromContextualTs = true;
+    $startFromContextualTs = false;
     $current_date = strtotime($special_dev_date);
 
-
-    // TODO : contextual node id + others.
-    return $this->formBuilder->getForm(
+    $item_list['dev'] = $this->formBuilder->getForm(
       'Drupal\band_booking_performance\Form\ReminderForm',
       [
+        'force' => FALSE,
         'nids' => $nids,
-        //'contextualTimestamp' => $contextualTimestamp,
-        'contextualTimestamp' => null,
         'startFromContextualTs' => $startFromContextualTs,
+        'contextualTimestamp' => $contextualTimestamp,
         //'current_date' => $current_date,
       ],
     );
+    */
+
+    return [
+      '#theme' => 'item_list',
+      '#list_type' => 'ul',
+      '#items' => $item_list,
+    ];
   }
 
 }

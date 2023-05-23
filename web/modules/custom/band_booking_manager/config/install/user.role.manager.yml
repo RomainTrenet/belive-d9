@@ -8,6 +8,7 @@ dependencies:
   module:
     - band_booking_artist
     - band_booking_manager
+    - band_booking_performance
     - band_booking_registration
     - contextual
     - filter
@@ -17,6 +18,8 @@ dependencies:
     - system
     - taxonomy
     - toolbar
+_core:
+  default_config_hash: lhZ1rIXIdnwSIIdMjYTGdD2eHfnuly_wnhZ3RmMuAYc
 id: manager
 label: Gérant
 weight: 5
@@ -49,6 +52,7 @@ permissions:
   - 'update own profil_artist profile'
   - 'use accept transition in performance_default'
   - 'use refuse transition in performance_default'
+  - 'use band booking reminder'
   - 'use standby transition in performance_default'
   - 'use text format full_html'
   - 'view any profil_artist profile'

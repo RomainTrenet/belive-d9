@@ -1,4 +1,4 @@
-langcode: en
+langcode: fr
 status: true
 dependencies:
   config:
@@ -7,7 +7,7 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: njaZigMvB4ap21Fg_tQcJhWgYJCGNi49Z5rRL_N6RI0
+  default_config_hash: qDvQ4ABaQhc1eDP0kJSX9OvtNDF-sYT0MdHbfkHJqN0
 id: band_booking_administration_artists
 label: 'Band booking | Administration: Artists'
 module: user
@@ -22,7 +22,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'List of artists'
+      title: 'Liste des artistes'
       fields:
         user_bulk_form:
           id: user_bulk_form
@@ -889,7 +889,7 @@ display:
         - 'config:field.storage.user.field_position'
   list:
     id: list
-    display_title: 'List of artists'
+    display_title: 'Liste des artistes'
     display_plugin: page
     position: 2
     display_options:
@@ -921,7 +921,7 @@ display:
       path: test
       menu:
         type: 'default tab'
-        title: List
+        title: Liste
         description: 'Find and manage people interacting with your site.'
         weight: -10
         menu_name: admin
