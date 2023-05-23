@@ -1,0 +1,24 @@
+performance_default:
+  id: performance_default
+  label: Default performance
+  group: performance
+  states:
+    waiting:
+      label: Waiting
+    accepted:
+      label: Accepted
+    refused:
+      label: Refused
+  transitions:
+    standby:
+      label: Standby
+      from: [ accepted, refused ]
+      to: waiting
+    accept:
+      label: Accept
+      from: [ waiting, refused ]
+      to: accepted
+    refuse:
+      label: Refuse
+      from: [ waiting, accepted ]
+      to: refused

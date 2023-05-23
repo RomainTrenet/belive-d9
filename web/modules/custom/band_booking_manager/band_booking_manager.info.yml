@@ -1,0 +1,13 @@
+type: module
+name: Band Booking Manager
+description: 'Custom manager'
+package: Custom
+core_version_requirement: ^8 || ^9
+dependencies:
+  - user
+tags:
+  - custom
+
+project: band_booking_manager
+'interface translation project': band_booking_manager
+'interface translation server pattern': modules/custom/%project/translations/%project.%language.po

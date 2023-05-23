@@ -1,0 +1,5 @@
+band_booking_artist.add:
+  route_name: band_booking_artist.create
+  title: 'Add an artist'
+  appears_on:
+    - view.band_booking_administration_artists.list

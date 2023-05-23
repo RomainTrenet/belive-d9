@@ -1,0 +1,13 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - band_booking_registration
+id: artist
+label: Artist
+weight: 4
+is_admin: null
+permissions:
+  - 'edit registration'
+  - 'use accept transition in performance_default'
+  - 'use refuse transition in performance_default'

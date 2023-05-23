@@ -1,0 +1,52 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.performance.body
+    - field.field.node.performance.field_confirmation
+    - field.field.node.performance.field_date
+    - field.field.node.performance.field_date_non_utc
+    - field.field.node.performance.field_mail_content
+    - field.field.node.performance.field_mail_object
+    - field.field.node.performance.field_place
+    - field.field.node.performance.field_register_mail_content
+    - field.field.node.performance.field_register_mail_object
+    - field.field.node.performance.field_relaunch
+    - field.field.node.performance.field_unregister_mail_content
+    - field.field.node.performance.field_unregister_mail_object
+    - node.type.performance
+  module:
+    - text
+    - user
+id: node.performance.teaser
+targetEntityType: node
+bundle: performance
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_confirmation: true
+  field_date: true
+  field_date_non_utc: true
+  field_mail_content: true
+  field_mail_object: true
+  field_place: true
+  field_register_mail_content: true
+  field_register_mail_object: true
+  field_relaunch: true
+  field_unregister_mail_content: true
+  field_unregister_mail_object: true
+  langcode: true

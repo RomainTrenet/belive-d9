@@ -1,9 +1,11 @@
 uuid: cd3a2f40-383d-4f31-a92a-fdc02b12de05
-langcode: en
+langcode: fr
 status: true
 dependencies:
   config:
     - core.entity_view_mode.user.compact
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_position
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -22,8 +24,14 @@ content:
     settings:
       image_link: content
       image_style: thumbnail
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content
 hidden:
+  field_phone: true
+  field_position: true
+  langcode: true
   member_for: true
+  profil_artist_profiles: true

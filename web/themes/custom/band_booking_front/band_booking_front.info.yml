@@ -1,0 +1,28 @@
+name: Band Booking Front Theme
+type: theme
+description: Custom front theme for Band booking
+core_version_requirement: ^8 || ^9 || ^10
+# Defines the base theme
+base theme: band_booking_global
+# Defines libraries group in which we can add CSS/JS.
+libraries:
+  - band_booking_front/global-styling
+# Regions, quote the names
+regions:
+  hidden: 'Hidden'
+  header: 'Header'
+  pre_content: 'Pre-content'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: 'Help'
+  menu: 'Menu'
+  content_before: 'Before Content'
+  content: 'Content'
+  content_after: 'After Content'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  sidebar_first: 'First sidebar'
+  sidebar_second: 'Second sidebar'
+
+#regions_hidden:
+#  - sidebar_first

@@ -57,4 +57,5 @@
  */
 $sites['belive-d9.ddev.site'] = 'default';
 $sites['belive-d9-dev.ddev.site'] = 'dev';
+$sites['belive-d9-sandbox.ddev.site'] = 'sandbox';
 $sites['booking.orchestre-belive.com'] = 'default';

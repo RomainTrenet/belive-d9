@@ -1,0 +1,15 @@
+select-box:
+  js:
+    js/vanilla-select-box.js: { minified: false }
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupalSettings
+    - vanilla_select_box/vanilla-select-box
+vanilla-select-box:
+  version: 1.0.5
+  css:
+    theme:
+      vendor://philippemarcmeyer/vanillaselectbox/vanillaSelectBox.css: {}
+  js:
+    vendor://philippemarcmeyer/vanillaselectbox/vanillaSelectBox.js: {}

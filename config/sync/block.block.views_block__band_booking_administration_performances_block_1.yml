@@ -1,0 +1,29 @@
+uuid: 6804804b-a00b-4af0-9cdc-6a378f5d4466
+langcode: fr
+status: true
+dependencies:
+  config:
+    - views.view.band_booking_administration_performances
+  module:
+    - system
+    - views
+  theme:
+    - band_booking_admin
+id: views_block__band_booking_administration_performances_block_1
+theme: band_booking_admin
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:band_booking_administration_performances-block_1'
+settings:
+  id: 'views_block:band_booking_administration_performances-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /admin/dashboard

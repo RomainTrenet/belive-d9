@@ -1,5 +1,5 @@
 uuid: bc9be59b-b316-4751-a49a-3865b662635a
-langcode: en
+langcode: fr
 status: false
 dependencies:
   config:
@@ -10,9 +10,9 @@ dependencies:
 _core:
   default_config_hash: ko9GznzNBXHkuz09OCaBQ1YOSJYYjTY0TBpNV3WKnog
 id: archive
-label: Archive
+label: Archiver
 module: node
-description: 'All content, by month.'
+description: 'Tous les contenus, triés par mois.'
 tag: default
 base_table: node_field_data
 base_field: nid
@@ -23,7 +23,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Monthly archive'
+      title: 'Archive mensuelle'
       fields: {  }
       pager:
         type: mini
@@ -46,7 +46,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Appliquer
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -188,7 +188,7 @@ display:
       tags: {  }
   block_1:
     id: block_1
-    display_title: Block
+    display_title: Bloc
     display_plugin: block
     position: 1
     display_options:

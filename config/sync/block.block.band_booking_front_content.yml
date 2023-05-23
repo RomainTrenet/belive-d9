@@ -1,0 +1,22 @@
+uuid: 54f7397a-916e-47e4-86d4-2845018b856b
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - band_booking_front
+_core:
+  default_config_hash: 80N66GdzEvwqi1m-_GZ-ulkk8AJG9beoXcZ4-pMVKjI
+id: band_booking_front_content
+theme: band_booking_front
+region: content
+weight: -4
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,18 @@
+band_booking_performance.create:
+  path: '/admin/performance/create'
+  defaults:
+    _title: 'Add a performance'
+    _controller: '\Drupal\band_booking_performance\Controller\BandBookingCreatePerformance::content'
+  requirements:
+    _permission: 'create performance content'
+  options:
+    _admin_route: TRUE
+band_booking_performance.reminder:
+  path: '/admin/performance/reminder'
+  defaults:
+    _title: 'Reminder'
+    _controller: '\Drupal\band_booking_performance\Controller\BandBookingPerformanceReminder::content'
+  requirements:
+    _permission: 'use band booking reminder'
+  options:
+    _admin_route: TRUE

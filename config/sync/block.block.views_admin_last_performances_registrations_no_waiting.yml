@@ -1,0 +1,31 @@
+uuid: 44ec74cd-7b97-4365-9488-e89f9804bdc1
+langcode: fr
+status: false
+dependencies:
+  config:
+    - views.view.band_booking_administration_last_performances_registrations
+  module:
+    - system
+    - views
+  theme:
+    - band_booking_admin
+_core:
+  default_config_hash: KPda75acu_a2POvzULiExydxfuyop2jv92hpGFSZrjY
+id: views_admin_last_performances_registrations_no_waiting
+theme: band_booking_admin
+region: header
+weight: 0
+provider: null
+plugin: 'views_block:band_booking_administration_last_performances_registrations-last_no_waiting_registrations'
+settings:
+  id: 'views_block:band_booking_administration_last_performances_registrations-last_no_waiting_registrations'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /admin/dashboard

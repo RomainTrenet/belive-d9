@@ -1,0 +1,104 @@
+# French translation of the Band Booking Registration module.
+msgid ""
+msgstr ""
+"Project-Id-Version: 9.1\n"
+"POT-Creation-Date: 2023-04-18 09:50+0200\n"
+"PO-Revision-Date: 2023-04-18 09:50+0200\n"
+"Last-Translator: Romain Trenet <romain.trenet@gmail.com>\n"
+"Language-Team: French <romain.trenet@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgctxt 'Register form'
+msgid "Register"
+msgstr "Inscrire"
+
+msgid "Artists registration"
+msgstr "Inscription des artistes"
+
+msgid "Choose roles whose users are allowed to be registered."
+msgstr "Choisissez des rôles dont les utilisateurs ont le droit d'être inscrits"
+
+msgid "The human-readable name of this registration type."
+msgstr "Nom lisible par l'homme de ce type d'enregistrement."
+
+msgid "Registration types"
+msgstr "Types d'inscription"
+
+msgid "Add registration type"
+msgstr "Ajouter un type d'inscription"
+
+msgid "Save registration type"
+msgstr "Enregistrer le type d'inscription"
+
+msgid "Delete registration type"
+msgstr "Supprimer le type d'inscription"
+
+msgid ""
+"No registration types available. <a "
+"href=\":link\">Add registration type</a>."
+msgstr ""
+"Pas de type d'inscription disponible. <a "
+"href=\":link\">Ajouter un type d'inscription</a>."
+
+msgid "Relaunch waiting registrations"
+msgstr "Relancer les inscriptions en attente"
+
+#TEMPORARY TODO DELETE after config for register block.
+msgid "Filter by position"
+msgstr "Filtrer par poste"
+msgid "Select the artists position to filter artists list."
+msgstr "Sélectionnez les postes des artistes pour filtrer la liste des artistes."
+msgid "Add artist"
+msgstr "Ajouter des artistes"
+msgid "Select the artists you want to add. The artists already added will not appear."
+msgstr "Sélectionnez les postes des artistes pour filtrer la liste des artistes."
+msgid "Unregister artists"
+msgstr "Désinscrire des artistes"
+msgid "Select the artists you want to unregister."
+msgstr "Sélectionnez les artistes que vous voulez inscrire"
+msgid "No position available."
+msgstr "Pas de position disponible."
+msgid "No artist to register."
+msgstr "Aucun artiste à inscrire."
+
+msgid "Unregistering artists"
+msgstr "Désinscription des artistes"
+msgid "Select the artists you want to unregister"
+msgstr "Sélectionnez les artistes que vous voulez désinscrire"
+msgid "Unregister"
+msgstr "Désinscrire"
+
+msgid "Users successfully registered : @users."
+msgstr "Utilisateurs inscrits avec succès : @users."
+msgid "No user to register."
+msgstr "Aucun utilisateur à inscrire."
+msgid "Users successfully unregistered : @users."
+msgstr "Utilisateurs désinscrits avec succès : @users."
+msgid "No user to unregister."
+msgstr "Aucun utilisateur à désinscrire."
+
+msgid "Artists already registered"
+msgstr "Artistes déjà inscrits"
+msgid "No artist already registered."
+msgstr "Aucun artiste déjà inscrit."
+msgid "No artist to unregister."
+msgstr "Aucun artiste à désinscrire."
+
+msgid "Registering : @users."
+msgstr "Inscription de : @users."
+
+msgid "Running Batch \"@id\" for user \"@user\""
+msgstr "Exécution du lot \"@id\" pour l'utilisateur \"@user\""
+
+msgid "User not registered : @users."
+msgid_plural "Users not registered : @users."
+msgstr[0] "Utilisateur non enregistré : @users."
+msgstr[1] "Utilisateurs non enregistrés : @users."
+
+msgid "User successfully registered : @users."
+msgid_plural "Users successfully registered : @users."
+msgstr[0] "Utilisateur enregistré avec succès : @users."
+msgstr[1] "Utilisateurs enregistrés avec succès : @users."

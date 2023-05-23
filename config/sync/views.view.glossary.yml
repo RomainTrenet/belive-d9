@@ -1,5 +1,5 @@
 uuid: 8b9753b5-1cd0-4760-947d-d073e221afc8
-langcode: en
+langcode: fr
 status: false
 dependencies:
   config:
@@ -12,7 +12,7 @@ _core:
 id: glossary
 label: Glossary
 module: node
-description: 'All content, by letter.'
+description: 'Tous les contenus, triés par lettre.'
 tag: default
 base_table: node_field_data
 base_field: nid
@@ -137,7 +137,7 @@ display:
           entity_type: node
           entity_field: changed
           plugin_id: field
-          label: 'Last update'
+          label: 'Dernière mise à jour'
           exclude: false
           alter:
             alter_text: false
@@ -204,7 +204,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Appliquer
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -378,7 +378,7 @@ display:
       tags: {  }
   attachment_1:
     id: attachment_1
-    display_title: Attachment
+    display_title: 'Élément joint'
     display_plugin: attachment
     position: 2
     display_options:

@@ -1,0 +1,69 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - band_booking_registration.registration_type.performance
+    - field.field.registration.performance.field_state
+  module:
+    - state_machine
+    - user
+_core:
+  default_config_hash: S3GRFV7VG4lFqw4_TQbn18v6QV_EAtjeXEzi1gV6LvM
+id: registration.performance.default
+targetEntityType: registration
+bundle: performance
+mode: default
+content:
+  created:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_state:
+    type: state_transition_form
+    label: above
+    settings:
+      require_confirmation: false
+      use_modal: false
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  nid:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  registration_user_id:
+    type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  status:
+    type: boolean
+    label: above
+    settings:
+      format: enabled-disabled
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  uid:
+    type: author
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 15
+    region: content
+hidden:
+  langcode: true

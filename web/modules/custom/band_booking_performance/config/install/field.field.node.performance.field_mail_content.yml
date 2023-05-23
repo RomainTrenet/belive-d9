@@ -1,0 +1,23 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mail_content
+    - node.type.performance
+  module:
+    - text
+id: node.performance.field_mail_content
+field_name: field_mail_content
+entity_type: node
+bundle: performance
+label: 'Contenu du mail'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Votre inscription à "[registration:nid:entity:title]" est en attente, pensez à donner votre disponibilité <a href="[registration:url]/edit">ici</a>.</p><p>Merci d''avance, [registration:uid:entity:display-name].</p>'
+    format: full_html
+default_value_callback: ''
+settings: {  }
+field_type: text_long

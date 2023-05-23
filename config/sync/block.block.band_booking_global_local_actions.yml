@@ -1,0 +1,20 @@
+uuid: 355412b5-7ccd-42bb-90ab-a8f4f646f258
+langcode: en
+status: true
+dependencies:
+  theme:
+    - band_booking_global
+_core:
+  default_config_hash: ik4PTMlBD0MWansnSMpSXq5SUlWRJ1IVVt6C7AIbQmc
+id: band_booking_global_local_actions
+theme: band_booking_global
+region: content
+weight: -10
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

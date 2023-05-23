@@ -1,0 +1,14 @@
+uuid: 05dbe85e-83c5-4c6b-9747-82b5c366bf18
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.manager
+  module:
+    - user
+id: user_add_role_action.manager
+label: 'Ajouter le rôle Gérant aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: manager

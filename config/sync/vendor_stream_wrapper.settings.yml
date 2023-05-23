@@ -1,0 +1,3 @@
+allowed_file_patterns:
+  - "philippemarcmeyer/vanillaselectbox/vanillaSelectBox.css\r"
+  - philippemarcmeyer/vanillaselectbox/vanillaSelectBox.js

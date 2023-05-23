@@ -1,0 +1,33 @@
+uuid: 8246706c-ca7f-4937-84c0-f901887a3641
+langcode: fr
+status: true
+dependencies:
+  module:
+    - language
+    - taxonomy
+id: artist_position_fr
+label: 'Poste de l''artiste FR'
+type: 'canonical_entities:taxonomy_term'
+pattern: 'artiste/[term:name]'
+selection_criteria:
+  8f1885fa-4939-4db3-b665-bae0e451b348:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 8f1885fa-4939-4db3-b665-bae0e451b348
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      position: position
+  26b6bb68-5925-42dc-8c1d-2b05ac0f0d5e:
+    id: language
+    negate: false
+    uuid: 26b6bb68-5925-42dc-8c1d-2b05ac0f0d5e
+    context_mapping:
+      language: 'taxonomy_term:langcode:language'
+    langcodes:
+      fr: fr
+selection_logic: and
+weight: -8
+relationships:
+  'taxonomy_term:langcode:language':
+    label: Langue

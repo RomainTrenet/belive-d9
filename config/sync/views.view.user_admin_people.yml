@@ -1,5 +1,5 @@
 uuid: ec8d3dc3-220b-47b9-a390-94d8ea058a35
-langcode: en
+langcode: fr
 status: true
 dependencies:
   module:
@@ -31,7 +31,7 @@ display:
           admin_label: ''
           entity_type: user
           plugin_id: user_bulk_form
-          label: 'Bulk update'
+          label: 'Mise à jour en masse'
           exclude: false
           alter:
             alter_text: false
@@ -188,7 +188,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: user_roles
-          label: Roles
+          label: Rôles
           exclude: false
           alter:
             alter_text: false
@@ -674,7 +674,7 @@ display:
           exposed: true
           expose:
             operator_id: permission_op
-            label: Permission
+            label: Droit
             description: ''
             use_operator: false
             operator: permission_op
@@ -905,7 +905,7 @@ display:
       path: admin/people/list
       menu:
         type: 'default tab'
-        title: List
+        title: Liste
         description: 'Find and manage people interacting with your site.'
         weight: -10
         menu_name: admin

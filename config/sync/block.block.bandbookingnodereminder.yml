@@ -1,0 +1,28 @@
+uuid: 6a53b57b-636f-45ef-9536-f8146ac550cf
+langcode: fr
+status: true
+dependencies:
+  module:
+    - band_booking_performance
+    - node
+  theme:
+    - band_booking_front
+id: bandbookingnodereminder
+theme: band_booking_front
+region: sidebar_first
+weight: -4
+provider: null
+plugin: node_reminder_block
+settings:
+  id: node_reminder_block
+  label: 'Relancer les inscriptions en attente'
+  label_display: visible
+  provider: band_booking_performance
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      performance: performance

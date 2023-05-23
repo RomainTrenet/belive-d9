@@ -1,12 +1,14 @@
 uuid: 4e4ea04d-4226-4dd9-9a67-84db7e8944f2
-langcode: en
+langcode: fr
 status: true
 dependencies:
   module:
     - editor
+    - linkit
+    - pathologic
 _core:
   default_config_hash: WNeK5FbcY8pXgEpbD_KgRzlF1-5PL3BJXwqaBctPTqw
-name: 'Full HTML'
+name: 'HTML complet'
 format: full_html
 weight: 2
 filters:
@@ -34,3 +36,42 @@ filters:
     status: true
     weight: 11
     settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: false
+    weight: -10
+    settings:
+      allowed_html: ''
+      filter_html_help: true
+      filter_html_nofollow: false
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: 0
+    settings:
+      filter_url_length: 72
+  filter_pathologic:
+    id: filter_pathologic
+    provider: pathologic
+    status: true
+    weight: 50
+    settings:
+      settings_source: local
+      local_settings:
+        protocol_style: full
+        local_paths: ''
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: 0
+    settings:
+      title: true

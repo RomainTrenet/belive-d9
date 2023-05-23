@@ -1,5 +1,5 @@
 uuid: 60b71917-bffc-4cc8-94dc-3f59031caced
-langcode: en
+langcode: fr
 status: true
 dependencies:
   config:
@@ -11,9 +11,9 @@ dependencies:
 _core:
   default_config_hash: XEFoA1ECJzKZN4VpnDqqRQO-oltuYdmjjvGEYDKs8uU
 id: frontpage
-label: Frontpage
+label: 'Page d''accueil'
 module: node
-description: 'All content promoted to the front page.'
+description: 'Tout le contenu promu en page d''accueil.'
 tag: default
 base_table: node_field_data
 base_field: nid
@@ -50,7 +50,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Appliquer
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -75,7 +75,7 @@ display:
           plugin_id: text_custom
           label: ''
           empty: true
-          content: 'No front page content has been created yet.<br/>Follow the <a target="_blank" href="https://www.drupal.org/docs/user_guide/en/index.html">User Guide</a> to start building your site.'
+          content: 'Aucun contenu de page d''accueil n''a été créé pour l''instant. Suivre le <a href="https://www.drupal.org/fr/docs/user_guide/fr/index.html">Guide utilisateur</a> pour démarrer la construction de votre site.'
           tokenize: false
         node_listing_empty:
           id: node_listing_empty
@@ -261,7 +261,7 @@ display:
       tags: {  }
   feed_1:
     id: feed_1
-    display_title: Feed
+    display_title: Flux
     display_plugin: feed
     position: 2
     display_options:

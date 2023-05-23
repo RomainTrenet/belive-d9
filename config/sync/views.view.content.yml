@@ -1,5 +1,5 @@
 uuid: a4ae3f7c-4222-40cc-b467-3151e4b09683
-langcode: en
+langcode: fr
 status: true
 dependencies:
   module:
@@ -8,9 +8,9 @@ dependencies:
 _core:
   default_config_hash: vBKWYGGDoAX-tFd1JErB8tZLSxx3lJ0foouVsgpcbB4
 id: content
-label: Content
+label: Contenu
 module: node
-description: 'Find and manage content.'
+description: 'Trouver et gérer le contenu.'
 tag: default
 base_table: node_field_data
 base_field: nid
@@ -21,7 +21,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Content
+      title: Contenu
       fields:
         node_bulk_form:
           id: node_bulk_form
@@ -163,8 +163,8 @@ display:
           type: boolean
           settings:
             format: custom
-            format_custom_false: Unpublished
-            format_custom_true: Published
+            format_custom_false: 'Non publié'
+            format_custom_true: Publié
         changed:
           id: changed
           table: node_field_data
@@ -269,7 +269,7 @@ display:
           field: area_text_custom
           plugin_id: text_custom
           empty: true
-          content: 'No content available.'
+          content: 'Aucun contenu disponible.'
       sorts: {  }
       arguments: {  }
       filters:
@@ -388,7 +388,7 @@ display:
               authenticated: authenticated
           is_grouped: true
           group_info:
-            label: 'Published status'
+            label: 'Statut de publication'
             description: ''
             identifier: status
             optional: true
@@ -399,11 +399,11 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: Published
+                title: Publié
                 operator: '='
                 value: '1'
               2:
-                title: Unpublished
+                title: 'Non publié'
                 operator: '='
                 value: '0'
         langcode:
@@ -593,15 +593,15 @@ display:
       path: admin/content/node
       menu:
         type: 'default tab'
-        title: Content
+        title: Contenu
         description: ''
         weight: -10
         menu_name: admin
         context: ''
       tab_options:
         type: normal
-        title: Content
-        description: 'Find and manage content'
+        title: Contenu
+        description: 'Trouver et gérer le contenu'
         weight: -10
         menu_name: admin
     cache_metadata:

@@ -1,0 +1,176 @@
+<?php
+
+/**
+ * @file
+ * Provides a registration entity type.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Template\Attribute;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function band_booking_registration_theme(): array
+{
+  return [
+    'registration' => [
+      'render element' => 'elements',
+    ],
+    'admin_registration_block' => [
+      'variables' => [
+        'register_form' => '',
+        'unregister_form' => '',
+      ],
+    ],
+    'selectusers_form' => [
+      'render element' => 'element',
+    ],
+    'selectusers_wrapper' => [
+      'render element' => 'element',
+    ]
+  ];
+}
+
+/**
+ * TODO improve vanilla-select-box to be called with big pipe elements.
+ * Implements hook_block_build_BASE_BLOCK_ID_alter().
+ */
+function band_booking_registration_block_build_registration_block_alter(array &$build, \Drupal\Core\Block\BlockPluginInterface $block) {
+  // Disable placeholdering of this block.
+  $build['#create_placeholder'] = FALSE;
+}
+
+/**
+ * Prepares variables for registration templates.
+ *
+ * Default template: registration.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the registration information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+/*
+function template_preprocess_registration(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+*/
+
+function template_preprocess_selectusers_form(array &$variables): void
+{
+  $element = $variables['element'];
+
+  $variables['attributes'] = [];
+  if (isset($element['#id'])) {
+    $variables['attributes']['id'] = $element['#id'];
+  }
+  if (!empty($element['#attributes']['class'])) {
+    $variables['attributes']['class'] = (array) $element['#attributes']['class'];
+  }
+
+  $variables['content'] = $element;
+}
+
+function template_preprocess_selectusers_wrapper(&$variables): void
+{
+  $element = $variables['element'];
+
+  if (!empty($element['#title'])) {
+    $variables['title'] = $element['#title'];
+  }
+
+  // Suppress error messages.
+  $variables['errors'] = NULL;
+
+  $variables['description'] = NULL;
+  if (!empty($element['#description'])) {
+    $description_attributes = [];
+    if (!empty($element['#id'])) {
+      $description_attributes['id'] = $element['#id'] . '--description';
+    }
+    $variables['description'] = $element['#description'];
+    $variables['description_attributes'] = new Attribute($description_attributes);
+  }
+
+  $variables['required'] = FALSE;
+  // For required selectusers fields 'form-required' & 'js-form-required' classes
+  // are appended to the label attributes.
+  if (!empty($element['#required'])) {
+    $variables['required'] = TRUE;
+  }
+  $variables['content'] = $element['#children'];
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function band_booking_registration_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish registrations.
+      $storage = \Drupal::entityTypeManager()->getStorage('registration');
+      $registration_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($registration_ids) as $registration) {
+        $registration->set('status', FALSE);
+        $registration->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize registrations.
+      $storage = \Drupal::entityTypeManager()->getStorage('registration');
+      $registration_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($registration_ids) as $registration) {
+        $registration->setOwnerId(0);
+        $registration->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function band_booking_registration_user_predelete(UserInterface $account) {
+  // Delete registrations.
+  $storage = \Drupal::entityTypeManager()->getStorage('registration');
+  $registration_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $registrations = $storage->loadMultiple($registration_ids);
+  $storage->delete($registrations);
+}
+
+/**
+ * @param $key
+ * @param $message
+ * @param $params
+ * @return void
+ */
+
+/**
+ * This is needed by RegistrationHelper::registrationSendMail.
+ * Implements hook_mail().
+ */
+function band_booking_registration_mail($key, &$message, $params):void {
+  switch ($key) {
+    case 'user_register':
+    case 'user_unregister':
+    case 'performance_reminder':
+      $message['subject'] = $params['title'];
+      $message['body'][] = $params['message'];
+      break;
+  }
+}

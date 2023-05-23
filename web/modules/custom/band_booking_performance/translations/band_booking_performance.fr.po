@@ -1,0 +1,93 @@
+# French translation of the Band Booking Performance module.
+msgid ""
+msgstr ""
+"Project-Id-Version: 9.1\n"
+"POT-Creation-Date: 2023-04-18 09:50+0200\n"
+"PO-Revision-Date: 2023-04-18 09:50+0200\n"
+"Last-Translator: Romain Trenet <romain.trenet@gmail.com>\n"
+"Language-Team: French <romain.trenet@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+# Performance list action
+msgid "Add a performance"
+msgstr "Ajouter une prestation"
+
+# Menu title
+msgid "Performances"
+msgstr "Prestations"
+
+msgid "List of performances"
+msgstr "Liste des prestations"
+
+msgid "Former performances"
+msgstr "Anciennes prestations"
+
+msgid "Reminder"
+msgstr "Relance"
+
+msgctxt 'Reminder form'
+msgid "Relaunch"
+msgstr "Relancer"
+
+msgid "\"@user\" on the \"@event\" performance"
+msgstr "\"@user\" pour la performance \"@event\""
+
+msgid "Running Batch \"@id\" for user \"@user\" on event \"@event\""
+msgstr "Exécution du lot \"@id\" pour l'utilisateur \"@user\" sur l'événement \"@event\""
+
+msgid "Reminders for event \"@node\""
+msgstr "Relances pour l'événement \"@node\""
+
+msgid "Reminders for event \"@node\""
+msgstr "Relances pour l'événement \"@node\""
+
+msgid "Sending a single reminder"
+msgid_plural "Sending @count reminders"
+msgstr[0] "Envoi d'une seule relance"
+msgstr[1] "Envoi de @count relances"
+
+msgid "No reminder to send."
+msgstr "Aucune relance à envoyer."
+
+msgid "One single successful reminder :"
+msgid_plural "@count successful reminders :"
+msgstr[0] "Une seule relance réussie :"
+msgstr[1] "@count relances réussies :"
+
+msgid "One single failed reminder :"
+msgid_plural "@count failed reminders :"
+msgstr[0] "Une seule relance échouée :"
+msgstr[1] "@count relances échouées :"
+
+msgid "Successful reminders :"
+msgstr "Aucune relance à envoyer."
+
+msgid "Successful reminder"
+msgstr "Relance réussie"
+
+msgid "Failed reminder"
+msgstr "Relance échouée"
+
+msgid "Relaunch pending registrations for today"
+msgstr "Relancez les inscriptions en attente pour aujourd'hui"
+
+msgid "This includes every performances, and takes into account the days scheduled for relaunch"
+msgstr "Cela comprend toutes les prestations, et prend en compte les jours prévus pour la relance"
+
+msgid "Relaunch pending registrations for all days"
+msgstr "Relancez les inscriptions en attente pour tous les jours"
+
+msgid "This includes every performances, and doesn\'t takes into account the days scheduled for relaunch"
+msgstr "Cela comprend toutes les prestations, et ne prend pas en compte les jours prévus pour la relance"
+
+msgid "Relaunch pending registrations for this performance"
+msgstr "Relancez les inscriptions en attente pour cette performance"
+
+msgid "This does not take into account scheduled reminders."
+msgstr "Cela ne tient pas compte des relances programmées."
+
+msgid "Place this block in a performance page"
+msgstr "Placez ce bloc dans une page de performance"

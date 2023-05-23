@@ -1,0 +1,32 @@
+# French translation of the Band Booking Artist module.
+msgid ""
+msgstr ""
+"Project-Id-Version: 9.1\n"
+"POT-Creation-Date: 2023-04-18 09:51+0200\n"
+"PO-Revision-Date: 2023-04-18 09:51+0200\n"
+"Last-Translator: Romain Trenet <romain.trenet@gmail.com>\n"
+"Language-Team: French <romain.trenet@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+# Artist list action
+msgid "Add an artist"
+msgstr "Ajouter un artiste"
+
+# Menu title
+msgid "Artists positions"
+msgstr "Postes des artistes"
+
+msgid "Artists"
+msgstr "Artistes"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "Positions"
+msgstr "Postes"
+
+msgid "List of artists"
+msgstr "Liste des artistes"

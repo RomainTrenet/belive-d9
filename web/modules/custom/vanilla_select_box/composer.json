@@ -1,0 +1,23 @@
+{
+    "name": "custom/vanilla_select_box",
+    "description": "Vanilla javascript library for creating select boxes",
+    "type": "drupal-custom-module",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "philippemarcmeyer/vanillaselectbox",
+                "version": "1.0.4",
+                "type":"javascript-library",
+                "source": {
+                    "url": "https://github.com/PhilippeMarcMeyer/vanillaSelectBox.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    ],
+    "require": {
+        "philippemarcmeyer/vanillaselectbox": "^1.0"
+    }
+}

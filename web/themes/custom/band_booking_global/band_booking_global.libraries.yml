@@ -1,0 +1,9 @@
+global-styling:
+  css:
+    component:
+      css/style.css: {}
+
+fontello:
+  css:
+    base:
+      fontello/css/fontello.css: {}

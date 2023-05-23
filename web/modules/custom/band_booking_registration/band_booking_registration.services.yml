@@ -1,0 +1,20 @@
+services:
+  plugin.manager.registration:
+    class: Drupal\band_booking_registration\RegistrationPluginManager
+    parent: default_plugin_manager
+  band_booking_registration.performance_guard:
+    class: Drupal\band_booking_registration\Guard\PerformanceGuard
+    arguments: ['@current_user', '@plugin.manager.workflow']
+    tags:
+      - { name: state_machine.guard, group: performance }
+  band_booking_registration.workflow.helper:
+    class: Drupal\band_booking_registration\WorkflowHelper
+    arguments: ['@current_user']
+  band_booking_registration.workflow_transition:
+    class: Drupal\band_booking_registration\EventSubscriber\WorkflowTransitionEventSubscriber
+    arguments: ['@band_booking_registration.workflow.helper']
+    tags:
+      - { name: event_subscriber }
+  band_booking_registration.registration_helper:
+    class: Drupal\band_booking_registration\RegistrationHelper
+    arguments: ['@entity_type.manager', '@string_translation', '@messenger']

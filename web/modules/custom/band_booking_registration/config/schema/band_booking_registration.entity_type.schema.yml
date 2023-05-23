@@ -1,0 +1,18 @@
+band_booking_registration.registration_type.*:
+  type: config_entity
+  label: 'Registration type config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    allowed_roles:
+      type: sequence
+      label: 'Roles allowed'
+      sequence:
+        type: string
+        label: 'Role'
+    uuid:
+      type: string
