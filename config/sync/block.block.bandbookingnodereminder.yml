@@ -1,25 +1,23 @@
-uuid: ab1931e3-3212-4154-959c-b10cd835daa7
+uuid: 6a53b57b-636f-45ef-9536-f8146ac550cf
 langcode: fr
 status: true
 dependencies:
   module:
-    - band_booking_registration
+    - band_booking_performance
     - node
   theme:
     - band_booking_front
-_core:
-  default_config_hash: N84sC_oG0IVVbeJzycl4TicutixOcGTTVvu8cwlto_A
-id: adminregistration
+id: bandbookingnodereminder
 theme: band_booking_front
 region: sidebar_first
-weight: -3
+weight: -4
 provider: null
-plugin: registration_block
+plugin: node_reminder_block
 settings:
-  id: registration_block
-  label: 'Gestion des artistes'
+  id: node_reminder_block
+  label: 'Relancer les inscriptions en attente'
   label_display: visible
-  provider: band_booking_registration
+  provider: band_booking_performance
 visibility:
   'entity_bundle:node':
     id: 'entity_bundle:node'
