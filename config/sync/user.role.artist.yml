@@ -14,3 +14,4 @@ permissions:
   - 'edit registration'
   - 'use accept transition in performance_default'
   - 'use refuse transition in performance_default'
+  - 'use standby transition in performance_default'

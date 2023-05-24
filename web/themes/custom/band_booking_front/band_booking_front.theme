@@ -1,0 +1,27 @@
+<?php
+
+function band_booking_front_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+  // For example : state_machine_transition_form_registration_field_state_120
+  if (str_starts_with($form_id, 'state_machine_transition_form_registration_field_state_')) {
+
+    if (isset($form['#attributes']['class'])) {
+      // Add custom css class.
+      $form['#attributes']['class'][] = 'bb-form-state';
+    }
+
+    // Fontello codes, don't use band_booking_front_preprocess_input,
+    // it breaks the submit action (send the last input like they have the same
+    // value)
+    if (isset($form['actions']['standby'])) {
+      $form['actions']['standby']['#value'] = '';
+    }
+    if (isset($form['actions']['accept'])) {
+      $form['actions']['accept']['#value'] = '';
+    }
+    if (isset($form['actions']['refuse'])) {
+      $form['actions']['refuse']['#value'] = '';
+    }
+  }
+}
+

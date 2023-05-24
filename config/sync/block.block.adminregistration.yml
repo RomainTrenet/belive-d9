@@ -11,7 +11,7 @@ _core:
   default_config_hash: N84sC_oG0IVVbeJzycl4TicutixOcGTTVvu8cwlto_A
 id: adminregistration
 theme: band_booking_front
-region: sidebar_first
+region: sidebar_second
 weight: -3
 provider: null
 plugin: registration_block

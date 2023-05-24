@@ -1,38 +1,44 @@
-/* Custom field confirmation */
-.field-name-field-confirm {
+/**
+  Custom field confirmation (performance node).
+  TODO : create a special node css.
+ */
+.field--name-field-confirmation {
   float: right;
   padding: 1em;
 }
-.field-name-field-confirm span.icon {
+.field--name-field-confirmation span.icon {
   font-size: 6em;
 }
-.field-name-field-confirm span.icon-perf-pending {
+.field--name-field-confirmation span.icon-perf-pending {
   color: #696969;
 }
-.field-name-field-confirm span.icon-perf-confirmed {
+.field--name-field-confirmation span.icon-perf-confirmed {
   color: #4d8f46;
 }
-.field-name-field-confirm span.icon-perf-canceled {
+.field--name-field-confirmation span.icon-perf-canceled {
   color: #df4530;
 }
 
+/* Global for node */
+.node hr { margin: 20px 0; }
 
-
-
-.node-performance .group-main .field {
+/**
+  Performance node. TODO : point full view mode.
+ */
+.node--type-performance .group-main {
+  min-height: 120px;
+}
+.node--type-performance .group-main .field {
   display: block;
 }
-
-.node-performance .group-main .field:after {
+.node--type-performance .group-main .field:after {
   display: none;
 }
-
-.node-performance .group-main .field-label,
-.node-performance .group-main .field-items {
-  float: none;
-  display: inline-block;
-}
-.node-performance .group-main .field-name-body {
+.node--type-performance .group-main .field--name-body {
   margin-top: 3em;
   margin-bottom: 3em;
 }
+
+/* User picture in node */
+.node .field--name-user-picture { float: left; width: 100px; margin: 0 20px 20px 0; }
+.node .field--name-user-picture img { width: 100%; height: auto; }

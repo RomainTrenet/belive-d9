@@ -3,6 +3,8 @@ status: true
 dependencies:
   module:
     - band_booking_registration
+_core:
+  default_config_hash: glCMSNkDHMkGl-qf_rIGsqTidZDNssFjAyNeNxR9pwc
 id: artist
 label: Artist
 weight: 4
@@ -11,3 +13,4 @@ permissions:
   - 'edit registration'
   - 'use accept transition in performance_default'
   - 'use refuse transition in performance_default'
+  - 'use standby transition in performance_default'

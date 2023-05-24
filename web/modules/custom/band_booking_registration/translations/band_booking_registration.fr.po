@@ -11,6 +11,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
+msgctxt 'workflow state'
+msgid "Waiting"
+msgstr "En attente"
+
+msgctxt 'workflow state'
+msgid "Accepted"
+msgstr "Acceptée"
+
+msgctxt 'workflow state'
+msgid "Refused"
+msgstr "Refusée"
+
+msgctxt 'workflow state'
+msgid "Standby"
+msgstr "Mettre en attente"
+
+msgctxt 'workflow state'
+msgid "Accept"
+msgstr "Accepter"
+
+msgctxt 'workflow state'
+msgid "Refuse"
+msgstr "Refuser"
+
 msgctxt 'Register form'
 msgid "Register"
 msgstr "Inscrire"
