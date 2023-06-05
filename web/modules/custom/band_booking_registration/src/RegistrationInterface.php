@@ -13,11 +13,4 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface RegistrationInterface extends ContentEntityInterface, EntityOwnerInterface, EntityChangedInterface {
 
-  /**
-   * Provide the number of calories per serving for the registration.
-   *
-   * @return float
-   *   The number of calories per serving.
-   */
-  public function calories();
 }

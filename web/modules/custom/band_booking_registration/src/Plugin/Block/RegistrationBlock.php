@@ -112,7 +112,7 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   protected function blockAccess(AccountInterface $account):AccessResult {
-    return AccessResult::allowedIfHasPermissions($account, ['create registration', 'delete registration']);
+    return AccessResult::allowedIfHasPermission($account, 'manage registration');
   }
 
   /**

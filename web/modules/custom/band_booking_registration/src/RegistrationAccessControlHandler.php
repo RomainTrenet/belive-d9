@@ -15,17 +15,28 @@ class RegistrationAccessControlHandler extends EntityAccessControlHandler {
   /**
    * {@inheritdoc}
    */
+  //protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
 
     switch ($operation) {
+      // TODO refuse access if event date has expired.
       case 'view':
         return AccessResult::allowedIfHasPermission($account, 'view registration');
 
       case 'update':
-        return AccessResult::allowedIfHasPermissions(
-          $account,
-          ['edit registration', 'administer registration'],
-          'OR',
+        // As we can't get field value from entity, we store entity as registration.
+        /** @var RegistrationInterface $registration */
+        $registration = $entity;
+        $registration_user_id = $registration->get('registration_user_id')->getValue();
+        $registration_user_id = $registration_user_id[0]['target_id'] ?? null;
+
+        // Check if account has permission, or if account is user registered.
+        return AccessResult::allowedIf(
+          (
+            $account->hasPermission('edit registration') ||
+            $account->hasPermission('administer registration')
+          ) ||
+          $registration_user_id == $account->id()
         );
 
       case 'delete':

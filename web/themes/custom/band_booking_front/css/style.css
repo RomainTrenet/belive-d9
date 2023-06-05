@@ -3,8 +3,8 @@
   TODO : create a special node css.
  */
 .field--name-field-confirmation {
-  float: right;
-  padding: 1em;
+  float: left;
+  padding: 2em 3em 2em 2em;
 }
 .field--name-field-confirmation span.icon {
   font-size: 6em;

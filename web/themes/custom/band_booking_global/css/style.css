@@ -44,7 +44,7 @@
 */
 
 /**********
-** Registrations list
+** Registrations list (both user and manager).
 **********/
 form.bb-form-state { display: inline-block; }
 form.bb-form-state input[type=submit] {
@@ -73,34 +73,20 @@ form.bb-form-state input[type=submit][data-drupal-selector=edit-refuse]:hover{ b
 
 
 /* ---------- Registrations ---------- */
-
+/* TODO clean */
 /* Ation différence entre regist-lst et regist-list * /
 .regist-lst tr a {
   font-size: 18px;
   font-weight: 300;
 }
 */
-
-/* The same for user registrations */
-.view.view-band-booking-front-registrations {
-  padding-bottom: 40px;
-}
-.view.view-band-booking-front-registrations table caption {
-  text-align: left;
-  font-size: 20px;
-  line-height: initial;
-  padding: 10px 0;
-  margin: 30px 0 10px;
-  font-family: "Open Sans", "Segoe UI", "Helvetica", sans-serif;
-}
-.view.view-band-booking-front-registrations table caption em {
-  font-size: 0.8em;
-}
 /*
 .view.view-id-registrations .determine-registration { display: inline-block; }
 */
 
-/*Global colors for registration admin list */
+/**********
+** Registrations list table (both user and manager).
+**********/
 .regist-list tr.waiting,
 tr.blv-evt-waiting { background: #e4e4e4; border-top: #fafafa 1px solid; }
 .regist-list tr.waiting:hover,
@@ -133,12 +119,9 @@ tr.blv-evt-accepted:first-child,
 .regist-list tr.refused:first-child,
 tr.blv-evt-refused:first-child { border-top: none; }
 
-/*
-.regist-lst .views-field-postpone-link{ width: 20%; text-align: right; }
-*/
-
-/* Admin full registration list VIEWS * /
-.adm-regist-lst table caption {
+/* Registration table caption, both user and manager */
+.view.view-band-booking-front-registrations table caption,
+.view-band-booking-administration-registrations table caption {
   text-align: left;
   font-size: 20px;
   line-height: initial;
@@ -146,46 +129,61 @@ tr.blv-evt-refused:first-child { border-top: none; }
   margin: 30px 0 10px;
   font-family: "Open Sans", "Segoe UI", "Helvetica", sans-serif;
 }
-.adm-regist-lst table td,
-.adm-regist-lst table th {
+
+/* Artist registrations views */
+.view.view-band-booking-front-registrations {
+  padding-bottom: 40px;
+}
+.view.view-band-booking-front-registrations table caption em {
+  font-size: 0.8em;
+}
+
+/* Manager registration views */
+.view-band-booking-administration-registrations table td,
+.view-band-booking-administration-registrations table th {
   vertical-align: middle;
   padding: 1.5em;
   border: 0;
   color: #000;
 }
 
-.adm-regist-lst .views-field-view-registration a { display: inline-block; margin-right: 10px; }
-.adm-regist-lst .views-field-state { width: 10%; }
-.adm-regist-lst .views-field-name { width: 20%; }
-.adm-regist-lst .views-field-title { width: 30%; }
-.adm-regist-lst .views-field-view-registration { width: 20%; }
-.adm-regist-lst .views-field-postpone-link{ width: 20%; text-align: right; }
-.adm-regist-lst .determine-registration { display: inline-block; }
-
-/* Columns for tables * /
+/* Columns for tables */
 @media only screen  and (min-width : 1224px) {
-  .adm-regist-lst table.views-table {
+  .view-band-booking-administration-registrations table.views-table {
     float: left;
     width: 48%;
     margin-right: 4%;
   }
-  .adm-regist-lst table.views-table:nth-child(2n) {
+  .view-band-booking-administration-registrations table.views-table:nth-child(2n) {
     margin-right: 0;
   }
-  .adm-regist-lst table.views-table:nth-child(2n+1) {
+  .view-band-booking-administration-registrations table.views-table:nth-child(2n+1) {
     clear: left;
   }
 }
 
-/*Admin last registrations* /
-.regist-list tr.odd,
-.regist-list tr.even { border: 1px solid black; border-left-width: 5px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; display: block; margin-top: 2px; }
-.regist-list tr:first-child { margin-top: 0; }
-.regist-list tr.waiting { border-color: #bebebe; }
-.regist-list tr.postponed { border-color: #f9b815; }
-.regist-list tr.accepted { border-color: #99c45c; }
-.regist-list tr.refused { border-color: #d76b60; }
+/*
+TODO clean, seems to be not used.
+.view-band-booking-administration-registrations .views-field-view-registration a { display: inline-block; margin-right: 10px; }
+.view-band-booking-administration-registrations .views-field-state { width: 10%; }
+.view-band-booking-administration-registrations .views-field-name { width: 20%; }
+.view-band-booking-administration-registrations .views-field-title { width: 30%; }
+.view-band-booking-administration-registrations .views-field-view-registration { width: 20%; }
+.view-band-booking-administration-registrations .views-field-postpone-link{ width: 20%; text-align: right; }
+.view-band-booking-administration-registrations .determine-registration { display: inline-block; }
+*/
 
+/* Admin dashboard last registrations*/
+#block-views-admin-last-performances-registrations-no-waiting {
+  padding-bottom: 40px;
+}
+.view-band-booking-administration-last-performances-registrations table {
+  margin-bottom: 40px;
+}
+.view-band-booking-administration-last-performances-registrations table caption a {
+  display: block;
+  margin-bottom: 10px;
+}
 
 
 /* Bootstrap Multiselect */

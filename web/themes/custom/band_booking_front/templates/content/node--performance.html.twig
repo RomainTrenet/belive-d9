@@ -89,7 +89,7 @@
   {% endif %}
   {{ title_suffix }}
 
-  <div{{ content_attributes.addClass('node__content') }}>
+  <div{{ content_attributes.addClass('node__content clearfix') }}>
     {{ content.field_confirmation }}
     <div class="group-main clearfix">
       {{ content.field_place }}
@@ -109,11 +109,5 @@
       </div>
     </footer>
   {% endif %}
-
-  {#
-  <?php print render($content['links']); ?>
-  <?php print render($content['comments']); ?>
-  #}
-
 
 </article>
