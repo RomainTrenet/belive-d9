@@ -7,15 +7,18 @@ namespace Drupal\band_booking_registration;
 use Drupal\band_booking_registration\Entity\Registration;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\node\Entity\Node;
+use Drupal\state_machine\Plugin\Field\FieldType\StateItem;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
+use Drupal\user\UserInterface;
 
 /**
  * Service to provide ....
@@ -119,6 +122,14 @@ class RegistrationHelper implements RegistrationHelperInterface {
     if (!empty($registeredUsersId)) {
       $query->condition('uid', $registeredUsersId, 'NOT IN');
     }
+    return $query->execute();
+  }
+
+  public function getPerformanceUserRegistrationsId(int $nid, int $uid): array {
+    // Get registrations for nid.
+    $query = \Drupal::entityQuery('registration');
+    $query->condition('nid', $nid);
+    $query->condition('registration_user_id', $uid);
     return $query->execute();
   }
 
@@ -436,6 +447,41 @@ class RegistrationHelper implements RegistrationHelperInterface {
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
 
     return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function alterRegistrationForm(array &$form, FormStateInterface &$form_state, Registration $registration): void {
+    /** @var UserInterface $owner */
+    $owner = $registration->getOwner();
+
+    if (isset($form['field_state'])) {
+      if (isset($form['field_state']['widget'])) {
+        $form['field_state']['widget']['#weight'] = 50;
+        unset($form['field_state']['widget']['#title']);
+      }
+
+      /** @var StateItem $field_state */
+      $field_state = $registration->get('field_state')->first();
+
+      $form['field_state']['desc'] = [
+        '#markup' => $this->t('%owner has added you to the performance.', ['%owner' => $owner->getAccountName()]),
+        '#weight' => 10,
+      ];
+      $form['field_state']['actual_state_title'] = [
+        '#markup' => '<h3>' . $this->t('Current status of your registration') . '</h3>',
+        '#weight' => 20,
+      ];
+      $form['field_state']['actual_state'] = [
+        '#markup' => $field_state->getLabel(),
+        '#weight' => 30,
+      ];
+      $form['field_state']['field_state_title'] = [
+        '#markup' => '<h3>' . $this->t('Modify your registration status') . '</h3>',
+        '#weight' => 40,
+      ];
+    }
   }
 
 }

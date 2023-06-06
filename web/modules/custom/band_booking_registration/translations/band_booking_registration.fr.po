@@ -126,3 +126,14 @@ msgid "User successfully registered : @users."
 msgid_plural "Users successfully registered : @users."
 msgstr[0] "Utilisateur enregistré avec succès : @users."
 msgstr[1] "Utilisateurs enregistrés avec succès : @users."
+
+msgid "%owner has added you to the performance."
+msgstr "%owner vous a ajouté à la prestation."
+
+msgid "Current status of your registration"
+msgstr "Statut actuel de votre inscription"
+
+msgid "Modify your registration status"
+msgstr "Modifier l'état de votre inscription"
+
+

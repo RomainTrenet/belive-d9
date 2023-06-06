@@ -8,7 +8,6 @@ namespace Drupal\band_booking_registration\Plugin\Block;
 use Drupal\band_booking_registration\RegistrationHelperInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\CurrentRouteMatch;
@@ -34,13 +33,6 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $formBuilder;
 
   /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
    * The current route match.
    *
    * @var \Drupal\Core\Routing\CurrentRouteMatch
@@ -58,8 +50,6 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
    * @param array $configuration
    * @param $plugin_id
    * @param $plugin_definition
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The form builder.
    * @param \Drupal\Core\Routing\CurrentRouteMatch $currentRouteMatch
@@ -71,13 +61,11 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    EntityTypeManagerInterface $entity_type_manager,
     FormBuilderInterface $form_builder,
     CurrentRouteMatch $currentRouteMatch,
     RegistrationHelperInterface $registrationHelper,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->entityTypeManager = $entity_type_manager;
     $this->formBuilder = $form_builder;
     $this->currentRouteMatch = $currentRouteMatch;
     $this->registrationHelper = $registrationHelper;
@@ -101,7 +89,6 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('entity_type.manager'),
       $container->get('form_builder'),
       $container->get('current_route_match'),
       $container->get('band_booking_registration.registration_helper')

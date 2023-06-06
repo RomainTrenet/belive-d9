@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\band_booking_registration\Guard\PublicationGuard.
+ * Contains \Drupal\band_booking_registration\Guard\PerformanceGuard.
  */
 
 namespace Drupal\band_booking_registration\Guard;
@@ -31,7 +31,7 @@ class PerformanceGuard implements GuardInterface {
   protected $workflowManager;
 
   /**
-   * Constructs a new PublicationGuard object.
+   * Constructs a new PerformanceGuard object.
    *
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   The current user..

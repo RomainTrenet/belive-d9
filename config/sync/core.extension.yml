@@ -60,6 +60,7 @@ module:
   path: 0
   path_alias: 0
   pathologic: 0
+  pluginformalter: 0
   profile: 0
   search: 0
   shortcut: 0

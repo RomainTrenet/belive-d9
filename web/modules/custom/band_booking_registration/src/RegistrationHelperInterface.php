@@ -3,6 +3,7 @@
 namespace Drupal\band_booking_registration;
 
 use Drupal\band_booking_registration\Entity\Registration;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
 
@@ -53,6 +54,19 @@ interface RegistrationHelperInterface {
    *   An array of users id.
    */
   public function getUnregisteredUsersId(array $allowed_roles, array $registeredUsersId): array;
+
+  /**
+   * Get list of registrations id for a user and a node.
+   *
+   * @param int $nid
+   *   The node id.
+   * @param int $uid
+   *   The user id.
+   *
+   * @return array
+   *   An array of registrations id.
+   */
+  public function getPerformanceUserRegistrationsId(int $nid, int $uid): array;
 
   /**
    * Get options list of users.
@@ -184,4 +198,18 @@ interface RegistrationHelperInterface {
    *  Array with sending mail result, 'to'.
    */
   public static function registrationSendMail(string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array;
+
+  /**
+   * Alter registration form.
+   *
+   * @param array $form
+   *   The registration form to alter.
+   * @param FormStateInterface $form_state
+   *   The form state.
+   * @param Registration $registration
+   *   The registration entity.
+   *
+   * @return void
+   */
+  public function alterRegistrationForm(array &$form, FormStateInterface &$form_state, Registration $registration): void;
 }

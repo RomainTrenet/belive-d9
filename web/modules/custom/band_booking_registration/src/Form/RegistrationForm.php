@@ -10,6 +10,18 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class RegistrationForm extends ContentEntityForm {
 
+  public function buildForm(array $form, FormStateInterface $form_state, $registration = null)
+  {
+    // Pass registration entity to storage (case of getForm).
+    if ($registration) {
+      $storage = $form_state->getStorage();
+      $storage['registration'] = $registration;
+      $form_state->setStorage($storage);
+    }
+
+    return parent::buildForm($form, $form_state);
+  }
+
   /**
    * {@inheritdoc}
    */
