@@ -9,8 +9,8 @@ dependencies:
     - band_booking_front
 id: statusregistration
 theme: band_booking_front
-region: content
-weight: 0
+region: sidebar_second
+weight: -6
 provider: null
 plugin: registration_status_block
 settings:

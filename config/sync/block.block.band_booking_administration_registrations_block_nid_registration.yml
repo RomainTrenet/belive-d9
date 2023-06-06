@@ -12,7 +12,7 @@ dependencies:
 id: band_booking_administration_registrations_block_nid_registration
 theme: band_booking_front
 region: content
-weight: 0
+weight: -5
 provider: null
 plugin: 'views_block:band_booking_administration_registrations-block_nid_registration'
 settings:

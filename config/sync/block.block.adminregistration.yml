@@ -12,7 +12,7 @@ _core:
 id: adminregistration
 theme: band_booking_front
 region: sidebar_second
-weight: -3
+weight: -4
 provider: null
 plugin: registration_block
 settings:
