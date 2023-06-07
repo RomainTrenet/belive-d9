@@ -59,6 +59,7 @@
         "drupal/override_node_options": "^2.7",
         "drupal/pathauto": "^1.11",
         "drupal/pathologic": "^1.0@alpha",
+        "drupal/pluginformalter": "^1.5",
         "drupal/profile": "^1.4",
         "drupal/state_machine": "^1.6",
         "drupal/super_login": "^2.1",

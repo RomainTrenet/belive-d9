@@ -10,7 +10,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\band_booking_registration\RegistrationInterface;
-use Drupal\registration\Entity\RegistrationTypeInterface;
 use Drupal\user\EntityOwnerTrait;
 
 /**
@@ -221,40 +220,6 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
       ->setDisplayConfigurable('view', TRUE);
 
     return $fields;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function description() {
-    // Retrieve the @description property from the annotation and return it.
-    return $this->pluginDefinition['description'];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function calories() {
-    // Retrieve the @calories property from the annotation and return it.
-    return (float) $this->pluginDefinition['calories'];
-  }
-
-  /**
-   * Place an order for a sandwich.
-   *
-   * This is just an example method on our plugin that we can call to get
-   * something back.
-   *
-   * @param array $extras
-   *   Array of extras to include with this order.
-   *
-   * @return string
-   *   A description of the sandwich ordered.
-   */
-  public function order(array $extras) {
-    $ingredients = ['ham, mustard', 'rocket', 'sun-dried tomatoes'];
-    $sandwich = array_merge($ingredients, $extras);
-    return 'You ordered an ' . implode(', ', $sandwich) . ' sandwich. Enjoy!';
   }
 
 }

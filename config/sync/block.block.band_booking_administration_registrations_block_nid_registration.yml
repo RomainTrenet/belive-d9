@@ -1,0 +1,33 @@
+uuid: 0d7ddc6b-0c2c-401f-b596-e1ba70681c3b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - views.view.band_booking_administration_registrations
+  module:
+    - node
+    - views
+  theme:
+    - band_booking_front
+id: band_booking_administration_registrations_block_nid_registration
+theme: band_booking_front
+region: content
+weight: -5
+provider: null
+plugin: 'views_block:band_booking_administration_registrations-block_nid_registration'
+settings:
+  id: 'views_block:band_booking_administration_registrations-block_nid_registration'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      performance: performance

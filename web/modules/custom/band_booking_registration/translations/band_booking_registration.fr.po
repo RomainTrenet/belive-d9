@@ -11,6 +11,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
+msgctxt 'workflow state'
+msgid "Waiting"
+msgstr "En attente"
+
+msgctxt 'workflow state'
+msgid "Accepted"
+msgstr "Acceptée"
+
+msgctxt 'workflow state'
+msgid "Refused"
+msgstr "Refusée"
+
+msgctxt 'workflow state'
+msgid "Standby"
+msgstr "Mettre en attente"
+
+msgctxt 'workflow state'
+msgid "Accept"
+msgstr "Accepter"
+
+msgctxt 'workflow state'
+msgid "Refuse"
+msgstr "Refuser"
+
 msgctxt 'Register form'
 msgid "Register"
 msgstr "Inscrire"
@@ -102,3 +126,14 @@ msgid "User successfully registered : @users."
 msgid_plural "Users successfully registered : @users."
 msgstr[0] "Utilisateur enregistré avec succès : @users."
 msgstr[1] "Utilisateurs enregistrés avec succès : @users."
+
+msgid "%owner has added you to the performance."
+msgstr "%owner vous a ajouté à la prestation."
+
+msgid "Current status of your registration"
+msgstr "Statut actuel de votre inscription"
+
+msgid "Modify your registration status"
+msgstr "Modifier l'état de votre inscription"
+
+

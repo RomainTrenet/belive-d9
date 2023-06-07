@@ -35,6 +35,17 @@ function band_booking_registration_theme(): array
 }
 
 /**
+ * Implements hook_entity_build
+ */
+function band_booking_registration_entity_type_build(array &$entity_types) {
+  // Add 'operation' for entityTypeManager->getFormObject.
+  $entity_types['registration']->setFormClass(
+    'band_booking_registration_status',
+    'Drupal\band_booking_registration\Form\RegistrationForm'
+  );
+}
+
+/**
  * TODO improve vanilla-select-box to be called with big pipe elements.
  * Implements hook_block_build_BASE_BLOCK_ID_alter().
  */

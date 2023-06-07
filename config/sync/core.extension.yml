@@ -16,8 +16,6 @@ module:
   band_booking_manager: 0
   band_booking_performance: 0
   band_booking_registration: 0
-  batch_example: 0
-  bb_dev: 0
   big_pipe: 0
   block: 0
   block_content: 0
@@ -62,6 +60,7 @@ module:
   path: 0
   path_alias: 0
   pathologic: 0
+  pluginformalter: 0
   profile: 0
   search: 0
   shortcut: 0
