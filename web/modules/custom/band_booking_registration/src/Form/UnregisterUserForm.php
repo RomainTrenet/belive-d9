@@ -72,7 +72,6 @@ class UnregisterUserForm extends FormBase {
       $remove_description = $arg['remove_description'] ?? [];
       // Prepare values for submit.
       $form_state->set('context_nid', $arg['context_nid'] ?? '');
-      $form_state->set('register_bundle', $arg['register_bundle'] ?? '');
 
       $form['unregister_user'] = [
         //'#type' => 'selectbox',
@@ -124,7 +123,8 @@ class UnregisterUserForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state, $arg = NULL) {
+    $context_nid = $form_state->get('context_nid');
     $rids = $form_state->getValue('unregister_user');
-    $this->registrationHelper->unRegisterUsers($rids);
+    $this->registrationHelper->unRegisterUsers($context_nid, $rids);
   }
 }

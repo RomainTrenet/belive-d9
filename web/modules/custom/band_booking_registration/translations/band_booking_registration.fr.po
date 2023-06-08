@@ -114,18 +114,31 @@ msgstr "Aucun artiste à désinscrire."
 msgid "Registering : @users."
 msgstr "Inscription de : @users."
 
+msgid "Unregistering : @users."
+msgstr "Désinscription de : @users."
+
 msgid "Running Batch \"@id\" for user \"@user\""
 msgstr "Exécution du lot \"@id\" pour l'utilisateur \"@user\""
+
+msgid "User successfully registered : @users."
+msgid_plural "Users successfully registered : @users."
+msgstr[0] "Utilisateur enregistré avec succès : @users."
+msgstr[1] "Utilisateurs enregistrés avec succès : @users."
+
+msgid "User successfully unregistered : @users."
+msgid_plural "Users successfully unregistered : @users."
+msgstr[0] "Utilisateur désinscrit avec succès : @users."
+msgstr[1] "Utilisateurs désinscrits avec succès : @users."
 
 msgid "User not registered : @users."
 msgid_plural "Users not registered : @users."
 msgstr[0] "Utilisateur non enregistré : @users."
 msgstr[1] "Utilisateurs non enregistrés : @users."
 
-msgid "User successfully registered : @users."
-msgid_plural "Users successfully registered : @users."
-msgstr[0] "Utilisateur enregistré avec succès : @users."
-msgstr[1] "Utilisateurs enregistrés avec succès : @users."
+msgid "User not unregistered : @users."
+msgid_plural "Users not unregistered : @users."
+msgstr[0] "Utilisateur non désinscrit : @users."
+msgstr[1] "Utilisateurs non désinscrits : @users."
 
 msgid "%owner has added you to the performance."
 msgstr "%owner vous a ajouté à la prestation."
@@ -135,5 +148,3 @@ msgstr "Statut actuel de votre inscription"
 
 msgid "Modify your registration status"
 msgstr "Modifier l'état de votre inscription"
-
-

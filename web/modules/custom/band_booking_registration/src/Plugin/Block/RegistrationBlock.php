@@ -154,7 +154,6 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
         'Drupal\band_booking_registration\Form\UnregisterUserForm',
         [
           'context_nid' => $nid,
-          'register_bundle' => $register_bundle,
           'registered_users_by_rid' => $registered_users_by_rid,
           // @todo get it from config.
           'form_title' => $this->t('Unregister artists'),
