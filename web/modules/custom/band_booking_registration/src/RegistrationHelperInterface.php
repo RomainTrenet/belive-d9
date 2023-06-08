@@ -133,17 +133,47 @@ interface RegistrationHelperInterface {
    * @param $operations
    * @return void
    */
-  public static function batchRegisterUsersFinished($success, $results, $operations): void;
+  public static function batchRegisterUnregisterUsersFinished($success, $results, $operations): void;
 
   /**
    * Unregister users.
    *
+   * @param int $nid
+   *   The node id to which unregister.
    * @param array $rids
    *   A list of registrations id.
    *
    * @return void
    */
-  public function unRegisterUsers(array $rids): void;
+  public function unRegisterUsers(int $nid, array $rids): void;
+
+  /**
+   * TODO improve
+   * Operation for unregister users batch.
+   *
+   * @param int $nid
+   *   The node id to which unregister.
+   * @param array $registrations
+   *   A list of registrations.
+   * @param $users
+   *   A list of loaded user.
+   * @param $operation_details
+   *   The operation details.
+   * @param $context
+   *   The batch context.
+   * @return void
+   */
+  public static function batchUnregisterUsersOperation(int $nid, array $registrations, array $users, $operation_details, &$context): void;
+
+  /**
+   * Batch 'finished' callback for unregister users batch.
+   *
+   * @param $success
+   * @param $results
+   * @param $operations
+   * @return void
+   */
+  //public static function batchUnregisterUsersFinished($success, $results, $operations): void;
 
   /**
    * Get default registration mail object for former content.
