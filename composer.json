@@ -46,6 +46,7 @@
         "drupal/core-project-message": "^9.3",
         "drupal/core-recommended": "^9.3",
         "drupal/editor_advanced_link": "^2.1",
+        "drupal/entity_events": "^2.0",
         "drupal/field_group": "^3.3",
         "drupal/front": "1.x-dev@dev",
         "drupal/libraries": "^4.0",

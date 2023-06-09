@@ -242,4 +242,28 @@ interface RegistrationHelperInterface {
    * @return void
    */
   public function alterRegistrationForm(array &$form, FormStateInterface &$form_state, Registration $registration): void;
+
+  /**
+   * Get refused message mail object for registration.
+   *
+   * @return string
+   */
+  public function getRegistrationRefusedBaseObject(): string;
+
+  /**
+   * Get refused message mail content for registration.
+   *
+   * @return string
+   */
+  public function getRegistrationRefusedBaseMessage(): string;
+
+  /**
+   * Send refused message for registration.
+   *
+   * @param Registration $registration
+   *   The registration entity.
+   *
+   * @return void
+   */
+  public function sendRegistrationRefusedMessage(Registration $registration): void;
 }
