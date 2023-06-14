@@ -22,3 +22,8 @@ services:
     class: Drupal\band_booking_registration\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+  band_booking_registration.subscriber:
+    class: Drupal\band_booking_registration\EventSubscriber\RegistrationSubscriber
+    arguments: ['@band_booking_registration.registration_helper']
+    tags:
+      - {name: event_subscriber}

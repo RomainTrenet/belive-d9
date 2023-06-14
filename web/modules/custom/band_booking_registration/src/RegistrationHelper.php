@@ -596,4 +596,38 @@ class RegistrationHelper implements RegistrationHelperInterface {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getRegistrationRefusedBaseObject(): string {
+    return '[site:name] | À propose de l\'évènement [registration:nid:entity:title]';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRegistrationRefusedBaseMessage(): string {
+    return '<p>Bonjour [registration:uid:entity:display-name],</p><p>[registration:registration_user_id:entity:display-name] a décliné l\'inscription à la prestation "[registration:nid:entity:title]".</p>';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function sendRegistrationRefusedMessage(Registration $registration): void {
+    $originalMessage = $this->getRegistrationRefusedBaseMessage();
+    $originalObject = $this->getRegistrationRefusedBaseObject();
+    // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
+    $module = 'band_booking_registration';
+    // For 'key' is used inside the hook_mail.
+    $key = 'registration_refuses';
+
+    $nid = $registration->get('nid')->first()->getValue()['target_id'];
+    $node = Node::load($nid);
+
+    $user = $registration->getOwner();
+    $foo = "libuy";
+    //$this->registrationSendMail()
+    $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $user, $originalObject, $originalMessage);
+  }
+
 }
