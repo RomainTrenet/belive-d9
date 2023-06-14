@@ -28,20 +28,6 @@ class RegistrationSubscriber extends EntityEventUpdateSubscriber {
     $this->registrationHelper = $registrationHelper;
   }
 
-  /**
-   * @param ContainerInterface $container
-   * @param array $configuration
-   * @param $plugin_id
-   * @param $plugin_definition
-   * @return RegistrationBlock
-   */
-  /*
-  public static function create(ContainerInterface $container): RegisterUserForm {
-    return new static(
-      $container->get('band_booking_registration.registration_helper')
-    );
-  }*/
-
   public function onEntityUpdate(EntityEvent $event) {
     /** @var Registration $registration */
     $registration = $event->getEntity();
