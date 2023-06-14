@@ -17,7 +17,7 @@ dependencies:
     - field.field.node.performance.field_unregister_mail_object
     - node.type.performance
   module:
-    - datetime
+    - addtocal
     - options
     - text
     - user
@@ -41,11 +41,16 @@ content:
     weight: 1
     region: content
   field_date:
-    type: datetime_default
+    type: addtocal_view
     label: inline
     settings:
       timezone_override: ''
-      format_type: long
+      date_format: 'l j F Y - H:i'
+      event_title: ''
+      location: ''
+      description: ''
+      past_events: false
+      separator: '-'
     third_party_settings: {  }
     weight: 3
     region: content
