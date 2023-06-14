@@ -30,12 +30,14 @@ class RegistrationSubscriber extends EntityEventUpdateSubscriber {
     $registration = $event->getEntity();
     // TODO : check the entity type. For the moment, entity get type wont get
     // "registration" but "performance".
-    if ($registration->hasField('field_state')) {
-      $state = $registration->get('field_state')->first()->getValue()['value'];
+    if ($registration->getEntityTypeId() == 'registration') {
+      if ($registration->hasField('field_state')) {
+        $state = $registration->get('field_state')->first()->getValue()['value'];
 
-      // Only if state is refused.
-      if ($state == 'refused') {
-        $this->registrationHelper->sendRegistrationRefusedMessage($registration);
+        // Only if state is refused.
+        if ($state == 'refused') {
+          $this->registrationHelper->sendRegistrationRefusedMessage($registration);
+        }
       }
     }
 

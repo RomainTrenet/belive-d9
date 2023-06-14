@@ -34,6 +34,7 @@
     "require": {
         "composer/installers": "^1.9",
         "custom/vanilla_select_box": "dev-main",
+        "drupal/addtocal": "^2.0@beta",
         "drupal/adminimal_admin_toolbar": "^1.11",
         "drupal/adminimal_theme": "^1.6",
         "drupal/administerusersbyrole": "^3.2",
