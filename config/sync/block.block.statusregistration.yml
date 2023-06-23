@@ -1,0 +1,28 @@
+uuid: 0c13c468-8cae-4bd0-9994-afe8f307ad9c
+langcode: fr
+status: true
+dependencies:
+  module:
+    - band_booking_registration
+    - node
+  theme:
+    - band_booking_front
+id: statusregistration
+theme: band_booking_front
+region: sidebar_second
+weight: -6
+provider: null
+plugin: registration_status_block
+settings:
+  id: registration_status_block
+  label: 'Inscription à la prestation'
+  label_display: visible
+  provider: band_booking_registration
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      performance: performance

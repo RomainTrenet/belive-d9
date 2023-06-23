@@ -1,6 +1,6 @@
 uuid: 44ec74cd-7b97-4365-9488-e89f9804bdc1
 langcode: fr
-status: false
+status: true
 dependencies:
   config:
     - views.view.band_booking_administration_last_performances_registrations
@@ -13,7 +13,7 @@ _core:
   default_config_hash: KPda75acu_a2POvzULiExydxfuyop2jv92hpGFSZrjY
 id: views_admin_last_performances_registrations_no_waiting
 theme: band_booking_admin
-region: header
+region: sidebar_second
 weight: 0
 provider: null
 plugin: 'views_block:band_booking_administration_last_performances_registrations-last_no_waiting_registrations'
@@ -28,4 +28,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: /admin/dashboard
+    pages: /admin/band_booking_dashboard

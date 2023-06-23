@@ -7,15 +7,18 @@ namespace Drupal\band_booking_registration;
 use Drupal\band_booking_registration\Entity\Registration;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\node\Entity\Node;
+use Drupal\state_machine\Plugin\Field\FieldType\StateItem;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
+use Drupal\user\UserInterface;
 
 /**
  * Service to provide ....
@@ -122,6 +125,14 @@ class RegistrationHelper implements RegistrationHelperInterface {
     return $query->execute();
   }
 
+  public function getPerformanceUserRegistrationsId(int $nid, int $uid): array {
+    // Get registrations for nid.
+    $query = \Drupal::entityQuery('registration');
+    $query->condition('nid', $nid);
+    $query->condition('registration_user_id', $uid);
+    return $query->execute();
+  }
+
   /**
    * {@inheritdoc}
    */
@@ -154,6 +165,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
    */
   public function registerUsers(int $nid, string $registration_bundle, array $uids): void {
     if (!empty($uids)) {
+      // TODO : we should get user names from submit + we should load users inside operations.
       $users = User::loadMultiple($uids);
 
       // Prepare title.
@@ -162,10 +174,11 @@ class RegistrationHelper implements RegistrationHelperInterface {
         $usersName[] = $user->getAccountName();
       }
 
+      // TODO if op = register, title = ; operations; finished.
       $batch = [
         'title' => $this->t('Registering : @users.', ['@users' => implode(', ', $usersName)]),
         'operations' => [],
-        'finished' => '\Drupal\band_booking_registration\RegistrationHelper::batchRegisterUsersFinished',
+        'finished' => '\Drupal\band_booking_registration\RegistrationHelper::batchRegisterUnregisterUsersFinished',
       ];
 
       // Only one operation, but loop inside operation with limit.
@@ -183,6 +196,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
       batch_set($batch);
     }
     else {
+      // TODO if op = register.
       $message = $this->t('No user to register.');
       $this->messenger->addMessage($message, 'status', TRUE);
     }
@@ -234,15 +248,16 @@ class RegistrationHelper implements RegistrationHelperInterface {
       $originalMessage = $originalMessage[0]['value'] ?? RegistrationHelper::getDefaultRegistrationMailMessage();
 
       // For 'key' see band_booking_registration_mail.
-      //RegistrationHelper::batchRegisterSendMail($node, $registrationEntity, $users[$uid]);
       $module = 'band_booking_registration';
       $key = 'user_register';
+      // TODO get result from mail.
       $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registrationEntity, $users[$uid], $originalObject, $originalMessage);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
+        'operation' => 'register',
+        // TODO pass mail result into status.
         'status' => $registration ? 'status' : 'error',
-        // TODO pass mail result.
         'account_name' => $users[$uid]->getAccountName()
       ];
 
@@ -266,9 +281,12 @@ class RegistrationHelper implements RegistrationHelperInterface {
   /**
    * {@inheritdoc}
    */
-  public static function batchRegisterUsersFinished($success, $results, $operations):void {
+  public static function batchRegisterUnregisterUsersFinished($success, $results, $operations):void {
     $translation = \Drupal::translation();
     $messenger = \Drupal::messenger();
+
+    // Register or unregister ?
+    $op = $results[0]['operation'];
 
     if ($success) {
       // Prepare users vs status.
@@ -289,22 +307,38 @@ class RegistrationHelper implements RegistrationHelperInterface {
       // Print results.
       $amountSuccessful = count($successRegistrations);
       if ($amountSuccessful >= 1) {
-        $message = $translation->formatPlural(
-          $amountSuccessful,
-          'User successfully registered : @users.', 'Users successfully registered : @users.',
-          ['@users' => implode(', ', $successRegistrations)],
-        );
+        if ($op == 'register') {
+          $message = $translation->formatPlural(
+            $amountSuccessful,
+            'User successfully registered : @users.', 'Users successfully registered : @users.',
+            ['@users' => implode(', ', $successRegistrations)],
+          );
+        } else {
+          $message = $translation->formatPlural(
+            $amountSuccessful,
+            'User successfully unregistered : @users.', 'Users successfully unregistered : @users.',
+            ['@users' => implode(', ', $successRegistrations)],
+          );
+        }
         $messenger->addMessage($message, 'status', TRUE);
       }
 
       // Errors messages.
       $amountFailed = count($errorRegistrations);
       if ($amountFailed >= 1) {
-        $message = $translation->formatPlural(
-          $amountFailed,
-          'User not registered : @users.', 'Users not registered : @users.',
-          ['@users' => implode(', ', $errorRegistrations)],
-        );
+        if ($op == 'register') {
+          $message = $translation->formatPlural(
+            $amountFailed,
+            'User not registered : @users.', 'Users not registered : @users.',
+            ['@users' => implode(', ', $errorRegistrations)],
+          );
+        } else {
+          $message = $translation->formatPlural(
+            $amountFailed,
+            'User not registered : @users.', 'Users not registered : @users.',
+            ['@users' => implode(', ', $errorRegistrations)],
+          );
+        }
         $messenger->addMessage($message, 'error', TRUE);
       }
     }
@@ -327,17 +361,17 @@ class RegistrationHelper implements RegistrationHelperInterface {
    * {@inheritdoc}
    * @throws EntityStorageException
    */
-  public function unRegisterUsers(array $rids): void {
+  public function unRegisterUsers(int $nid, array $rids): void {
+    // TODO : we should get user names from submit + we should load users and registrations inside operations.
     if (!empty($rids)) {
       $storage = $this->entityTypeManager->getStorage('registration');
-      $registrations = $storage->loadMultiple($rids);
-      $storage->delete($registrations);
+      $tempRegistrations = $storage->loadMultiple($rids);
+      $registrations = [];
 
-      // TODO : improve and ensure entity is deleted before sending messages.
-
-      // Get list of user id and load users.
+      // Get list of user id and load users + build array of registration.
       $usersId = [];
-      foreach ($registrations as $registration) {
+      foreach ($tempRegistrations as $registration) {
+        $registrations[] = $registration;
         $value = $registration->get('registration_user_id')->getValue();
         if (isset($value[0]['target_id'])) {
           $usersId[$registration->id()] = $value[0]['target_id'];
@@ -352,13 +386,102 @@ class RegistrationHelper implements RegistrationHelperInterface {
         $usernames[] = $users[$uid]->getAccountName();
       }
 
-      // Message.
-      $message = $this->t('Users successfully unregistered : @users.', array('@users' => implode(', ', $usernames)));
-      $this->messenger->addMessage($message, 'status', TRUE);
+      $batch = [
+        'title' => $this->t('Unregistering : @users.', ['@users' => implode(', ', $usernames)]),
+        'operations' => [],
+        'finished' => '\Drupal\band_booking_registration\RegistrationHelper::batchRegisterUnregisterUsersFinished',
+      ];
+
+      // Only one operation, but loop inside operation with limit.
+      $batch['operations'][] = [
+        '\Drupal\band_booking_registration\RegistrationHelper::batchUnregisterUsersOperation',
+        [
+          $nid,
+          $registrations,
+          $users,
+          $this->t('Unregistering : @users.', ['@users' => implode(', ', $usernames)]),
+        ],
+      ];
+
+      batch_set($batch);
     }
     else {
       $message = $this->t('No user to unregister.');
       $this->messenger->addMessage($message, 'status', TRUE);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function batchUnregisterUsersOperation(int $nid, array $registrations, array $users, $operation_details, &$context): void {
+    if (empty($context['sandbox'])) {
+      $context['sandbox'] = [];
+      $context['sandbox']['progress'] = 0;
+      $context['sandbox']['current_node'] = 0;
+      $context['sandbox']['max'] = count($registrations);
+    }
+
+    // Process in groups of 2 (arbitrary value).
+    $limit = 1; // "1" for group of 2 as it begins with 0.
+
+    // Retrieve the next group.
+    $result = range($context['sandbox']['current_node'], $context['sandbox']['current_node'] + $limit);
+
+    foreach ($result as $row) {
+      // Do not go above maximum results.
+      if ($row > $context['sandbox']['max'] - 1) {
+        return;
+      }
+
+      /** @var RegistrationInterface $registration */
+      $registration = $registrations[$row];
+      // TODO check if it crash without content.
+      $uid = $registration->get('registration_user_id')->first()->getValue()['target_id'];
+
+      // TODO should create array of registrations and node according to limit amount, and then delete and send mail.
+      // Delete registration.
+      $storage = \Drupal::entityTypeManager()->getStorage('registration');
+      $storage->delete([$registration]);
+      $deleted = TRUE;
+        // TODO : improve and ensure entity is deleted before sending messages.
+
+      // Send mail.
+      $node = Node::load($nid);
+      $originalObject = $node->get('field_unregister_mail_object')->getValue();
+      $originalMessage = $node->get('field_unregister_mail_content')->getValue();
+      // Ensure message is not empty, for older content. Could be deleted.
+      $originalObject = $originalObject[0]['value'] ?? RegistrationHelper::getDefaultUnregistrationMailObject();
+      $originalMessage = $originalMessage[0]['value'] ?? RegistrationHelper::getDefaultUnregistrationMailMessage();
+
+      // For 'key' see band_booking_registration_mail.
+      //RegistrationHelper::batchRegisterSendMail($node, $registrationEntity, $users[$uid]);
+      $module = 'band_booking_registration';
+      $key = 'user_unregister';
+      $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $users[$uid], $originalObject, $originalMessage);
+
+      // Results passed to the 'finished' callback.
+      $context['results'][] = [
+        'operation' => 'unregister',
+        'status' => $deleted ? 'status' : 'error',
+        // TODO pass mail result.
+        'account_name' => $users[$uid]->getAccountName()
+      ];
+
+      // Update our progress information.
+      $context['sandbox']['progress']++;
+      $context['sandbox']['current_node'] = $row + 1;
+      $context['message'] = t('Running Batch "@id" for user "@user"',
+        [
+          '@id' => $row,
+          '@user' => $users[$uid]->getAccountName(),
+        ]
+      );
+    }
+
+    // Finished ? TODO check if correctly used, works perfectly for the moment.
+    if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+      $context['finished'] = ($context['sandbox']['progress'] > $context['sandbox']['max']);
     }
   }
 
@@ -436,6 +559,75 @@ class RegistrationHelper implements RegistrationHelperInterface {
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
 
     return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function alterRegistrationForm(array &$form, FormStateInterface &$form_state, Registration $registration): void {
+    /** @var UserInterface $owner */
+    $owner = $registration->getOwner();
+
+    if (isset($form['field_state'])) {
+      if (isset($form['field_state']['widget'])) {
+        $form['field_state']['widget']['#weight'] = 50;
+        unset($form['field_state']['widget']['#title']);
+      }
+
+      /** @var StateItem $field_state */
+      $field_state = $registration->get('field_state')->first();
+
+      $form['field_state']['desc'] = [
+        '#markup' => $this->t('%owner has added you to the performance.', ['%owner' => $owner->getAccountName()]),
+        '#weight' => 10,
+      ];
+      $form['field_state']['actual_state_title'] = [
+        '#markup' => '<h3>' . $this->t('Current status of your registration') . '</h3>',
+        '#weight' => 20,
+      ];
+      $form['field_state']['actual_state'] = [
+        '#markup' => $field_state->getLabel(),
+        '#weight' => 30,
+      ];
+      $form['field_state']['field_state_title'] = [
+        '#markup' => '<h3>' . $this->t('Modify your registration status') . '</h3>',
+        '#weight' => 40,
+      ];
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRegistrationRefusedBaseObject(): string {
+    return '[site:name] | À propose de l\'évènement [registration:nid:entity:title]';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRegistrationRefusedBaseMessage(): string {
+    return '<p>Bonjour [registration:uid:entity:display-name],</p><p>[registration:registration_user_id:entity:display-name] a décliné l\'inscription à la prestation "[registration:nid:entity:title]".</p>';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function sendRegistrationRefusedMessage(Registration $registration): void {
+    $originalMessage = $this->getRegistrationRefusedBaseMessage();
+    $originalObject = $this->getRegistrationRefusedBaseObject();
+    // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
+    $module = 'band_booking_registration';
+    // For 'key' is used inside the hook_mail.
+    $key = 'registration_refuses';
+
+    $nid = $registration->get('nid')->first()->getValue()['target_id'];
+    $node = Node::load($nid);
+
+    $user = $registration->getOwner();
+    $foo = "libuy";
+    //$this->registrationSendMail()
+    $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $user, $originalObject, $originalMessage);
   }
 
 }

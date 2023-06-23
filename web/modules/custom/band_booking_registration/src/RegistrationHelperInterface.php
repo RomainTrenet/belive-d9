@@ -3,6 +3,7 @@
 namespace Drupal\band_booking_registration;
 
 use Drupal\band_booking_registration\Entity\Registration;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
 
@@ -53,6 +54,19 @@ interface RegistrationHelperInterface {
    *   An array of users id.
    */
   public function getUnregisteredUsersId(array $allowed_roles, array $registeredUsersId): array;
+
+  /**
+   * Get list of registrations id for a user and a node.
+   *
+   * @param int $nid
+   *   The node id.
+   * @param int $uid
+   *   The user id.
+   *
+   * @return array
+   *   An array of registrations id.
+   */
+  public function getPerformanceUserRegistrationsId(int $nid, int $uid): array;
 
   /**
    * Get options list of users.
@@ -119,17 +133,47 @@ interface RegistrationHelperInterface {
    * @param $operations
    * @return void
    */
-  public static function batchRegisterUsersFinished($success, $results, $operations): void;
+  public static function batchRegisterUnregisterUsersFinished($success, $results, $operations): void;
 
   /**
    * Unregister users.
    *
+   * @param int $nid
+   *   The node id to which unregister.
    * @param array $rids
    *   A list of registrations id.
    *
    * @return void
    */
-  public function unRegisterUsers(array $rids): void;
+  public function unRegisterUsers(int $nid, array $rids): void;
+
+  /**
+   * TODO improve
+   * Operation for unregister users batch.
+   *
+   * @param int $nid
+   *   The node id to which unregister.
+   * @param array $registrations
+   *   A list of registrations.
+   * @param $users
+   *   A list of loaded user.
+   * @param $operation_details
+   *   The operation details.
+   * @param $context
+   *   The batch context.
+   * @return void
+   */
+  public static function batchUnregisterUsersOperation(int $nid, array $registrations, array $users, $operation_details, &$context): void;
+
+  /**
+   * Batch 'finished' callback for unregister users batch.
+   *
+   * @param $success
+   * @param $results
+   * @param $operations
+   * @return void
+   */
+  //public static function batchUnregisterUsersFinished($success, $results, $operations): void;
 
   /**
    * Get default registration mail object for former content.
@@ -184,4 +228,42 @@ interface RegistrationHelperInterface {
    *  Array with sending mail result, 'to'.
    */
   public static function registrationSendMail(string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array;
+
+  /**
+   * Alter registration form.
+   *
+   * @param array $form
+   *   The registration form to alter.
+   * @param FormStateInterface $form_state
+   *   The form state.
+   * @param Registration $registration
+   *   The registration entity.
+   *
+   * @return void
+   */
+  public function alterRegistrationForm(array &$form, FormStateInterface &$form_state, Registration $registration): void;
+
+  /**
+   * Get refused message mail object for registration.
+   *
+   * @return string
+   */
+  public function getRegistrationRefusedBaseObject(): string;
+
+  /**
+   * Get refused message mail content for registration.
+   *
+   * @return string
+   */
+  public function getRegistrationRefusedBaseMessage(): string;
+
+  /**
+   * Send refused message for registration.
+   *
+   * @param Registration $registration
+   *   The registration entity.
+   *
+   * @return void
+   */
+  public function sendRegistrationRefusedMessage(Registration $registration): void;
 }

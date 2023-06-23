@@ -15,10 +15,7 @@ regions:
   breadcrumb: Breadcrumb
   highlighted: Highlighted
   help: 'Help'
-  menu: 'Menu'
-  content_before: 'Before Content'
   content: 'Content'
-  content_after: 'After Content'
   page_top: 'Page top'
   page_bottom: 'Page bottom'
   sidebar_first: 'First sidebar'

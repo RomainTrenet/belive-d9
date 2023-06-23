@@ -91,3 +91,9 @@ msgstr "Cela ne tient pas compte des relances programmées."
 
 msgid "Place this block in a performance page"
 msgstr "Placez ce bloc dans une page de performance"
+
+msgid "Edit your registration to %performance"
+msgstr "Editez votre inscription à %performance"
+
+msgid "Edit your registration"
+msgstr "Editez votre inscription"
