@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - band_booking_registration
+    - toolbar
 _core:
   default_config_hash: glCMSNkDHMkGl-qf_rIGsqTidZDNssFjAyNeNxR9pwc
 id: artist
@@ -11,5 +12,6 @@ label: Artist
 weight: 4
 is_admin: null
 permissions:
+  - 'access toolbar'
   - 'use accept transition in performance_default'
   - 'use refuse transition in performance_default'

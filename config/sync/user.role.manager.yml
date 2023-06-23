@@ -12,6 +12,7 @@ dependencies:
     - band_booking_performance
     - band_booking_registration
     - contextual
+    - field_permissions
     - filter
     - mobile_number
     - node
@@ -44,6 +45,7 @@ permissions:
   - 'delete registration'
   - 'delete terms in position'
   - 'edit any performance content'
+  - 'edit field_position'
   - 'edit own performance content'
   - 'edit registration'
   - 'edit terms in position'
@@ -59,6 +61,7 @@ permissions:
   - 'use standby transition in performance_default'
   - 'use text format full_html'
   - 'view any profil_artist profile'
+  - 'view field_position'
   - 'view own profil_artist profile'
   - 'view own unpublished content'
   - 'view registration'

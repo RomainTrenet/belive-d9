@@ -7,7 +7,8 @@ dependencies:
     - field.storage.node.field_date
     - field.storage.node.field_place
     - field.storage.registration.field_state
-    - system.menu.main
+    - system.menu.admin
+    - user.role.artist
   module:
     - band_booking_registration
     - datetime
@@ -543,8 +544,10 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            artist: artist
       cache:
         type: tag
         options: {  }
@@ -887,6 +890,7 @@ display:
         - url
         - url.query_args
         - user
+        - user.roles
       tags:
         - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_place'
@@ -1551,6 +1555,7 @@ display:
         - url
         - url.query_args
         - user
+        - user.roles
       tags:
         - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_place'
@@ -1561,17 +1566,19 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      defaults:
+        access: true
       display_description: ''
       display_extenders: {  }
       path: my-performances
       menu:
         type: normal
-        title: 'Mes inscriptions'
+        title: 'Mes prestations'
         description: ''
-        weight: 0
+        weight: -89
         expanded: false
-        menu_name: main
-        parent: ''
+        menu_name: admin
+        parent: system.admin
         context: '0'
     cache_metadata:
       max-age: -1
@@ -1581,6 +1588,7 @@ display:
         - url
         - url.query_args
         - user
+        - user.roles
       tags:
         - 'config:field.storage.node.field_date'
         - 'config:field.storage.node.field_place'
