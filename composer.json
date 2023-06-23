@@ -49,6 +49,7 @@
         "drupal/editor_advanced_link": "^2.1",
         "drupal/entity_events": "^2.0",
         "drupal/field_group": "^3.3",
+        "drupal/field_permissions": "^1.2",
         "drupal/front": "1.x-dev@dev",
         "drupal/libraries": "^4.0",
         "drupal/linkit": "^6.0@beta",

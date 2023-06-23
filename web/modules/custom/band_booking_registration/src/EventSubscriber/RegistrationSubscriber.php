@@ -28,8 +28,6 @@ class RegistrationSubscriber extends EntityEventUpdateSubscriber {
   public function onEntityUpdate(EntityEvent $event) {
     /** @var Registration $registration */
     $registration = $event->getEntity();
-    // TODO : check the entity type. For the moment, entity get type wont get
-    // "registration" but "performance".
     if ($registration->getEntityTypeId() == 'registration') {
       if ($registration->hasField('field_state')) {
         $state = $registration->get('field_state')->first()->getValue()['value'];

@@ -9,7 +9,7 @@ _core:
 id: band_booking_front_page_title
 theme: band_booking_front
 region: header
-weight: -30
+weight: -5
 provider: null
 plugin: page_title_block
 settings:
