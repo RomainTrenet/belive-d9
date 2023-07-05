@@ -31,16 +31,20 @@ module:
   contextual: 0
   datetime: 0
   dblog: 0
+  devel: 0
   dynamic_page_cache: 0
   editor: 0
   editor_advanced_link: 0
   entity: 0
   entity_events: 0
+  examples: 0
   field: 0
   field_group: 0
   field_permissions: 0
+  field_ui: 0
   file: 0
   filter: 0
+  form_api_example: 0
   front_page: 0
   help: 0
   history: 0
@@ -52,9 +56,11 @@ module:
   logintoboggan: 0
   mailsystem: 0
   menu_link_content: 0
+  menu_ui: 0
   metatag: 0
   mimemail: 0
   mobile_number: 0
+  module_filter: 0
   mysql: 0
   node: 0
   options: 0
@@ -63,6 +69,7 @@ module:
   path: 0
   path_alias: 0
   pathologic: 0
+  plugin_type_example: 0
   pluginformalter: 0
   profile: 0
   search: 0
@@ -79,6 +86,8 @@ module:
   user: 0
   vanilla_select_box: 0
   vendor_stream_wrapper: 0
+  views_ui: 0
+  webprofiler: 0
   workflows: 0
   pathauto: 1
   views: 10

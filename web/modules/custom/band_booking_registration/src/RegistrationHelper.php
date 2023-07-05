@@ -600,7 +600,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
    * {@inheritdoc}
    */
   public function getRegistrationRefusedBaseObject(): string {
-    return '[site:name] | À propose de l\'évènement [registration:nid:entity:title]';
+    return '[site:name] | À propos de l\'évènement [registration:nid:entity:title]';
   }
 
   /**
