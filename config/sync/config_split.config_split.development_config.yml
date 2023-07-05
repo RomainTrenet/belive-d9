@@ -1,6 +1,6 @@
 uuid: 6e12094e-9ada-4548-bb47-548d07c734f2
 langcode: en
-status: true
+status: false
 dependencies: {  }
 id: development_config
 label: 'Development config'
@@ -12,12 +12,12 @@ module:
   examples: 0
   field_ui: 0
   form_api_example: 0
-  mix: 0
+  menu_ui: 0
   module_filter: 0
   plugin_type_example: 0
   views_ui: 0
   webprofiler: 0
-  menu_ui: 0
+  mix: 0
 theme: {  }
 blacklist: {  }
 graylist:
