@@ -34,6 +34,7 @@
     "require": {
         "composer/installers": "^1.9",
         "custom/vanilla_select_box": "dev-main",
+        "defuse/php-encryption": "^2.4",
         "drupal/addtocal": "^2.0@beta",
         "drupal/adminimal_admin_toolbar": "^1.11",
         "drupal/adminimal_theme": "^1.6",
@@ -67,6 +68,7 @@
         "drupal/state_machine": "^1.6",
         "drupal/super_login": "^2.1",
         "drupal/typed_data": "^1.0@beta",
+        "drupal/user_redirect": "^2.0",
         "drupal/vendor_stream_wrapper": "^2.0",
         "drush/drush": "^11.0",
         "vlucas/phpdotenv": "^5.4",
