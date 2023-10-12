@@ -520,6 +520,8 @@ class RegistrationHelper implements RegistrationHelperInterface {
   /**
    * Common registration mail sender. See also band_booking_registration_mail.
    * {@inheritdoc}
+   *
+   * TODO eventually : registrationSendMail call a common bookingSendMail ?
    */
   public static function registrationSendMail(string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array {
     $token_service = \Drupal::token();
@@ -553,9 +555,11 @@ class RegistrationHelper implements RegistrationHelperInterface {
     $to = $user->get('mail')->getValue()[0]['value'];
     /** @var User $owner */
     $owner = $registration->getOwner();
+    // TODO change for site mail.
     $params['from'] = $owner->get('mail')->getValue()[0]['value'];
     $params['message'] = Markup::create($message);
     $params['title'] = $object;
+    // TODO : replace currentUser by the user to send the email to.
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
 
     return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);
@@ -611,6 +615,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
   }
 
   /**
+   * TODO : standard function with different messages.
    * {@inheritdoc}
    */
   public function sendRegistrationRefusedMessage(Registration $registration): void {

@@ -67,6 +67,7 @@ final class BandBookingPerformanceReminder extends ControllerBase {
       'title' => [
         '#markup' => '<h2>' . t('Relaunch pending registrations for today'). '</h2>',
       ],
+      // TODO : "performances" or standard name ?
       'description' => [
         '#markup' => '<p>' . t('This includes every performances, and takes into account the days scheduled for relaunch'). '</p>',
       ],
@@ -84,6 +85,7 @@ final class BandBookingPerformanceReminder extends ControllerBase {
       'title' => [
         '#markup' => '<h2>' . t('Relaunch pending registrations for all days'). '</h2>',
       ],
+      // TODO : "performances" or standard name ?
       'description' => [
         '#markup' => '<p>' . t('This includes every performances, and doesn\'t takes into account the days scheduled for relaunch'). '</p>',
       ],

@@ -53,6 +53,7 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
     $entity = $event->getEntity();
 
     // Verify if the new state is marked as published state.
+    // TODO : deprecated.
     $is_published_state = $this->isPublishedState($event->getToState(), $event->getWorkflow());
 
     if ($entity instanceof EntityPublishedInterface) {

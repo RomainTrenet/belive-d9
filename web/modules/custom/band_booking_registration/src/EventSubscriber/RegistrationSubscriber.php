@@ -33,6 +33,7 @@ class RegistrationSubscriber extends EntityEventUpdateSubscriber {
         $state = $registration->get('field_state')->first()->getValue()['value'];
 
         // Only if state is refused.
+        // TODO : get state from config.
         if ($state == 'refused') {
           $this->registrationHelper->sendRegistrationRefusedMessage($registration);
         }

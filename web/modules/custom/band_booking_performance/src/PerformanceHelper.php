@@ -108,7 +108,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
     $connection = \Drupal::database();
     $query = $connection->select('node', 'n');
 
-    // Ensure type is performance.
+    // Ensure type is performance. TODO : performance or standard name ?
     $query->where('n.type = :type', [
       ':type' => 'performance',
     ]);
@@ -129,6 +129,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
 
     // Ensure event is not canceled.
     $query->leftjoin('node__field_confirmation', 'nfc', 'nfc.entity_id = n.nid');
+    // TODO : param for remind depending on confirmation  ?
     $query->where('nfc.field_confirmation_value  != :conf', [
       ':conf' => 'canceled',
     ]);
@@ -137,6 +138,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
     $query->leftjoin('registration_field_data', 'rfd', 'rfd.nid = n.nid');
     $query->isNotNull('rfd.registration_user_id');
     $query->leftjoin('registration__field_state', 'st', 'st.entity_id = rfd.id');
+    // TODO : param for remind depending on status  ?
     $query->where('st.field_state_value = :state', [
       ':state' => 'waiting',
     ]);

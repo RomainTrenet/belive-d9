@@ -55,13 +55,14 @@ class SelectUsers extends Element\FormElement {
       // Display taxonomy filter.
       if (!empty($taxonomy_id) && !empty($element['#taxonomy_terms'])) {
         $element[$taxonomy_id] = [
+          // TODO : check why my selectbox doesn't work.
           //'#type' => 'selectbox',
           '#type' => 'select',
           '#title' => $element['#filter_title'] ?? '',
           '#description' => $element['#filter_description'] ?? '',
           '#required' => FALSE,
 
-          // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
+          // TODO improve, check marks doesn't work without multiple true.
           '#multiple' => TRUE,
           '#attributes' => [
             'multiple' => TRUE,
@@ -89,6 +90,7 @@ class SelectUsers extends Element\FormElement {
 
       // Display users.
       $element['users'] = [
+        // TODO : idem.
         //'#type' => 'selectbox',
         '#type' => 'select',
         // TODO : title no showing.
@@ -96,7 +98,7 @@ class SelectUsers extends Element\FormElement {
         '#description' => $element['#add_description'] ?? '',
         '#required' => TRUE,
 
-        // TODO improve, les coches ne fonctionnent pas si on ne le met pas.
+        // TODO improve, check marks doesn't work without multiple true.
         '#multiple' => TRUE,
         '#attributes' => [
           'multiple' => TRUE,
@@ -140,6 +142,7 @@ class SelectUsers extends Element\FormElement {
       $element['#default_value']['users_id'] = [];
     }
 
+    // TODO clean.
     if ($input !== FALSE) {
       /*
       $format = isset($element['#time_format']) && $element['#time_format'] ? $element['#time_format'] : 'html_time';
