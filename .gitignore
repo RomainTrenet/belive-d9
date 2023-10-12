@@ -16,6 +16,7 @@
 /sites/*/*services*.yml
 
 # Ignore paths that may contain user-generated content
+/private
 /sites/*/files
 /sites/*/public
 /sites/*/private
@@ -26,6 +27,7 @@
 /sites/*/translations
 /sites/*/tmp
 /sites/*/cache
+/tmp
 
 # Ignore Drupal's file directory
 /web/sites/*/files/
