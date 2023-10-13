@@ -2,14 +2,24 @@
  * @file
  * Select box.
  */
-/* global jQuery Drupal, drupalSettings, once */
-(function selectBox($, Drupal, drupalSettings, once, vanillaSelectBox) {
+
+/*jshint esversion: 6 */
+
+/* global jQuery, Drupal, drupalSettings, once, vanillaSelectBox */
+(function selectBox(jQuery, Drupal, drupalSettings, once, vanillaSelectBox) {
+
+  "use strict";
+
+  // TODO clean and convert it to typescript.
 
   /* eslint-disable no-param-reassign */
-  Drupal.behaviors.selectBoxDefaultParams = {
+  /*Drupal.behaviors.selectBoxDefaultParams = {
     selectBoxClass: 'vanilla-select-box',
   };
   /* eslint-enable no-param-reassign */
+  const selectBoxDefaultParams = {
+    selectBoxClass: 'vanilla-select-box',
+  };
 
   /**
    * SelectBox object.
@@ -23,7 +33,7 @@
     constructor: SelectBox,
     init: function init(selectBox) {
       const self = this;
-      self.$selectBox = $(selectBox);
+      self.$selectBox = jQuery(selectBox);
 
       // If there is a selectBox.
       if (self.$selectBox) {
@@ -78,9 +88,9 @@
       self.manageSettings();
 
       // If there are selectBoxes.
-      const selector = `.${drupalSettings.selectBoxManager.selectBoxClass}`;
-      if ($(selector).length > 0) {
-        $(selector).each(function inst() {
+      const selector = '.' + drupalSettings.selectBoxManager.selectBoxClass;
+      if (jQuery(selector).length > 0) {
+        jQuery(selector).each(function inst() {
           self.instantiateSelectBox(this);
         });
       }
@@ -90,7 +100,7 @@
     manageSettings: function manageSettings() {
       // Add default classes, if not specified.
       if (!drupalSettings.selectBoxManager.selectBoxClass) {
-        drupalSettings.selectBoxManager.selectBoxClass = Drupal.behaviors.selectBoxDefaultParams.selectBoxClass;
+        drupalSettings.selectBoxManager.selectBoxClass = selectBoxDefaultParams.selectBoxClass;
       }
     },
 
@@ -129,17 +139,6 @@
       once('selectBox', 'html', context).forEach(() => {
         /* eslint no-param-reassign:["error",
         { "props": true, "ignorePropertyModificationsFor": ["drupalSettings"] }]
-        */
-        /*
-        TODO : remove, for tests.
-        let selectCars = new vanillaSelectBox(
-          ".vanilla-select-box",
-          {
-            "placeHolder":"Choose your car",
-            "maxSelect":3,
-            translations: { "all": "All", "items": "Cars" }
-          }
-        );
         */
         if (!drupalSettings.selectBoxManager) {
           drupalSettings.selectBoxManager = {};
