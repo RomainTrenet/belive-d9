@@ -857,6 +857,7 @@ display:
           admin_label: author
           plugin_id: standard
           required: true
+      css_class: ''
       show_admin_links: false
       display_extenders: {  }
     cache_metadata:

@@ -44,6 +44,28 @@
 */
 
 /**********
+** Zebra list.
+**********/
+tr.even,
+tr.odd {
+  background: #f3f4ee;
+  transition: all,0.15s;
+}
+tr.odd {
+  background: #fff;
+}
+
+/* No even odd */
+.no-even-odd tr.even,
+.no-even-odd tr.odd {
+  background-color: transparent;
+}
+.no-even-odd tbody tr:hover,
+.no-even-odd tbody tr:focus {
+  background: #f7fcff;
+}
+
+/**********
 ** Registrations list (both user and manager).
 **********/
 form.bb-form-state { display: inline-block; }
@@ -74,15 +96,6 @@ form.bb-form-state input[type=submit][data-drupal-selector=edit-refuse]:hover{ b
 
 /* ---------- Registrations ---------- */
 /* TODO clean */
-/* Ation différence entre regist-lst et regist-list * /
-.regist-lst tr a {
-  font-size: 18px;
-  font-weight: 300;
-}
-*/
-/*
-.view.view-id-registrations .determine-registration { display: inline-block; }
-*/
 
 /**********
 ** Registrations list table (both user and manager).
@@ -238,3 +251,4 @@ tr .ajax-progress .throbber {
     width: 16em;
 }
 */
+
