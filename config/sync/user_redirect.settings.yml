@@ -1,15 +1,15 @@
 login:
   authenticated:
-    redirect_url: '<front>'
+    redirect_url: /
     weight: '-10'
   administrator:
-    redirect_url: ''
+    redirect_url: /
     weight: '-10'
   artist:
-    redirect_url: ''
+    redirect_url: /
     weight: '-10'
   manager:
-    redirect_url: ''
+    redirect_url: /
     weight: '-10'
 logout:
   authenticated:

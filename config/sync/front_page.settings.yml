@@ -7,8 +7,9 @@ rid_authenticated:
   weigth: '0'
   path: ''
 rid_administrator:
+  enabled: '1'
   weigth: '0'
-  path: ''
+  path: /admin/band_booking_dashboard
 rid_artist:
   enabled: '1'
   weigth: '0'
