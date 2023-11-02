@@ -15,7 +15,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: '[site:name] | [registration:uid:entity:display-name] vous a retiré de l''évènement [registration:nid:entity:title]'
+    value: '[registration:uid:entity:display-name] vous a retiré de l''évènement [registration:nid:entity:title] | Be live'
 default_value_callback: ''
 settings: {  }
 field_type: string
