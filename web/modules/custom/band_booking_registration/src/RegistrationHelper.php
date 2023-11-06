@@ -553,10 +553,9 @@ class RegistrationHelper implements RegistrationHelperInterface {
     /** @var MailManagerInterface $mailManager */
     $mailManager = \Drupal::service('plugin.manager.mail');
     $to = $user->get('mail')->getValue()[0]['value'];
-    /** @var User $owner */
-    $owner = $registration->getOwner();
-    // TODO change for site mail.
-    $params['from'] = $owner->get('mail')->getValue()[0]['value'];
+    $config = \Drupal::config('system.site');
+    $params['from'] = $config->get('mail');
+
     $params['message'] = Markup::create($message);
     $params['title'] = $object;
     // TODO : replace currentUser by the user to send the email to.
