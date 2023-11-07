@@ -115,12 +115,15 @@ class RegistrationHelper implements RegistrationHelperInterface {
   /**
    * {@inheritdoc}
    */
-  public function getUnregisteredUsersId(array $allowed_roles, array $registeredUsersId): array {
+  public function getUnregisteredUsersId(array $allowed_roles, array $registeredUsersId, array $positions = []): array {
     $query = \Drupal::entityQuery('user');
     $query->condition('status', 1);
     $query->condition('roles', $allowed_roles, 'IN');
     if (!empty($registeredUsersId)) {
       $query->condition('uid', $registeredUsersId, 'NOT IN');
+    }
+    if (!empty($positions)) {
+      $query->condition('field_position', $positions, 'IN');
     }
     return $query->execute();
   }

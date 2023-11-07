@@ -73,12 +73,28 @@ class SelectUsers extends Element\FormElement {
           // TODO remove.
           '#attached' => [
             'library' => [
-              'vanilla_select_box/select-box'
+              'vanilla_select_box/select-box',
+              'band_booking_registration/band-booking-registration',
             ]
           ],
           //'#size' => 3,
           '#options' => $element['#taxonomy_terms'],
-          '#default_value' => $element['#default_value']['terms_id']
+          '#default_value' => $element['#default_value']['terms_id'],
+
+          '#ajax' => [
+            // TODO add callback into SelectUsers and clean.
+            //'callback' => ['Drupal\band_booking_registration\Element\SelectUsers', 'myAjaxCallback'],
+            //'callback' => '::myAjaxCallback', // Use :: when calling a class method.
+            //'callback' => ['\Drupal\band_booking_registration\Element\SelectUsers', 'extraField'],
+            //'callback' => ['\Drupal\band_booking_registration\Element\SelectUsers', 'myAjaxCallback'],
+            'callback' => 'refindUsers',
+            'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
+            'event' => 'change',
+            'progress' => [
+              'type' => 'throbber',
+              'message' => 'Searching !'//$this->t('Verifying entry...'),
+            ],
+          ]
         ];
       } else {
         $element[$taxonomy_id] = [

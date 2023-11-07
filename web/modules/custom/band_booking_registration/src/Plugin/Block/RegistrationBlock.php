@@ -134,8 +134,10 @@ class RegistrationBlock extends BlockBase implements ContainerFactoryPluginInter
           'register_bundle' => $register_bundle,
           'taxonomy_id' => $taxonomy_id,
           'taxonomy_terms' => $taxonomy_terms,
+          'allowed_roles' => $allowed_roles,
           'users' => $unregistered_users,
           'registered_users' => $registered_users,
+          'registered_users_id' => $registered_users_id,
 
           // @todo get it from config.
           'form_title' => $this->t('Add artist'),
