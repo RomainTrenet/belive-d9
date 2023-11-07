@@ -211,12 +211,8 @@ function refindUsers(array &$form, FormStateInterface $form_state): AjaxResponse
   $positions = $registerUsersFormState['position'];
 
   // Get Users to hide.
-  //$usersOptions = $form['register_users']['users']['#options'];
   $users = $form['register_users']['users']['#options'];
-  //$users = array_keys($usersOptions);
-  //$usersToShowList = $registrationHelper->getUnregisteredUsersId($allowed_roles, $registered_users_id, $positions);
   $usersToShow = $registrationHelper->getUnregisteredUsersId($allowed_roles, $registered_users_id, $positions);
-  //$usersToShow = array_keys($usersToShowList);
   $usersToHide = array_diff_key($users, $usersToShow);
 
   // Construct ajax response : call custom javascript to hide non-wanted users.
