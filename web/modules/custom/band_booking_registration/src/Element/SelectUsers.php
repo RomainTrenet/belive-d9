@@ -2,6 +2,9 @@
 
 namespace Drupal\band_booking_registration\Element;
 
+use Drupal\band_booking_registration\RegistrationHelper;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -80,19 +83,13 @@ class SelectUsers extends Element\FormElement {
           //'#size' => 3,
           '#options' => $element['#taxonomy_terms'],
           '#default_value' => $element['#default_value']['terms_id'],
-
           '#ajax' => [
-            // TODO add callback into SelectUsers and clean.
-            //'callback' => ['Drupal\band_booking_registration\Element\SelectUsers', 'myAjaxCallback'],
-            //'callback' => '::myAjaxCallback', // Use :: when calling a class method.
-            //'callback' => ['\Drupal\band_booking_registration\Element\SelectUsers', 'extraField'],
-            //'callback' => ['\Drupal\band_booking_registration\Element\SelectUsers', 'myAjaxCallback'],
-            'callback' => 'refindUsers',
+            'callback' => ['\Drupal\band_booking_registration\Element\SelectUsers', 'refindUsers'],
             'disable-refocus' => FALSE, // Or TRUE to prevent re-focusing on the triggering element.
             'event' => 'change',
             'progress' => [
               'type' => 'throbber',
-              'message' => 'Searching !'//$this->t('Verifying entry...'),
+              'message' => t('Filtering'),
             ],
           ]
         ];
@@ -148,8 +145,6 @@ class SelectUsers extends Element\FormElement {
   }
 
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
-    // TODO clean.
-
     // Provide default values if there are none.
     if (!isset($element['#default_value']['terms_id'])) {
       $element['#default_value']['terms_id'] = [];
@@ -160,33 +155,55 @@ class SelectUsers extends Element\FormElement {
 
     // TODO clean.
     if ($input !== FALSE) {
-      /*
-      $format = isset($element['#time_format']) && $element['#time_format'] ? $element['#time_format'] : 'html_time';
-      $time_format =  DateFormat::load($format)->getPattern();
-
-      try {
-        DrupalDateTime::createFromFormat($time_format, $input['start'], NULL);
-      }
-      catch (\Exception $e) {
-        $input['start'] = NULL;
-      }
-
-      try {
-        DrupalDateTime::createFromFormat($time_format, $input['end'], NULL);
-      }
-      catch (\Exception $e) {
-        $input['end'] = NULL;
-      }*/
     }
     else {
       $input = [
-        //'start' => $element['#default_value']['start'],
-        //'end' => $element['#default_value']['end'],
         'terms_id' => $element['#default_value']['terms_id'],
         'users_id' => $element['#default_value']['users_id'],
       ];
     }
 
     return $input;
+  }
+
+  /**
+   * Call as ajax callback from SelectUsers. TODO Should be in Element.
+   *
+   * @param array $form
+   *   The current form.
+   * @param FormStateInterface $form_state
+   *   The current form state.
+   *
+   * @return AjaxResponse
+   */
+  public static function refindUsers(array &$form, FormStateInterface $form_state): AjaxResponse
+  {
+    // TODO : use dependency injection.
+    /** @var RegistrationHelper $registrationHelper */
+    $registrationHelper = \Drupal::service('band_booking_registration.registration_helper');
+
+    // Get values.
+    $allowed_roles = $form['register_users']['#allowed_roles'];
+    $registered_users_id = $form['register_users']['#registered_users_id'];
+    $registerUsersFormState = $form_state->getValue('register_users');
+    $positions = $registerUsersFormState['position'];
+
+    // Get Users to hide.
+    $users = $form['register_users']['users']['#options'];
+    $usersToShow = $registrationHelper->getUnregisteredUsersId($allowed_roles, $registered_users_id, $positions);
+    $usersToHide = array_diff_key($users, $usersToShow);
+
+    // Construct ajax response : call custom javascript to hide non-wanted users.
+    $response = new AjaxResponse();
+    // TODO should come from form id attributes ? To avoid problem with double.
+    $select_id = '#btn-group-edit-register-users-users';
+    $method = 'bbrRefindArtists';
+    $arguments = [
+      $select_id,
+      $usersToHide,
+    ];
+
+    $response->addCommand(new InvokeCommand(NULL, $method, $arguments));
+    return $response;
   }
 }
