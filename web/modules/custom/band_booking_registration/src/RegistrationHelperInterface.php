@@ -49,11 +49,13 @@ interface RegistrationHelperInterface {
    *   The list of allowed roles.
    * @param array $registeredUsersId
    *   The list of already registered users
+   * @param array $positions
+   *   An optional list of users positions
    *
    * @return array
    *   An array of users id.
    */
-  public function getUnregisteredUsersId(array $allowed_roles, array $registeredUsersId): array;
+  public function getUnregisteredUsersId(array $allowed_roles, array $registeredUsersId, array $positions = []): array;
 
   /**
    * Get list of registrations id for a user and a node.

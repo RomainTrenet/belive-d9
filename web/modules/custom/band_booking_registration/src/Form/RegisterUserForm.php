@@ -63,6 +63,8 @@ class RegisterUserForm extends FormBase {
     $taxonomy_terms = $arg['taxonomy_terms'] ?? [];
     $users = $arg['users'] ?? [];
     $registered_users = $arg['registered_users'] ?? [];
+    $registered_users_id = $arg['registered_users_id'] ?? [];
+    $allowed_roles = $arg['allowed_roles'] ?? [];
 
     // Text.
     $form_title = $arg['form_title'] ?? [];
@@ -104,6 +106,8 @@ class RegisterUserForm extends FormBase {
       ],
       '#taxonomy_id' => $taxonomy_id,
       '#taxonomy_terms' => $taxonomy_terms,
+      '#allowed_roles' => $allowed_roles,
+      '#registered_users_id' => $registered_users_id,
       '#users' => $users,
 
       // Texts.

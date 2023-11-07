@@ -19,8 +19,7 @@ module:
   views_ui: 0
   webprofiler: 0
 theme: {  }
-blacklist:
-  - system.site
+blacklist: {  }
 graylist:
   - advagg.settings
   - advagg_css_minify.settings

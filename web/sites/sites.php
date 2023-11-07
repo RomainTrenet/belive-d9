@@ -56,16 +56,16 @@
  * @see https://www.drupal.org/documentation/install/multi-site
  */
 /* Local dev */
-$sites['belive-d9.ddev.site'] = 'default';
+$sites['belive-d9.ddev.site'] = 'belive';
 $sites['belive-d9-dev.ddev.site'] = 'dev';
 $sites['belive-d9-sandbox.ddev.site'] = 'sandbox';
 
 /* Temporary prod */
-$sites['www.belive.romain-trenet.com'] = 'default';
-$sites['belive.romain-trenet.com'] = 'default';
-$sites['www.belive.romain-trenet.fr'] = 'default';
-$sites['belive.romain-trenet.fr'] = 'default';
+$sites['www.belive.romain-trenet.com'] = 'belive';
+$sites['belive.romain-trenet.com'] = 'belive';
+$sites['www.belive.romain-trenet.fr'] = 'belive';
+$sites['belive.romain-trenet.fr'] = 'belive';
 
 /* Prod */
-$sites['www.booking.orchestre-belive.com'] = 'default';
-$sites['booking.orchestre-belive.com'] = 'default';
+$sites['www.booking.orchestre-belive.com'] = 'belive';
+$sites['booking.orchestre-belive.com'] = 'belive';

@@ -1,0 +1,5 @@
+band-booking-registration:
+  js:
+    js/band-booking-registration.js: { minified: false }
+  dependencies:
+    - core/jquery
