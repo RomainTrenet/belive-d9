@@ -5,10 +5,6 @@
  * Provides a registration entity type.
  */
 
-use Drupal\band_booking_registration\RegistrationHelper;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\InvokeCommand;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\user\UserInterface;
 
@@ -189,42 +185,3 @@ function band_booking_registration_mail($key, &$message, $params):void {
   }
 }
 
-/**
- * Call as ajax callback from SelectUsers. TODO Should be in Element.
- *
- * @param array $form
- *   The current form.
- * @param FormStateInterface $form_state
- *   The current form state.
- *
- * @return AjaxResponse
- */
-function refindUsers(array &$form, FormStateInterface $form_state): AjaxResponse
-{
-  /** @var RegistrationHelper $registrationHelper */
-  $registrationHelper = \Drupal::service('band_booking_registration.registration_helper');
-
-  // Get values.
-  $allowed_roles = $form['register_users']['#allowed_roles'];
-  $registered_users_id = $form['register_users']['#registered_users_id'];
-  $registerUsersFormState = $form_state->getValue('register_users');
-  $positions = $registerUsersFormState['position'];
-
-  // Get Users to hide.
-  $users = $form['register_users']['users']['#options'];
-  $usersToShow = $registrationHelper->getUnregisteredUsersId($allowed_roles, $registered_users_id, $positions);
-  $usersToHide = array_diff_key($users, $usersToShow);
-
-  // Construct ajax response : call custom javascript to hide non-wanted users.
-  $response = new AjaxResponse();
-  // TODO should come from form id attributes ? To avoid problem with double.
-  $select_id = '#btn-group-edit-register-users-users';
-  $method = 'bbrRefindArtists';
-  $arguments = [
-    $select_id,
-    $usersToHide,
-  ];
-
-  $response->addCommand(new InvokeCommand(NULL, $method, $arguments));
-  return $response;
-}

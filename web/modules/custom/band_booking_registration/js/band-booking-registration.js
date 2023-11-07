@@ -28,7 +28,7 @@
 
       // Show all and hide what needs to be hidden.
       $select_options.show();
-      Object.keys(usersToHide).map(function(artist_id, index) {
+      Object.keys(usersToHide).map(function(artist_id) {
         $select.find('li[data-value="' + artist_id + '"]').hide();
       });
 
@@ -45,4 +45,4 @@
 
   // We pass the parameters of this anonymous function, the global variables
   // that this script depend on.
-}(jQuery, Drupal, drupalSettings, once, vanillaSelectBox));
+}(jQuery));

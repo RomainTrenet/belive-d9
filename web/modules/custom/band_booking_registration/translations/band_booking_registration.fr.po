@@ -148,3 +148,6 @@ msgstr "Statut actuel de votre inscription"
 
 msgid "Modify your registration status"
 msgstr "Modifier l'état de votre inscription"
+
+msgid "Filtering"
+msgstr "Filtrage"
