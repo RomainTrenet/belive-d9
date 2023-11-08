@@ -11,10 +11,12 @@ module: {  }
 theme: {  }
 blacklist: {  }
 graylist:
+  - field.field.node.performance.field_register_mail_content
+  - field.field.node.performance.field_register_mail_object
   - field.field.node.performance.field_reminder_mail_content
   - field.field.node.performance.field_reminder_mail_object
-  - field.storage.node.field_reminder_mail_content
-  - field.storage.node.field_reminder_mail_object
+  - field.field.node.performance.field_unregister_mail_content
+  - field.field.node.performance.field_unregister_mail_object
   - system.site
 graylist_dependents: true
 graylist_skip_equal: true
