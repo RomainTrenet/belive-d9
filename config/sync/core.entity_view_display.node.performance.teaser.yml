@@ -42,12 +42,12 @@ hidden:
   field_confirmation: true
   field_date: true
   field_date_non_utc: true
-  field_reminder_mail_content: true
-  field_reminder_mail_object: true
   field_place: true
   field_register_mail_content: true
   field_register_mail_object: true
   field_relaunch: true
+  field_reminder_mail_content: true
+  field_reminder_mail_object: true
   field_unregister_mail_content: true
   field_unregister_mail_object: true
   langcode: true
