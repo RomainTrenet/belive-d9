@@ -97,3 +97,6 @@ msgstr "Editez votre inscription à %performance"
 
 msgid "Edit your registration"
 msgstr "Editez votre inscription"
+
+msgid "\"[registration:nid:entity:title]\", registration pending | Band Booking"
+msgstr "\"[registration:nid:entity:title]\", inscription en attente | Band Booking"

@@ -55,10 +55,11 @@
  * @see \Drupal\Core\DrupalKernel::getSitePath()
  * @see https://www.drupal.org/documentation/install/multi-site
  */
-/* Local dev */
-$sites['belive-d9.ddev.site'] = 'belive';
+/* Local dev (be live) and prod */
 $sites['belive-d9-dev.ddev.site'] = 'dev';
 $sites['belive-d9-sandbox.ddev.site'] = 'sandbox';
+$sites['belive-d9.ddev.site'] = 'belive';
+$sites['band-two-d9.ddev.site'] = 'bandtwo';
 
 /* Temporary prod */
 $sites['www.belive.romain-trenet.com'] = 'belive';

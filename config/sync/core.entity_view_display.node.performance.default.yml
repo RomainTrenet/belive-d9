@@ -7,8 +7,8 @@ dependencies:
     - field.field.node.performance.field_confirmation
     - field.field.node.performance.field_date
     - field.field.node.performance.field_date_non_utc
-    - field.field.node.performance.field_mail_content
-    - field.field.node.performance.field_mail_object
+    - field.field.node.performance.field_reminder_mail_content
+    - field.field.node.performance.field_reminder_mail_object
     - field.field.node.performance.field_place
     - field.field.node.performance.field_register_mail_content
     - field.field.node.performance.field_register_mail_object
@@ -69,8 +69,8 @@ content:
     region: content
 hidden:
   field_date_non_utc: true
-  field_mail_content: true
-  field_mail_object: true
+  field_reminder_mail_content: true
+  field_reminder_mail_object: true
   field_register_mail_content: true
   field_register_mail_object: true
   field_relaunch: true

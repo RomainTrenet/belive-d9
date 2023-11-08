@@ -2,10 +2,10 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.field_mail_object
+    - field.storage.node.field_reminder_mail_object
     - node.type.performance
-id: node.performance.field_mail_object
-field_name: field_mail_object
+id: node.performance.field_reminder_mail_object
+field_name: field_reminder_mail_object
 entity_type: node
 bundle: performance
 label: 'Objet du mail'
@@ -14,7 +14,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: 'Votre inscription à "[registration:nid:entity:title]" est en attente'
+    value: '"[registration:nid:entity:title]", registration pending | Band Booking'
 default_value_callback: ''
 settings: {  }
 field_type: string
