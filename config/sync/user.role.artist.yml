@@ -14,4 +14,7 @@ is_admin: null
 permissions:
   - 'access toolbar'
   - 'use accept transition in performance_default'
+  - 'use accept transition in registration_default'
   - 'use refuse transition in performance_default'
+  - 'use refuse transition in registration_default'
+  - 'use standby transition in registration_default'

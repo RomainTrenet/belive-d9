@@ -1,0 +1,8 @@
+uuid: 2e298305-e5ac-4048-93c1-f1fe68816e9c
+langcode: fr
+status: true
+dependencies: {  }
+id: bb_medium
+label: 'Date moyenne'
+locked: false
+pattern: 'D d/m/Y'

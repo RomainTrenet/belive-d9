@@ -1,0 +1,25 @@
+uuid: f1561397-3fbb-4b4e-8818-37b1b274e419
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_confirm
+    - node.type.performance
+  module:
+    - state_machine
+id: node.performance.field_confirm
+field_name: field_confirm
+entity_type: node
+bundle: performance
+label: Confirm
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: confirmed
+default_value_callback: ''
+settings:
+  workflow: performance_default
+  workflow_callback: ''
+field_type: state
