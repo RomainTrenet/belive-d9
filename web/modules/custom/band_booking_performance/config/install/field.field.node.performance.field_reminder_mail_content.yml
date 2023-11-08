@@ -16,7 +16,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Votre inscription à "[registration:nid:entity:title]" est en attente, pensez à donner votre disponibilité <a href="[registration:url]/edit">ici</a>.</p><p>Merci d''avance, [registration:uid:entity:display-name].</p>'
+    value: '<p>Hello [registration:registration_user_id:entity:display-name],</p><p>Your registration for the "[registration:nid:entity:title]" event is pending, please remember to indicate your availability<a href="[registration:url]/edit">by clicking here</a>.</p><p>Thank you in advance, [registration:uid:entity:display-name].</p>'
     format: full_html
 default_value_callback: ''
 settings: {  }

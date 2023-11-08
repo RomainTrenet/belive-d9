@@ -1,3 +1,4 @@
+uuid: 129998a0-ea9f-4960-88c4-39458e7f8fef
 langcode: fr
 status: true
 dependencies:
@@ -14,7 +15,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: '[registration:uid:entity:display-name] has booked you on the event [registration:nid:entity:title] | Band booking'
+    value: '[registration:uid:entity:display-name] vous a inscrit à l''évènement [registration:nid:entity:title] | Be live'
 default_value_callback: ''
 settings: {  }
 field_type: string

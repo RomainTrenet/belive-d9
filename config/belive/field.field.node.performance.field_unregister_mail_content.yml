@@ -1,3 +1,4 @@
+uuid: 9e64e583-b8c8-407e-8e24-7708021382d4
 langcode: fr
 status: true
 dependencies:
@@ -16,7 +17,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: '<p>Hello [registration:registration_user_id:entity:display-name],</p><p>You have been removed from the service "[registration:nid:entity:title]".</p><p>Sincerely,&nbsp;<br>[registration:uid:entity:display-name].</p>'
+    value: '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été retiré(e) de la prestation "[registration:nid:entity:title]".</p><p>Cordialement,&nbsp;<br>[registration:uid:entity:display-name].</p>'
     format: full_html
 default_value_callback: ''
 settings: {  }
