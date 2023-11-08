@@ -115,3 +115,27 @@ msgstr "[registration:uid:entity:display-name] vous a retiré de l'évènement [
 
 msgid "<p>Hello [registration:registration_user_id:entity:display-name],</p><p>You have been removed from the service \"[registration:nid:entity:title]\".</p><p>Sincerely,&nbsp;<br>[registration:uid:entity:display-name].</p>"
 msgstr "<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été retiré(e) de la prestation \"[registration:nid:entity:title]\".</p><p>Cordialement,&nbsp;<br>[registration:uid:entity:display-name].</p>"
+
+msgctxt 'workflow state'
+msgid "Optional"
+msgstr "En option"
+
+msgctxt 'workflow state'
+msgid "Confirmed"
+msgstr "Confirmée"
+
+msgctxt 'workflow state'
+msgid "Canceled"
+msgstr "Annulée"
+
+msgctxt 'workflow state'
+msgid "Optional"
+msgstr "En option"
+
+msgctxt 'workflow state'
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgctxt 'workflow state'
+msgid "Cancel"
+msgstr "Annuler"

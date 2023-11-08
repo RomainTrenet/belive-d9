@@ -7,3 +7,16 @@ services:
     arguments: [ '@date.formatter' ]
     tags:
       - { name: 'event_subscriber' }
+  band_booking_performance.performance_guard:
+    class: Drupal\band_booking_performance\Guard\PerformanceGuard
+    arguments: ['@current_user', '@plugin.manager.workflow']
+    tags:
+      - { name: state_machine.guard, group: performance }
+  band_booking_performance.workflow.helper:
+    class: Drupal\band_booking_performance\WorkflowHelper
+    arguments: ['@current_user']
+  band_booking_performance.workflow_transition:
+    class: Drupal\band_booking_performance\EventSubscriber\WorkflowTransitionEventSubscriber
+    arguments: ['@band_booking_performance.workflow.helper']
+    tags:
+      - { name: event_subscriber }
