@@ -60,7 +60,6 @@ third_party_settings:
       children:
         - title
         - field_confirm
-        - field_confirmation
         - field_place
         - field_date
         - body
