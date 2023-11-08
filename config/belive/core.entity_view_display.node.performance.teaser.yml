@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.performance.body
     - field.field.node.performance.field_confirm
-    - field.field.node.performance.field_confirmation
     - field.field.node.performance.field_date
     - field.field.node.performance.field_date_non_utc
     - field.field.node.performance.field_place
@@ -41,7 +40,6 @@ content:
     region: content
 hidden:
   field_confirm: true
-  field_confirmation: true
   field_date: true
   field_date_non_utc: true
   field_place: true

@@ -9,7 +9,13 @@ weight: 0
 folder: ../config/band_two
 module: {  }
 theme: {  }
-blacklist: {  }
+blacklist:
+  - field.field.node.performance.field_register_mail_content
+  - field.field.node.performance.field_register_mail_object
+  - field.field.node.performance.field_reminder_mail_content
+  - field.field.node.performance.field_reminder_mail_object
+  - field.field.node.performance.field_unregister_mail_content
+  - field.field.node.performance.field_unregister_mail_object
 graylist:
   - field.field.node.performance.field_register_mail_content
   - field.field.node.performance.field_register_mail_object
