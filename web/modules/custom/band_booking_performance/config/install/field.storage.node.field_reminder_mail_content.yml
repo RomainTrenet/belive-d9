@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - text
-id: node.field_mail_content
-field_name: field_mail_content
+id: node.field_reminder_mail_content
+field_name: field_reminder_mail_content
 entity_type: node
 type: text_long
 settings: {  }

@@ -1,11 +1,10 @@
-uuid: 98fe2fc8-5f57-42c0-a39b-05c6518e1c9a
 langcode: fr
 status: true
 dependencies:
   module:
     - node
-id: node.field_mail_object
-field_name: field_mail_object
+id: node.field_reminder_mail_object
+field_name: field_reminder_mail_object
 entity_type: node
 type: string
 settings:

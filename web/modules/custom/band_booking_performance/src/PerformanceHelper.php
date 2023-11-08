@@ -232,8 +232,8 @@ class PerformanceHelper implements PerformanceHelperInterface {
       $registration = Registration::load($rid);
 
       // Send mail.
-      $originalObject = $node->get('field_mail_object')->getValue();
-      $originalMessage = $node->get('field_mail_content')->getValue();
+      $originalObject = $node->get('field_reminder_mail_object')->getValue();
+      $originalMessage = $node->get('field_reminder_mail_content')->getValue();
       // Ensure message is not empty, for older content. Could be deleted.
       $originalObject = $originalObject[0]['value'] ?? PerformanceHelper::getDefaultReminderMailObject();
       $originalMessage = $originalMessage[0]['value'] ?? PerformanceHelper::getDefaultReminderMailMessage();

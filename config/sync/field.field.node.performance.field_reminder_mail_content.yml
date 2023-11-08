@@ -3,12 +3,12 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.field_mail_content
+    - field.storage.node.field_reminder_mail_content
     - node.type.performance
   module:
     - text
-id: node.performance.field_mail_content
-field_name: field_mail_content
+id: node.performance.field_reminder_mail_content
+field_name: field_reminder_mail_content
 entity_type: node
 bundle: performance
 label: 'Contenu du mail'

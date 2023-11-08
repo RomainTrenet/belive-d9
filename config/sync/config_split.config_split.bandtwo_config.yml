@@ -1,12 +1,12 @@
-uuid: 6f24f329-225c-4dd4-944f-4108adcf3e95
+uuid: 0411750d-a1c4-4a98-8502-63d340ab1ea2
 langcode: fr
 status: false
 dependencies: {  }
-id: be_live_config
-label: 'Be live'
-description: 'Be live configuration. This has nothing to do with dev and prod config.'
+id: bandtwo_config
+label: 'Band two'
+description: 'Band two configuration. This has nothing to do with dev and prod config.'
 weight: 0
-folder: ../config/belive
+folder: ../config/band_two
 module: {  }
 theme: {  }
 blacklist: {  }
