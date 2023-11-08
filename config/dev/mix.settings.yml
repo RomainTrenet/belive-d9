@@ -2,7 +2,7 @@ _core:
   default_config_hash: 1aeASzt-3vsrFSNdcGI5Pi28p6CbUZ5dKBzZE96NZoA
 langcode: fr
 hide_revision_field: false
-dev_mode: true
+dev_mode: false
 hide_submit: false
 remove_x_generator: false
 show_content_sync_id: false
