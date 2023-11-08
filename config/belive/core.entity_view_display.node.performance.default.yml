@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.performance.body
     - field.field.node.performance.field_confirm
-    - field.field.node.performance.field_confirmation
     - field.field.node.performance.field_date
     - field.field.node.performance.field_date_non_utc
     - field.field.node.performance.field_place
@@ -40,13 +39,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
-    region: content
-  field_confirmation:
-    type: list_key
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
     region: content
   field_date:
     type: addtocal_view

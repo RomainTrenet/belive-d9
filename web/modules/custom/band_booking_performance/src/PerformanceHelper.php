@@ -127,10 +127,11 @@ class PerformanceHelper implements PerformanceHelperInterface {
     // TODO : order by date. Doesn't work for the moment.
     // $query->orderBy('dt.field_date_non_utc_value', 'DESC');
 
+    // TODO check after change from "field_confirmation" !!!!.
     // Ensure event is not canceled.
-    $query->leftjoin('node__field_confirmation', 'nfc', 'nfc.entity_id = n.nid');
+    $query->leftjoin('node__field_confirm', 'nfc', 'nfc.entity_id = n.nid');
     // TODO : param for remind depending on confirmation  ?
-    $query->where('nfc.field_confirmation_value  != :conf', [
+    $query->where('nfc.field_confirm_value  != :conf', [
       ':conf' => 'canceled',
     ]);
 

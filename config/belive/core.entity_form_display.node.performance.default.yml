@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.performance.body
     - field.field.node.performance.field_confirm
-    - field.field.node.performance.field_confirmation
     - field.field.node.performance.field_date
     - field.field.node.performance.field_date_non_utc
     - field.field.node.performance.field_place
@@ -62,7 +61,6 @@ third_party_settings:
       children:
         - title
         - field_confirm
-        - field_confirmation
         - field_place
         - field_date
         - body
@@ -135,12 +133,6 @@ content:
   field_confirm:
     type: options_select
     weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_confirmation:
-    type: options_select
-    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }

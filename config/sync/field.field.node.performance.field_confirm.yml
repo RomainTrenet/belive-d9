@@ -11,9 +11,9 @@ id: node.performance.field_confirm
 field_name: field_confirm
 entity_type: node
 bundle: performance
-label: Confirm
+label: Confirmation
 description: ''
-required: false
+required: true
 translatable: false
 default_value:
   -
