@@ -64,6 +64,8 @@ $sites['band-two-d9.ddev.site'] = 'bandtwo';
 /* Temporary prod */
 $sites['www.belive.romain-trenet.com'] = 'belive';
 $sites['belive.romain-trenet.com'] = 'belive';
+$sites['www.romain-trenet.com'] = 'belive';
+$sites['romain-trenet.com'] = 'belive';
 $sites['www.belive.romain-trenet.fr'] = 'belive';
 $sites['belive.romain-trenet.fr'] = 'belive';
 
