@@ -16,7 +16,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]">à cette adresse</a>.</p><p>Merci d''avance,&nbsp;<br>[registration:uid:entity:display-name].</p>'
+    value: '<p>Hello [registration:registration_user_id:entity:display-name],</p><p>You have been added to the performance "[registration:nid:entity:title]".&nbsp;<br>Please inform me of your presence <a href="[registration:url]">by clicking here</a>.</p><p>Thank you in advance,&nbsp;<br>[registration:uid:entity:display-name].</p>'
     format: full_html
 default_value_callback: ''
 settings: {  }

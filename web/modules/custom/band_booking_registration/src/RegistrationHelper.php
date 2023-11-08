@@ -501,7 +501,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
    * {@inheritdoc}
    */
   public static function getDefaultRegistrationMailMessage(): string {
-    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">à cette adresse</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>';
+    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">en cliquant ici</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>';
   }
 
   /**

@@ -1,11 +1,12 @@
+uuid: bdc0cf25-51a0-48b5-b6ef-2d535d7c83c8
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.field_register_mail_object
+    - field.storage.node.field_reminder_mail_object
     - node.type.performance
-id: node.performance.field_register_mail_object
-field_name: field_register_mail_object
+id: node.performance.field_reminder_mail_object
+field_name: field_reminder_mail_object
 entity_type: node
 bundle: performance
 label: 'Objet du mail'
@@ -14,7 +15,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: '[registration:uid:entity:display-name] has booked you on the event [registration:nid:entity:title] | Band booking'
+    value: '"[registration:nid:entity:title]", inscription en attente | Be live'
 default_value_callback: ''
 settings: {  }
 field_type: string

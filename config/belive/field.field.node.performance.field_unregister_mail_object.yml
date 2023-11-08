@@ -1,3 +1,4 @@
+uuid: fdf19fa4-33ce-4460-b03f-f544a3b98438
 langcode: fr
 status: true
 dependencies:
@@ -14,7 +15,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: '[registration:uid:entity:display-name] removed you from the event [registration:nid:entity:title] | Band booking'
+    value: '[registration:uid:entity:display-name] vous a retiré de l''évènement [registration:nid:entity:title] | Be live'
 default_value_callback: ''
 settings: {  }
 field_type: string
