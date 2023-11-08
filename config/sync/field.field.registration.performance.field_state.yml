@@ -17,9 +17,11 @@ label: state
 description: ''
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: waiting
 default_value_callback: ''
 settings:
-  workflow: performance_default
+  workflow: registration_default
   workflow_callback: ''
 field_type: state

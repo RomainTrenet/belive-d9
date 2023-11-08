@@ -1,7 +1,7 @@
-performance_default:
-  id: performance_default
-  label: Default performance
-  group: performance
+registration_default:
+  id: registration_default
+  label: Default registration
+  group: registration
   states:
     waiting:
       label: Waiting

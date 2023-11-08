@@ -1,2 +1,4 @@
 use band booking reminder:
   title: Use band booking reminder
+permission_callbacks:
+  - \Drupal\band_booking_performance\PerformancePermissions::permissions
