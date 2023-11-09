@@ -1,6 +1,12 @@
 <?php
 
-function band_booking_front_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+use Drupal\Core\Field\FieldItemList;
+use Drupal\Core\TypedData\Exception\MissingDataException;
+
+/**
+ * Implements hook_form_alter().
+ */
+function band_booking_front_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id): void
 {
   // For example : state_machine_transition_form_registration_field_state_120
   if (str_starts_with($form_id, 'state_machine_transition_form_registration_field_state_')) {
@@ -25,3 +31,34 @@ function band_booking_front_form_alter(&$form, \Drupal\Core\Form\FormStateInterf
   }
 }
 
+/**
+ * Implements hook_template_preprocess_default_variables_alter().
+ * @throws MissingDataException
+ */
+function band_booking_front_preprocess_field(&$variables, $hook): void
+{
+  $element = $variables['element'];
+
+  // Set raw value for field_confirmed, to manage icons.
+  if (
+    isset($element['#entity_type']) &&
+    $element['#entity_type'] == 'node' &&
+    isset($element['#field_type']) &&
+    $element['#field_type'] == 'state'&&
+    isset($element['#field_name']) &&
+    $element['#field_name'] == 'field_confirm'
+  ) {
+    /** @var FieldItemList $items */
+    $items = $element['#items'];
+    $variables['items'] = [];
+    $delta = 0;
+    while (!empty($element[$delta])) {
+      $value = $items->get($delta)->getValue();
+      if (isset($element[$delta]['#markup']) && isset($value['value'])) {
+        $element[$delta]['#markup'] = $value['value'];
+      }
+      $variables['items'][$delta]['content'] = $element[$delta];
+      $delta++;
+    }
+  }
+}

@@ -2,20 +2,22 @@
   Custom field confirmation (performance node).
   TODO : create a special node css.
  */
-.field--name-field-confirmation {
+.field--name-field-confirm {
+  /*
   float: left;
-  padding: 2em 3em 2em 2em;
+  padding: 2em 3em 0 2em;
+  */
 }
-.field--name-field-confirmation span.icon {
+.field--name-field-confirm span.icon {
   font-size: 6em;
 }
-.field--name-field-confirmation span.icon-perf-pending {
+.field--name-field-confirm span.icon-perf-pending {
   color: #696969;
 }
-.field--name-field-confirmation span.icon-perf-confirmed {
+.field--name-field-confirm span.icon-perf-confirmed {
   color: #4d8f46;
 }
-.field--name-field-confirmation span.icon-perf-canceled {
+.field--name-field-confirm span.icon-perf-canceled {
   color: #df4530;
 }
 
@@ -23,20 +25,33 @@
 .node hr { margin: 20px 0; }
 
 /**
-  Performance node. TODO : point full view mode.
+  Performance node.
  */
-.node--type-performance .group-main {
-  min-height: 120px;
+.node--type-performance.node--view-mode-full .node__content {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  padding: 2em 3em 2em 2em;
 }
-.node--type-performance .group-main .field {
-  display: block;
+.node--type-performance.node--view-mode-full .group-main {
+  flex: 1 1 auto;
 }
-.node--type-performance .group-main .field:after {
-  display: none;
-}
-.node--type-performance .group-main .field--name-body {
+.node--type-performance.node--view-mode-full .field--name-body {
   margin-top: 3em;
   margin-bottom: 3em;
+}
+.node--type-performance.node--view-mode-full .field--name-field-confirm {
+  padding-right: 2em;
+}
+.node--type-performance.node--view-mode-full .group-main .addtocal-container {
+  float: none;
+  margin: 20px 0 0;
+}
+@media only screen  and (min-width : 1224px) {
+  .node--type-performance.node--view-mode-full .group-main .addtocal-container {
+    float: right;
+    margin: -15px 0 10px;
+  }
 }
 
 /* User picture in node */
