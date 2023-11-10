@@ -243,19 +243,27 @@ class RegistrationHelper implements RegistrationHelperInterface {
       ]);
       $registration = $registrationEntity->save();
 
-      // Send mail.
+      // Prepare variables to send mail.
+      /** @var User $destinationUser */
+      $destinationUser = $users[$uid];
       $node = Node::load($nid);
-      $originalObject = $node->get('field_register_mail_object')->getValue();
-      $originalMessage = $node->get('field_register_mail_content')->getValue();
-      // Ensure message is not empty, for older content. Could be deleted.
-      $originalObject = $originalObject[0]['value'] ?? RegistrationHelper::getDefaultRegistrationMailObject();
-      $originalMessage = $originalMessage[0]['value'] ?? RegistrationHelper::getDefaultRegistrationMailMessage();
+      $object = $node->get('field_register_mail_object')->getValue()[0]['value'];
+      $message = $node->get('field_register_mail_content')->getValue()[0]['value'];
 
-      // For 'key' see band_booking_registration_mail.
+      // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
       $module = 'band_booking_registration';
+      // For 'key' is used inside the hook_mail.
       $key = 'user_register';
-      // TODO get result from mail.
-      $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registrationEntity, $users[$uid], $originalObject, $originalMessage);
+
+      // Prepare and send mail.
+      $mail = RegistrationHelper::getMailObjectAndMessageFromToken(
+        $destinationUser,
+        $object,
+        $message,
+        ['registration' => $registrationEntity],
+        ['registration' => $registrationEntity],
+      );
+      $mailResult = RegistrationHelper::bookingSendMail($module, $key, $destinationUser, $mail['object'], $mail['message']);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
@@ -459,7 +467,6 @@ class RegistrationHelper implements RegistrationHelperInterface {
       $originalMessage = $originalMessage[0]['value'] ?? RegistrationHelper::getDefaultUnregistrationMailMessage();
 
       // For 'key' see band_booking_registration_mail.
-      //RegistrationHelper::batchRegisterSendMail($node, $registrationEntity, $users[$uid]);
       $module = 'band_booking_registration';
       $key = 'user_unregister';
       $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $users[$uid], $originalObject, $originalMessage);
@@ -487,22 +494,6 @@ class RegistrationHelper implements RegistrationHelperInterface {
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = ($context['sandbox']['progress'] > $context['sandbox']['max']);
     }
-  }
-
-  /**
-   * TODO : translate of delete after import.
-   * {@inheritdoc}
-   */
-  public static function getDefaultRegistrationMailObject(): string {
-    return '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]';
-  }
-
-  /**
-   * TODO : translate of delete after import.
-   * {@inheritdoc}
-   */
-  public static function getDefaultRegistrationMailMessage(): string {
-    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">en cliquant ici</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>';
   }
 
   /**

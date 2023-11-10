@@ -168,30 +168,6 @@ interface RegistrationHelperInterface {
   public static function batchUnregisterUsersOperation(int $nid, array $registrations, array $users, $operation_details, &$context): void;
 
   /**
-   * Batch 'finished' callback for unregister users batch.
-   *
-   * @param $success
-   * @param $results
-   * @param $operations
-   * @return void
-   */
-  //public static function batchUnregisterUsersFinished($success, $results, $operations): void;
-
-  /**
-   * Get default registration mail object for former content.
-   *
-   * @return string
-   */
-  public static function getDefaultRegistrationMailObject(): string;
-
-  /**
-   * Get default registration mail content for former content.
-   *
-   * @return string
-   */
-  public static function getDefaultRegistrationMailMessage(): string;
-
-  /**
    * Get default registration mail object for former content.
    * TODO Should be deleted after import in D9.
    *
