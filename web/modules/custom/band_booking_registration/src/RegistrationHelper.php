@@ -1,10 +1,7 @@
 <?php
 
-//TODO clean
-
 namespace Drupal\band_booking_registration;
 
-use Drupal\band_booking_performance\PerformanceHelperInterface;
 use Drupal\band_booking_registration\Entity\Registration;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -458,18 +455,27 @@ class RegistrationHelper implements RegistrationHelperInterface {
       $deleted = TRUE;
         // TODO : improve and ensure entity is deleted before sending messages.
 
-      // Send mail.
+      // Prepare variables to send mail.
+      /** @var User $destinationUser */
+      $destinationUser = $users[$uid];
       $node = Node::load($nid);
-      $originalObject = $node->get('field_unregister_mail_object')->getValue();
-      $originalMessage = $node->get('field_unregister_mail_content')->getValue();
-      // Ensure message is not empty, for older content. Could be deleted.
-      $originalObject = $originalObject[0]['value'] ?? RegistrationHelper::getDefaultUnregistrationMailObject();
-      $originalMessage = $originalMessage[0]['value'] ?? RegistrationHelper::getDefaultUnregistrationMailMessage();
+      $object = $node->get('field_unregister_mail_object')->getValue()[0]['value'];
+      $message = $node->get('field_unregister_mail_content')->getValue()[0]['value'];
 
-      // For 'key' see band_booking_registration_mail.
+      // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
       $module = 'band_booking_registration';
+      // For 'key' is used inside the hook_mail.
       $key = 'user_unregister';
-      $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $users[$uid], $originalObject, $originalMessage);
+
+      // Prepare and send mail.
+      $mail = RegistrationHelper::getMailObjectAndMessageFromToken(
+        $destinationUser,
+        $object,
+        $message,
+        ['registration' => $registration],
+        ['registration' => $registration],
+      );
+      $mailResult = RegistrationHelper::bookingSendMail($module, $key, $destinationUser, $mail['object'], $mail['message']);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
@@ -494,22 +500,6 @@ class RegistrationHelper implements RegistrationHelperInterface {
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = ($context['sandbox']['progress'] > $context['sandbox']['max']);
     }
-  }
-
-  /**
-   * TODO : translate of delete after import.
-   * {@inheritdoc}
-   */
-  public static function getDefaultUnregistrationMailObject(): string {
-    return '[site:name] | [registration:uid:entity:display-name] vous a retiré de l\'évènement [registration:nid:entity:title]';
-  }
-
-  /**
-   * TODO : translate of delete after import.
-   * {@inheritdoc}
-   */
-  public static function getDefaultUnregistrationMailMessage(): string {
-    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été retiré(e) de la prestation "[registration:nid:entity:title]".</p><p>Cordialement,&nbsp;<br>[registration:uid:entity:display-name].</p>';
   }
 
   /**
