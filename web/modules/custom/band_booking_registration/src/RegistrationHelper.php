@@ -4,6 +4,7 @@
 
 namespace Drupal\band_booking_registration;
 
+use Drupal\band_booking_performance\PerformanceHelperInterface;
 use Drupal\band_booking_registration\Entity\Registration;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -521,23 +522,76 @@ class RegistrationHelper implements RegistrationHelperInterface {
   }
 
   /**
+   * TODO should be in a separated module.
+   * {@inheritdoc}
+   */
+  public static function getMailObjectAndMessageFromToken(User $user, string $originalObject, string $originalMessage, array $dataObject = [], array $dataMessage= []): array {
+    $token_service = \Drupal::token();
+
+    $mail = [
+      'object' => '',
+      'message' => '',
+    ];
+
+    $options = [
+      'langcode' => $user->getPreferredLangcode(),
+      'clear' => TRUE,
+    ];
+
+    if (isset($originalObject)) {
+      $mail['object'] = $token_service->replace(
+        $originalObject,
+        $dataObject,
+        $options
+      );
+    }
+    if (isset($originalMessage)) {
+      $mail['message'] =  $token_service->replace(
+        $originalMessage,
+        $dataMessage,
+        $options
+      );
+    }
+
+    return $mail;
+  }
+
+  /**
+   * TODO should be in a separated module.
+   * {@inheritdoc}
+   */
+  public static function bookingSendMail(string $module, string $key, User $toUser, string $object, string $message): array {
+    /** @var MailManagerInterface $mailManager */
+    $mailManager = \Drupal::service('plugin.manager.mail');
+    $to = $toUser->get('mail')->getValue()[0]['value'];
+    $config = \Drupal::config('system.site');
+    $params['from'] = $config->get('mail');
+    $params['message'] = Markup::create($message);
+    $params['title'] = $object;
+    $langcode = $toUser->getPreferredLangcode();
+
+    return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);
+  }
+
+  /**
    * Common registration mail sender. See also band_booking_registration_mail.
    * {@inheritdoc}
    *
-   * TODO eventually : registrationSendMail call a common bookingSendMail ?
+   * TODO eventually : function that get token for mail object and message ?
    */
   public static function registrationSendMail(string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array {
     $token_service = \Drupal::token();
+    $options = [
+      'langcode' => $user->getPreferredLangcode(),
+      'clear' => TRUE,
+    ];
 
     $object = '';
     if (isset($originalObject)) {
       $object =  $token_service->replace(
         $originalObject,
         ['registration' => $registration],
-        [
-          'langcode' => $user->getPreferredLangcode(),
-          'clear' => TRUE,
-        ]
+        $options
       );
     }
 
@@ -546,14 +600,14 @@ class RegistrationHelper implements RegistrationHelperInterface {
       $message =  $token_service->replace(
         $originalMessage,
         ['registration' => $registration],
-        [
-          'langcode' => $user->getPreferredLangcode(),
-          'clear' => TRUE,
-        ]
+        $options
       );
     }
 
-    /** @var MailManagerInterface $mailManager */
+    // TODO : check if it still works.
+    return RegistrationHelper::bookingSendMail($module, $key, $user, $object, $message);
+
+    /** @var MailManagerInterface $mailManager * /
     $mailManager = \Drupal::service('plugin.manager.mail');
     $to = $user->get('mail')->getValue()[0]['value'];
     $config = \Drupal::config('system.site');
@@ -564,7 +618,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
     // TODO : replace currentUser by the user to send the email to.
     $langcode = \Drupal::currentUser()->getPreferredLangcode();
 
-    return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);
+    return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);*/
   }
 
   /**
@@ -632,7 +686,6 @@ class RegistrationHelper implements RegistrationHelperInterface {
     $node = Node::load($nid);
 
     $user = $registration->getOwner();
-    $foo = "libuy";
     //$this->registrationSendMail()
     $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $user, $originalObject, $originalMessage);
   }

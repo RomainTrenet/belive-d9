@@ -7,6 +7,11 @@ services:
     arguments: [ '@date.formatter' ]
     tags:
       - { name: 'event_subscriber' }
+  band_booking_performance.performance_delete_subscriber:
+    class: Drupal\band_booking_performance\EventSubscriber\PerformanceDeleteSubscriber
+    arguments: [ '@band_booking_performance.performance_helper' ]
+    tags:
+      - { name: 'event_subscriber' }
   band_booking_performance.performance_guard:
     class: Drupal\band_booking_performance\Guard\PerformanceGuard
     arguments: ['@current_user', '@plugin.manager.workflow']

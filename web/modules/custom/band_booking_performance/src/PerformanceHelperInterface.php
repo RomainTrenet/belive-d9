@@ -2,6 +2,9 @@
 
 namespace Drupal\band_booking_performance;
 
+use Drupal\band_booking_registration\Entity\Registration;
+use Drupal\band_booking_registration\RegistrationInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
 
 /**
@@ -10,7 +13,7 @@ use Drupal\node\Entity\Node;
 interface PerformanceHelperInterface {
 
   /**
-   * Send reminder function.
+   * Send reminder batch function.
    *
    * @param bool $manual
    *   Wether this is a manual call or automatic.
@@ -104,6 +107,73 @@ interface PerformanceHelperInterface {
    * @return void
    */
   public static function batchPerformanceReminderFinished($success, $results, $operations): void;
+
+  /**
+   * Batch creation for performance changed.
+   *
+   * @param Node $performance
+   *   The current performance.
+   * @param string $object
+   *   Object of mail to send.
+   * @param string $message
+   *   Message of mail to send.
+   * @param array $registrationStates
+   *   The registration states admitted. 'all' by default.
+   * @param bool $manual
+   *   Manual action or not, to see batch. True by default.
+   *
+   * @return void
+   */
+  public function performanceChanged(Node $performance, string $object, string $message, array $registrationStates = ['all'], bool $manual = true): void;
+
+  /**
+   * @param Node $performance
+   *   The current performance.
+   * @param array $registrationStates
+   *   The registration states admitted. 'all' by default.
+   * @param bool $getUserId
+   *   Get users id instead of registrations.
+   * @return array
+   *   Array of registrations id.
+   */
+  public function getPerformanceRegistrationsId(Node $performance, array $registrationStates = ['all'], bool $getUserId = false): array;
+
+  /**
+   * @param bool $manual
+   *   Manual action or not, to see batch. True by default.
+   * @param array $registrations
+   *   A list of registration, matching users.
+   * @param array $users
+   *   A list of users to which send mail.
+   * @param string $module
+   *   The name of the module in which find hook_mail.
+   * @param string $key
+   *   The key used inside hook_mail.
+   * @param string $object
+   *   Object of mail to send.
+   * @param string $message
+   *   Message of mail to send.
+   * @param $operation_details
+   *   The operation details.
+   * @param $context
+   *   The batch context.
+   * @return void
+   */
+  public static function batchPerformanceChangedOperation(bool $manual, array $registrations, array $users, string $module, string $key, string $object, string $message, $operation_details, &$context) :void;
+
+  /**
+   * Default Deleted performance mail object. TODO : set in a config form.
+   *
+   * @return string
+   */
+  public static function getDefaultDeletedPerformanceMailObject(): string;
+
+  /**
+   * Default Deleted performance mail message. TODO : set in a config form.
+   *
+   * @return string
+   */
+  public static function getDefaultDeletedPerformanceMailMessage(): string;
 
   /**
    * Get default reminder mail object for former content.

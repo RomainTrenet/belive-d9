@@ -139,3 +139,39 @@ msgstr "Confirmer"
 msgctxt 'workflow state'
 msgid "Cancel"
 msgstr "Annuler"
+
+msgid "<p>Hello [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation \"[registration:nid:entity:title]\".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href=\"[registration:url]/edit\">en cliquant</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>"
+msgstr "<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation \"[registration:nid:entity:title]\".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href=\"[registration:url]/edit\">en cliquant</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>"
+
+msgid "Send one mail for \"@event\""
+msgid_plural "Send @count mails for \"@event\""
+msgstr[0] "Envoi d'un seul mail pour \"@event\""
+msgstr[1] "Envoi de @count mails pour \"@event\""
+
+msgid "Mail sent to \"@user\""
+msgstr "Mail envoyé à \"@user\""
+
+msgid "Sending a single mail"
+msgid_plural "Sending @count mails"
+msgstr[0] "Envoi d'un seul mail"
+msgstr[1] "Envoi de @count mails"
+
+msgid "No mail to send."
+msgstr "Aucun mail à envoyer."
+
+msgid "Running Batch \"@id\" for user \"@user\""
+msgstr "Exécution du lot \"@id\" pour l'utilisateur \"@user\""
+
+msgid "Successful operation"
+msgstr "Opération réussie"
+
+msgid "Successful operation :"
+msgid_plural "@count successful operations :"
+msgstr[0] "Opération réussie :"
+msgstr[1] "@count opération réussies :"
+
+msgid "\"[registration:nid:entity:title]\" deleted by [user:display-name] | @site"
+msgstr "\"[registration:nid:entity:title]\" supprimée par [user:display-name] | @site"
+
+msgid "<p>Hello [registration:registration_user_id:entity:display-name],</p><p>\"[registration:nid:entity:title]\" has been deleted.</p><p>[user:display-name].</p>"
+msgstr "<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>\"[registration:nid:entity:title]\" a été supprimée.</p><p>[user:display-name].</p>"

@@ -208,6 +208,37 @@ interface RegistrationHelperInterface {
   public static function getDefaultUnregistrationMailMessage(): string;
 
   /**
+   * @param User $user
+   *   The user to which send mail.
+   * @param string $originalObject
+   *   The object containing tokens.
+   * @param string $originalMessage
+   *   The message containing tokens.
+   * @param array $dataObject
+   *   See replace function from token service
+   * @param array $dataMessage
+   *   See replace function from token service
+   * @return array
+   *   An array with 'object' and 'message'.
+   */
+  public static function getMailObjectAndMessageFromToken(User $user, string $originalObject, string $originalMessage, array $dataObject, array $dataMessage): array;
+
+  /**
+   * @param string $module.
+   *   The module string used in send_mail.
+   * @param string $key.
+   *   The key string used in send_mail.
+   * @param User $toUser
+   *   The user to which send mail.
+   * @param string $object
+   *   The mail object.
+   * @param string $message
+   *   The mail message.
+   * @return array
+   */
+  public static function bookingSendMail(string $module, string $key, User $toUser, string $object, string $message): array;
+
+  /**
    * TODO
    * Send mail for registration.
    *

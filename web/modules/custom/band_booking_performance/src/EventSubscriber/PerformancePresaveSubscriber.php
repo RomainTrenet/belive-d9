@@ -46,7 +46,8 @@ class PerformancePresaveSubscriber implements EventSubscriberInterface {
    * @param PerformancePresaveEvent $event
    *   The event.
    */
-  public function onPerformancePresave(PerformancePresaveEvent $event) {
+  public function onPerformancePresave(PerformancePresaveEvent $event): void
+  {
     // Save non utc date.
     /** @var NodeInterface $performance */
     $performance = $event->entity;
