@@ -16,12 +16,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PerformanceDeleteSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
-
-  /**
-   * @var PerformanceHelperInterface
-   */
-  protected PerformanceHelperInterface $performanceHelper;
-
   /**
    * Constructor.
    *
