@@ -116,6 +116,12 @@ msgstr "[registration:uid:entity:display-name] vous a retiré de l'évènement [
 msgid "<p>Hello [registration:registration_user_id:entity:display-name],</p><p>You have been removed from the service \"[registration:nid:entity:title]\".</p><p>Sincerely,&nbsp;<br>[registration:uid:entity:display-name].</p>"
 msgstr "<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été retiré(e) de la prestation \"[registration:nid:entity:title]\".</p><p>Cordialement,&nbsp;<br>[registration:uid:entity:display-name].</p>"
 
+msgid "About the \"[registration:nid:entity:title]\" performance | @site"
+msgstr "À propos de la performance \"[registration:nid:entity:title]\" | @site"
+
+msgid "<p>Hello [registration:uid:entity:display-name],</p><p>[registration:registration_user_id:entity:display-name] declined to register for the \"[registration:nid:entity:title]\" performance.</p>"
+msgstr "<p>Bonjour [registration:uid:entity:display-name],</p><p>[registration:registration_user_id:entity:display-name] a décliné l\'inscription à la prestation \"[registration:nid:entity:title]\".</p>"
+
 msgctxt 'workflow state'
 msgid "Optional"
 msgstr "En option"
@@ -139,9 +145,6 @@ msgstr "Confirmer"
 msgctxt 'workflow transition'
 msgid "Cancel"
 msgstr "Annuler"
-
-msgid "<p>Hello [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation \"[registration:nid:entity:title]\".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href=\"[registration:url]/edit\">en cliquant</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>"
-msgstr "<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation \"[registration:nid:entity:title]\".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href=\"[registration:url]/edit\">en cliquant</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>"
 
 msgid "Send one mail for \"@event\""
 msgid_plural "Send @count mails for \"@event\""
@@ -175,3 +178,9 @@ msgstr "\"[registration:nid:entity:title]\" supprimée par [user:display-name] |
 
 msgid "<p>Hello [registration:registration_user_id:entity:display-name],</p><p>\"[registration:nid:entity:title]\" has been deleted.</p><p>[user:display-name].</p>"
 msgstr "<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>\"[registration:nid:entity:title]\" a été supprimée.</p><p>[user:display-name].</p>"
+
+msgid "\"[node:title]\" date modified by [user:display-name] | @site"
+msgstr "\"[node:title]\" date modifiée par [user:display-name] | @site"
+
+msgid "<p>Hello [registration:registration_user_id:entity:display-name],</p><p>The date of \"[node:title]\" changed for [node:field_date:date:bb_medium].</p><p>[user:display-name].</p>"
+msgstr "<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>La date de \"[node:title]\" a changé pour [node:field_date:date:bb_medium].</p><p>[user:display-name].</p>"

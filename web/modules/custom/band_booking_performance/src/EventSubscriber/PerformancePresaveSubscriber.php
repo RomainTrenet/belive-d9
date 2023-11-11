@@ -6,6 +6,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\band_booking_performance\Event\PerformancePresaveEvent;
+use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -69,6 +70,15 @@ class PerformancePresaveSubscriber implements EventSubscriberInterface {
       ) :
       null;
 
+    // Compare date to call event subscriber.
+    $nid = $performance->id();
+    $formerPerf = Node::load($nid);
+    $former_date_value = $formerPerf->get('field_date')->getValue();
+    if ($former_date_value[0]['value'] != $date_value[0]['value']) {
+
+    }
+
+    // Finally save.
     $performance->set('field_date_non_utc', $date_non_utc);
   }
 }

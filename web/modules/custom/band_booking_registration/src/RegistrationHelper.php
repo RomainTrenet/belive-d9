@@ -638,19 +638,24 @@ class RegistrationHelper implements RegistrationHelperInterface {
   }
 
   /**
-   * TODO : set in configuration + translate.
+   * TODO : set in configuration.
    * {@inheritdoc}
    */
   public function getRegistrationRefusedBaseObject(): string {
-    return 'À propos de l\'évènement [registration:nid:entity:title] | [site:name]';
+    $config = \Drupal::config('system.site');
+    return t('About the "[registration:nid:entity:title]" performance | @site',
+      [
+        '@site' => $config->get('name'),
+      ]
+    );
   }
 
   /**
-   * TODO : set in configuration + translate.
+   * TODO : set in configuration.
    * {@inheritdoc}
    */
   public function getRegistrationRefusedBaseMessage(): string {
-    return '<p>Bonjour [registration:uid:entity:display-name],</p><p>[registration:registration_user_id:entity:display-name] a décliné l\'inscription à la prestation "[registration:nid:entity:title]".</p>';
+    return t('<p>Hello [registration:uid:entity:display-name],</p><p>[registration:registration_user_id:entity:display-name] declined to register for the "[registration:nid:entity:title]" performance.</p>');
   }
 
   /**

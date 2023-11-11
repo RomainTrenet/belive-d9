@@ -674,6 +674,25 @@ class PerformanceHelper implements PerformanceHelperInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public static function getDefaultDateChangedPerformanceMailObject(): string {
+    $config = \Drupal::config('system.site');
+    return t('"[node:title]" date modified by [user:display-name] | @site',
+      [
+        '@site' => $config->get('name'),
+      ]
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getDefaultDateChangedPerformanceMailMessage(): string {
+    return t('<p>Hello [registration:registration_user_id:entity:display-name],</p><p>The date of "[node:title]" changed for [node:field_date:date:bb_medium].</p><p>[user:display-name].</p>');
+  }
+
+  /**
    * TODO : translate of delete after import.
    * {@inheritdoc}
    */

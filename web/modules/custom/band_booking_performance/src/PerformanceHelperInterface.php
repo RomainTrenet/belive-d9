@@ -178,6 +178,20 @@ interface PerformanceHelperInterface {
   public static function getDefaultDeletedPerformanceMailMessage(): string;
 
   /**
+   * Default performance mail object when date changed. TODO : set in a config form.
+   *
+   * @return string
+   */
+  public static function getDefaultDateChangedPerformanceMailObject(): string;
+
+  /**
+   * Default performance mail message when date changed. TODO : set in a config form.
+   *
+   * @return string
+   */
+  public static function getDefaultDateChangedPerformanceMailMessage(): string;
+
+  /**
    * Get default reminder mail object for former content.
    * TODO Should be deleted after import in D9.
    *
