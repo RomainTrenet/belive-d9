@@ -190,20 +190,4 @@ interface PerformanceHelperInterface {
    * @return string
    */
   public static function getDefaultDateChangedPerformanceMailMessage(): string;
-
-  /**
-   * Get default reminder mail object for former content.
-   * TODO Should be deleted after import in D9.
-   *
-   * @return string
-   */
-  public static function getDefaultReminderMailObject(): string;
-
-  /**
-   * Get default reminder mail content for former content.
-   * TODO Should be deleted after import in D9.
-   *
-   * @return string
-   */
-  public static function getDefaultReminderMailMessage(): string;
 }

@@ -506,7 +506,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
    * TODO should be in a separated module.
    * {@inheritdoc}
    */
-  public static function getMailObjectAndMessageFromToken(User $user, string $originalObject, string $originalMessage, array $dataObject = [], array $dataMessage= []): array {
+  public static function getMailObjectAndMessageFromToken(User $toUser, string $originalObject, string $originalMessage, array $dataObject = [], array $dataMessage= []): array {
     $token_service = \Drupal::token();
 
     $mail = [
@@ -515,7 +515,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
     ];
 
     $options = [
-      'langcode' => $user->getPreferredLangcode(),
+      'langcode' => $toUser->getPreferredLangcode(),
       'clear' => TRUE,
     ];
 
@@ -552,54 +552,6 @@ class RegistrationHelper implements RegistrationHelperInterface {
     $langcode = $toUser->getPreferredLangcode();
 
     return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);
-  }
-
-  /**
-   * Common registration mail sender. See also band_booking_registration_mail.
-   * {@inheritdoc}
-   *
-   * TODO eventually : function that get token for mail object and message ?
-   */
-  public static function registrationSendMail(string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array {
-    $token_service = \Drupal::token();
-    $options = [
-      'langcode' => $user->getPreferredLangcode(),
-      'clear' => TRUE,
-    ];
-
-    $object = '';
-    if (isset($originalObject)) {
-      $object =  $token_service->replace(
-        $originalObject,
-        ['registration' => $registration],
-        $options
-      );
-    }
-
-    $message = '';
-    if (isset($originalMessage)) {
-      $message =  $token_service->replace(
-        $originalMessage,
-        ['registration' => $registration],
-        $options
-      );
-    }
-
-    // TODO : check if it still works.
-    return RegistrationHelper::bookingSendMail($module, $key, $user, $object, $message);
-
-    /** @var MailManagerInterface $mailManager * /
-    $mailManager = \Drupal::service('plugin.manager.mail');
-    $to = $user->get('mail')->getValue()[0]['value'];
-    $config = \Drupal::config('system.site');
-    $params['from'] = $config->get('mail');
-
-    $params['message'] = Markup::create($message);
-    $params['title'] = $object;
-    // TODO : replace currentUser by the user to send the email to.
-    $langcode = \Drupal::currentUser()->getPreferredLangcode();
-
-    return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);*/
   }
 
   /**

@@ -233,18 +233,33 @@ class PerformanceHelper implements PerformanceHelperInterface {
       $rid = $reminders[$row]['rid'];
       $registration = Registration::load($rid);
 
-      // Send mail.
-      $originalObject = $node->get('field_reminder_mail_object')->getValue();
-      $originalMessage = $node->get('field_reminder_mail_content')->getValue();
-      // Ensure message is not empty, for older content. Could be deleted.
-      $originalObject = $originalObject[0]['value'] ?? PerformanceHelper::getDefaultReminderMailObject();
-      $originalMessage = $originalMessage[0]['value'] ?? PerformanceHelper::getDefaultReminderMailMessage();
+      // Prepare variables to send mail.
+      $currentUser = \Drupal::currentUser();
+      $object = $node->get('field_reminder_mail_object')->getValue()[0]['value'];
+      $message = $node->get('field_reminder_mail_content')->getValue()[0]['value'];
+
       // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
       $module = 'band_booking_registration';
       // For 'key' is used inside the hook_mail.
       $key = 'performance_reminder';
-      // TODO ADAPT to bookingSendMail.
-      $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $user, $originalObject, $originalMessage);
+
+      // Prepare and send mail.
+      $mail = RegistrationHelper::getMailObjectAndMessageFromToken(
+        $user,
+        $object,
+        $message,
+        [
+          'node' => $node,
+          'registration' => $registration,
+          'user' => $currentUser,
+        ],
+        [
+          'node' => $node,
+          'registration' => $registration,
+          'user' => $currentUser,
+        ],
+      );
+      $mailResult = RegistrationHelper::bookingSendMail($module, $key, $user, $mail['object'], $mail['message']);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
@@ -690,22 +705,6 @@ class PerformanceHelper implements PerformanceHelperInterface {
    */
   public static function getDefaultDateChangedPerformanceMailMessage(): string {
     return t('<p>Hello [registration:registration_user_id:entity:display-name],</p><p>The date of "[node:title]" changed for [node:field_date:date:bb_medium].</p><p>[user:display-name].</p>');
-  }
-
-  /**
-   * TODO : translate of delete after import.
-   * {@inheritdoc}
-   */
-  public static function getDefaultReminderMailObject(): string {
-    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">en cliquant</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>';
-  }
-
-  /**
-   * TODO : translate of delete after import.
-   * {@inheritdoc}
-   */
-  public static function getDefaultReminderMailMessage(): string {
-    return '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]';
   }
 
 }
