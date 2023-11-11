@@ -128,7 +128,6 @@ class PerformanceHelper implements PerformanceHelperInterface {
     // TODO : order by date. Doesn't work for the moment.
     // $query->orderBy('dt.field_date_non_utc_value', 'DESC');
 
-    // TODO check after change from "field_confirmation" !!!!.
     // Ensure event is not canceled.
     $query->leftjoin('node__field_confirm', 'nfc', 'nfc.entity_id = n.nid');
     // TODO : param for remind depending on confirmation  ?
@@ -403,6 +402,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
         '\Drupal\band_booking_performance\PerformanceHelper::batchPerformanceChangedOperation',
         [
           $manual,
+          $performance,
           $registrations,
           $users,
           'band_booking_registration',
@@ -495,7 +495,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
    * {@inheritdoc}
    * @throws EntityStorageException
    */
-  public static function batchPerformanceChangedOperation(bool $manual, array $registrations, array $users, string $module, string $key, string $object, string $message, $operation_details, &$context) :void {
+  public static function batchPerformanceChangedOperation(bool $manual, Node $performance, array $registrations, array $users, string $module, string $key, string $object, string $message, $operation_details, &$context) :void {
     if (empty($context['sandbox'])) {
       $context['sandbox'] = [];
       $context['sandbox']['progress'] = 0;
@@ -526,10 +526,12 @@ class PerformanceHelper implements PerformanceHelperInterface {
         $object,
         $message,
         [
+          'node' => $performance,
           'registration' => $registrations[$row],
           'user' => $currentUser,
         ],
         [
+          'node' => $performance,
           'registration' => $registrations[$row],
           'user' => $currentUser,
         ],
@@ -657,7 +659,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
    */
   public static function getDefaultDeletedPerformanceMailObject(): string {
     $config = \Drupal::config('system.site');
-    return t('"[registration:nid:entity:title]" deleted by [user:display-name] | @site',
+    return t('"[node:title]" deleted by [user:display-name] | @site',
       [
         '@site' => $config->get('name'),
       ]
@@ -668,7 +670,7 @@ class PerformanceHelper implements PerformanceHelperInterface {
    * {@inheritdoc}
    */
   public static function getDefaultDeletedPerformanceMailMessage(): string {
-    return t('<p>Hello [registration:registration_user_id:entity:display-name],</p><p>"[registration:nid:entity:title]" has been deleted.</p><p>[user:display-name].</p>');
+    return t('<p>Hello [registration:registration_user_id:entity:display-name],</p><p>"[node:title]" has been deleted.</p><p>[user:display-name].</p>');
   }
 
   /**

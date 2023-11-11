@@ -30,7 +30,8 @@ function band_booking_performance_entity_presave(\Drupal\Core\Entity\EntityInter
  *
  * Implements hook_entity_delete().
  */
-function band_booking_performance_entity_delete(\Drupal\Core\Entity\EntityInterface $entity): void {
+function band_booking_performance_entity_predelete(\Drupal\Core\Entity\EntityInterface $entity)
+{
   if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'performance') {
     // Dispatch event.
     $event = new PerformanceDeleteEvent($entity);

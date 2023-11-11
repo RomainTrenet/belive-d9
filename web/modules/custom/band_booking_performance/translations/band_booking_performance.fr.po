@@ -128,15 +128,15 @@ msgctxt 'workflow state'
 msgid "Canceled"
 msgstr "Annulée"
 
-msgctxt 'workflow state'
-msgid "Optional"
-msgstr "En option"
+msgctxt 'workflow transition'
+msgid "Set optional"
+msgstr "Mettre en option"
 
-msgctxt 'workflow state'
+msgctxt 'workflow transition'
 msgid "Confirm"
 msgstr "Confirmer"
 
-msgctxt 'workflow state'
+msgctxt 'workflow transition'
 msgid "Cancel"
 msgstr "Annuler"
 

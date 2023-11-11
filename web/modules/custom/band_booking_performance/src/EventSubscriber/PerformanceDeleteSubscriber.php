@@ -2,12 +2,7 @@
 
 namespace Drupal\band_booking_performance\EventSubscriber;
 
-use Drupal\band_booking_performance\PerformanceHelper;
 use Drupal\band_booking_performance\PerformanceHelperInterface;
-use Drupal\band_booking_registration\Entity\Registration;
-use Drupal\band_booking_registration\RegistrationHelper;
-use Drupal\Core\Datetime\DateFormatterInterface;
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\band_booking_performance\Event\PerformanceDeleteEvent;
 use Drupal\node\NodeInterface;

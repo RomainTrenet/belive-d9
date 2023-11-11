@@ -143,6 +143,8 @@ interface PerformanceHelperInterface {
    *   Manual action or not, to see batch. True by default.
    * @param array $registrations
    *   A list of registration, matching users.
+   * @param Node $performance
+   *   The performance node.
    * @param array $users
    *   A list of users to which send mail.
    * @param string $module
@@ -159,7 +161,7 @@ interface PerformanceHelperInterface {
    *   The batch context.
    * @return void
    */
-  public static function batchPerformanceChangedOperation(bool $manual, array $registrations, array $users, string $module, string $key, string $object, string $message, $operation_details, &$context) :void;
+  public static function batchPerformanceChangedOperation(bool $manual, Node $performance, array $registrations, array $users, string $module, string $key, string $object, string $message, $operation_details, &$context) :void;
 
   /**
    * Default Deleted performance mail object. TODO : set in a config form.
