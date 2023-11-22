@@ -1,0 +1,12 @@
+uuid: 2b6b7a6e-e796-4245-bb76-7ecc1091e53c
+langcode: fr
+status: true
+dependencies: {  }
+name: Prestation
+type: performance
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: true
+y
