@@ -25,6 +25,7 @@ graylist:
   - advagg_css_minify.settings
   - advagg_js_minify.settings
   - advagg_validator.settings
+  - node.type.performance
   - system.performance
 graylist_dependents: true
 graylist_skip_equal: true
