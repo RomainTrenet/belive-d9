@@ -59,7 +59,6 @@
 $sites['belive-d9-dev.ddev.site'] = 'dev';
 $sites['belive-d9-sandbox.ddev.site'] = 'sandbox';
 $sites['belive-d9.ddev.site'] = 'belive';
-$sites['band-two-d9.ddev.site'] = 'bandtwo';
 
 /* Temporary prod */
 $sites['www.belive.romain-trenet.com'] = 'belive';
