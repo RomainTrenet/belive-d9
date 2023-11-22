@@ -45,7 +45,7 @@ content:
     label: inline
     settings:
       timezone_override: ''
-      date_format: 'l j F Y - H:i'
+      date_format: 'l j F Y'
       event_title: ''
       location: ''
       description: ''

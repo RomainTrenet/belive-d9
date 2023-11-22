@@ -1,7 +1,5 @@
 <?php
 
-//TODO clean
-
 namespace Drupal\band_booking_registration;
 
 use Drupal\band_booking_registration\Entity\Registration;
@@ -230,7 +228,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
         return;
       }
 
-      // Register entity.
+      // Register entity. TODO check if no registration already exists.
       $uid = $uids[$row];
       $storage = \Drupal::entityTypeManager()->getStorage('registration');
       // TODO @var should come from bundle name.
@@ -242,19 +240,27 @@ class RegistrationHelper implements RegistrationHelperInterface {
       ]);
       $registration = $registrationEntity->save();
 
-      // Send mail.
+      // Prepare variables to send mail.
+      /** @var User $destinationUser */
+      $destinationUser = $users[$uid];
       $node = Node::load($nid);
-      $originalObject = $node->get('field_register_mail_object')->getValue();
-      $originalMessage = $node->get('field_register_mail_content')->getValue();
-      // Ensure message is not empty, for older content. Could be deleted.
-      $originalObject = $originalObject[0]['value'] ?? RegistrationHelper::getDefaultRegistrationMailObject();
-      $originalMessage = $originalMessage[0]['value'] ?? RegistrationHelper::getDefaultRegistrationMailMessage();
+      $object = $node->get('field_register_mail_object')->getValue()[0]['value'];
+      $message = $node->get('field_register_mail_content')->getValue()[0]['value'];
 
-      // For 'key' see band_booking_registration_mail.
+      // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
       $module = 'band_booking_registration';
+      // For 'key' is used inside the hook_mail.
       $key = 'user_register';
-      // TODO get result from mail.
-      $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registrationEntity, $users[$uid], $originalObject, $originalMessage);
+
+      // Prepare and send mail.
+      $mail = RegistrationHelper::getMailObjectAndMessageFromToken(
+        $destinationUser,
+        $object,
+        $message,
+        ['registration' => $registrationEntity],
+        ['registration' => $registrationEntity],
+      );
+      $mailResult = RegistrationHelper::bookingSendMail($module, $key, $destinationUser, $mail['object'], $mail['message']);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
@@ -447,21 +453,29 @@ class RegistrationHelper implements RegistrationHelperInterface {
       $storage = \Drupal::entityTypeManager()->getStorage('registration');
       $storage->delete([$registration]);
       $deleted = TRUE;
-        // TODO : improve and ensure entity is deleted before sending messages.
+      // TODO : improve and ensure entity is deleted before sending messages.
 
-      // Send mail.
+      // Prepare variables to send mail.
+      /** @var User $destinationUser */
+      $destinationUser = $users[$uid];
       $node = Node::load($nid);
-      $originalObject = $node->get('field_unregister_mail_object')->getValue();
-      $originalMessage = $node->get('field_unregister_mail_content')->getValue();
-      // Ensure message is not empty, for older content. Could be deleted.
-      $originalObject = $originalObject[0]['value'] ?? RegistrationHelper::getDefaultUnregistrationMailObject();
-      $originalMessage = $originalMessage[0]['value'] ?? RegistrationHelper::getDefaultUnregistrationMailMessage();
+      $object = $node->get('field_unregister_mail_object')->getValue()[0]['value'];
+      $message = $node->get('field_unregister_mail_content')->getValue()[0]['value'];
 
-      // For 'key' see band_booking_registration_mail.
-      //RegistrationHelper::batchRegisterSendMail($node, $registrationEntity, $users[$uid]);
+      // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
       $module = 'band_booking_registration';
+      // For 'key' is used inside the hook_mail.
       $key = 'user_unregister';
-      $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $users[$uid], $originalObject, $originalMessage);
+
+      // Prepare and send mail.
+      $mail = RegistrationHelper::getMailObjectAndMessageFromToken(
+        $destinationUser,
+        $object,
+        $message,
+        ['registration' => $registration],
+        ['registration' => $registration],
+      );
+      $mailResult = RegistrationHelper::bookingSendMail($module, $key, $destinationUser, $mail['object'], $mail['message']);
 
       // Results passed to the 'finished' callback.
       $context['results'][] = [
@@ -489,80 +503,53 @@ class RegistrationHelper implements RegistrationHelperInterface {
   }
 
   /**
-   * TODO : translate of delete after import.
+   * TODO should be in a separated module.
    * {@inheritdoc}
    */
-  public static function getDefaultRegistrationMailObject(): string {
-    return '[site:name] | [registration:uid:entity:display-name] vous a inscrit à l\'évènement [registration:nid:entity:title]';
-  }
-
-  /**
-   * TODO : translate of delete after import.
-   * {@inheritdoc}
-   */
-  public static function getDefaultRegistrationMailMessage(): string {
-    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été ajouté(e) à la prestation "[registration:nid:entity:title]".&nbsp;&nbsp;<br>Veuillez me prévenir de votre présence <a href="[registration:url]/edit">en cliquant ici</a>.</p><p>Merci d\'avance,&nbsp;&nbsp;<br>[registration:uid:entity:display-name].</p>';
-  }
-
-  /**
-   * TODO : translate of delete after import.
-   * {@inheritdoc}
-   */
-  public static function getDefaultUnregistrationMailObject(): string {
-    return '[site:name] | [registration:uid:entity:display-name] vous a retiré de l\'évènement [registration:nid:entity:title]';
-  }
-
-  /**
-   * TODO : translate of delete after import.
-   * {@inheritdoc}
-   */
-  public static function getDefaultUnregistrationMailMessage(): string {
-    return '<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>Vous avez été retiré(e) de la prestation "[registration:nid:entity:title]".</p><p>Cordialement,&nbsp;<br>[registration:uid:entity:display-name].</p>';
-  }
-
-  /**
-   * Common registration mail sender. See also band_booking_registration_mail.
-   * {@inheritdoc}
-   *
-   * TODO eventually : registrationSendMail call a common bookingSendMail ?
-   */
-  public static function registrationSendMail(string $module, string $key, Node $node, Registration $registration, User $user, string $originalObject, string $originalMessage): array {
+  public static function getMailObjectAndMessageFromToken(User $toUser, string $originalObject, string $originalMessage, array $dataObject = [], array $dataMessage= []): array {
     $token_service = \Drupal::token();
 
-    $object = '';
+    $mail = [
+      'object' => '',
+      'message' => '',
+    ];
+
+    $options = [
+      'langcode' => $toUser->getPreferredLangcode(),
+      'clear' => TRUE,
+    ];
+
     if (isset($originalObject)) {
-      $object =  $token_service->replace(
+      $mail['object'] = $token_service->replace(
         $originalObject,
-        ['registration' => $registration],
-        [
-          'langcode' => $user->getPreferredLangcode(),
-          'clear' => TRUE,
-        ]
+        $dataObject,
+        $options
       );
     }
-
-    $message = '';
     if (isset($originalMessage)) {
-      $message =  $token_service->replace(
+      $mail['message'] =  $token_service->replace(
         $originalMessage,
-        ['registration' => $registration],
-        [
-          'langcode' => $user->getPreferredLangcode(),
-          'clear' => TRUE,
-        ]
+        $dataMessage,
+        $options
       );
     }
 
+    return $mail;
+  }
+
+  /**
+   * TODO should be in a separated module.
+   * {@inheritdoc}
+   */
+  public static function bookingSendMail(string $module, string $key, User $toUser, string $object, string $message): array {
     /** @var MailManagerInterface $mailManager */
     $mailManager = \Drupal::service('plugin.manager.mail');
-    $to = $user->get('mail')->getValue()[0]['value'];
+    $to = $toUser->get('mail')->getValue()[0]['value'];
     $config = \Drupal::config('system.site');
     $params['from'] = $config->get('mail');
-
     $params['message'] = Markup::create($message);
     $params['title'] = $object;
-    // TODO : replace currentUser by the user to send the email to.
-    $langcode = \Drupal::currentUser()->getPreferredLangcode();
+    $langcode = $toUser->getPreferredLangcode();
 
     return $mailManager->mail($module, $key, $to, $langcode, $params, $params['from']);
   }
@@ -603,17 +590,24 @@ class RegistrationHelper implements RegistrationHelperInterface {
   }
 
   /**
+   * TODO : set in configuration.
    * {@inheritdoc}
    */
   public function getRegistrationRefusedBaseObject(): string {
-    return '[site:name] | À propos de l\'évènement [registration:nid:entity:title]';
+    $config = \Drupal::config('system.site');
+    return t('About the "[registration:nid:entity:title]" performance | @site',
+      [
+        '@site' => $config->get('name'),
+      ]
+    );
   }
 
   /**
+   * TODO : set in configuration.
    * {@inheritdoc}
    */
   public function getRegistrationRefusedBaseMessage(): string {
-    return '<p>Bonjour [registration:uid:entity:display-name],</p><p>[registration:registration_user_id:entity:display-name] a décliné l\'inscription à la prestation "[registration:nid:entity:title]".</p>';
+    return t('<p>Hello [registration:uid:entity:display-name],</p><p>[registration:registration_user_id:entity:display-name] declined to register for the "[registration:nid:entity:title]" performance.</p>');
   }
 
   /**
@@ -621,20 +615,26 @@ class RegistrationHelper implements RegistrationHelperInterface {
    * {@inheritdoc}
    */
   public function sendRegistrationRefusedMessage(Registration $registration): void {
-    $originalMessage = $this->getRegistrationRefusedBaseMessage();
-    $originalObject = $this->getRegistrationRefusedBaseObject();
+    // Prepare variables to send mail.
+    /** @var User $destinationUser */
+    $destinationUser = $registration->getOwner();;
+    $object = $this->getRegistrationRefusedBaseObject();
+    $message = $this->getRegistrationRefusedBaseMessage();
+
     // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
     $module = 'band_booking_registration';
     // For 'key' is used inside the hook_mail.
     $key = 'registration_refuses';
 
-    $nid = $registration->get('nid')->first()->getValue()['target_id'];
-    $node = Node::load($nid);
-
-    $user = $registration->getOwner();
-    $foo = "libuy";
-    //$this->registrationSendMail()
-    $mailResult = RegistrationHelper::registrationSendMail($module, $key, $node, $registration, $user, $originalObject, $originalMessage);
+    // Prepare and send mail.
+    $mail = RegistrationHelper::getMailObjectAndMessageFromToken(
+      $destinationUser,
+      $object,
+      $message,
+      ['registration' => $registration],
+      ['registration' => $registration],
+    );
+    $mailResult = RegistrationHelper::bookingSendMail($module, $key, $destinationUser, $mail['object'], $mail['message']);
   }
 
 }

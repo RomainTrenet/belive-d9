@@ -170,7 +170,7 @@ function band_booking_registration_user_predelete(UserInterface $account) {
  */
 
 /**
- * This is needed by RegistrationHelper::registrationSendMail.
+ * This is needed by RegistrationHelper::bookingSendMail.
  * Implements hook_mail().
  */
 function band_booking_registration_mail($key, &$message, $params):void {
@@ -178,6 +178,7 @@ function band_booking_registration_mail($key, &$message, $params):void {
     case 'user_register':
     case 'user_unregister':
     case 'performance_reminder':
+    case 'performance_deleted':
     case 'registration_refuses':
       $message['subject'] = $params['title'];
       $message['body'][] = $params['message'];

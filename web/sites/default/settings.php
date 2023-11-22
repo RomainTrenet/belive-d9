@@ -261,7 +261,7 @@ $databases = [];
  * directory in the public files path. The setting below allows you to set
  * its location.
  */
-$settings['config_sync_directory'] = '../config/sync';
+# $settings['config_sync_directory'] = '/directory/outside/webroot';
 
 /**
  * Settings:
@@ -290,7 +290,7 @@ $settings['config_sync_directory'] = '../config/sync';
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'sF3_925L2grQhf6nErkD3DUl0sNB-NzibHhjYwh-Rc1fPSC0uQAOITZqNk6EQa5H91BgvlrFxg';
+$settings['hash_salt'] = '';
 
 /**
  * Deployment identifier.
@@ -522,7 +522,7 @@ $settings['update_free_access'] = FALSE;
  * See https://www.drupal.org/documentation/modules/file for more information
  * about securing private files.
  */
-$settings['file_private_path'] = '../private';
+# $settings['file_private_path'] = '';
 
 /**
  * Temporary file path:
@@ -535,7 +535,7 @@ $settings['file_private_path'] = '../private';
  *
  * @see \Drupal\Component\FileSystem\FileSystem::getOsTemporaryDirectory()
  */
-$settings['file_temp_path'] = '../tmp';
+# $settings['file_temp_path'] = '/tmp';
 
 /**
  * Session write interval:
@@ -774,20 +774,7 @@ if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') == 
  *
  * Keep this code block at the end of this file to take full effect.
  */
-
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-  include $app_root . '/' . $site_path . '/settings.local.php';
-}
-
-$databases['default']['default'] = [
-  'database' => $_SERVER['MYSQL_DATABASE2'],
-  'username' => $_SERVER['MYSQL_USER2'],
-  'password' => $_SERVER['MYSQL_PASSWORD2'],
-  'host' => $_SERVER['MYSQL_HOSTNAME2'],
-  'driver' => 'mysql',
-  'port' => $_SERVER['MYSQL_PORT2'],
-  'prefix' => "",
-];
-
-// This will allow config "be_live_config"
-$config['config_split.config_split.bandtwo_config']['status'] = TRUE;
+#
+# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+#   include $app_root . '/' . $site_path . '/settings.local.php';
+# }
