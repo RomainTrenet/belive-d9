@@ -91,7 +91,7 @@ display:
           entity_type: user
           entity_field: name
           plugin_id: field
-          label: Username
+          label: Nom
           exclude: false
           alter:
             alter_text: false
@@ -132,7 +132,20 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          click_sort_column: value
           type: user_name
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         mail:
           id: mail
           table: users_field_data
@@ -207,7 +220,7 @@ display:
           entity_type: user
           entity_field: status
           plugin_id: field
-          label: Active
+          label: Activé(e)
           exclude: false
           alter:
             alter_text: false
@@ -337,7 +350,7 @@ display:
           entity_type: user
           entity_field: created
           plugin_id: field
-          label: 'Member for'
+          label: 'Membre depuis'
           exclude: false
           alter:
             alter_text: false
@@ -378,11 +391,22 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          click_sort_column: value
           type: timestamp_ago
           settings:
             future_format: '@interval'
             past_format: '@interval'
             granularity: 2
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         access:
           id: access
           table: users_field_data
@@ -393,7 +417,7 @@ display:
           entity_type: user
           entity_field: access
           plugin_id: field
-          label: 'Last access'
+          label: 'Dernier accès'
           exclude: false
           alter:
             alter_text: false
@@ -434,11 +458,22 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          click_sort_column: value
           type: timestamp_ago
           settings:
             future_format: '@interval hence'
             past_format: '@interval ago'
             granularity: 2
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         edit_user:
           id: edit_user
           table: users
@@ -516,13 +551,13 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Filter
+          submit_button: Filtrer
           reset_button: true
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
           expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
+          sort_asc_label: Ascendant
+          sort_desc_label: Descandant
       access:
         type: perm
         options:
@@ -573,7 +608,7 @@ display:
           exposed: true
           expose:
             operator_id: combine_op
-            label: 'Name or email contains'
+            label: 'Le nom ou le mail contient'
             description: ''
             use_operator: false
             operator: combine_op
@@ -587,6 +622,9 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
+              artist: '0'
+              manager: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -634,7 +672,7 @@ display:
               administrator: '0'
           is_grouped: true
           group_info:
-            label: Status
+            label: Statut
             description: ''
             identifier: status
             optional: true
@@ -645,11 +683,11 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: Active
+                title: Actif
                 operator: '='
                 value: '1'
               2:
-                title: Blocked
+                title: Bloqué
                 operator: '='
                 value: '0'
         roles_target_id:
