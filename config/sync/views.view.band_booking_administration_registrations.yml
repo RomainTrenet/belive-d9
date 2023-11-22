@@ -621,6 +621,7 @@ display:
     display_options:
       display_description: 'All registrations for a certain nid'
       display_extenders: {  }
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
