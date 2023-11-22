@@ -1,7 +1,14 @@
 uuid: 2b6b7a6e-e796-4245-bb76-7ecc1091e53c
 langcode: fr
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
 name: Prestation
 type: performance
 description: ''

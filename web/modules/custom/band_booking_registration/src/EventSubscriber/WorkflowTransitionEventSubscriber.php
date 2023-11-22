@@ -1,15 +1,13 @@
 <?php
 
+// Not really needed, but could be great to do things on registration status change.
+
 namespace Drupal\band_booking_registration\EventSubscriber;
 
-use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\EntityPublishedInterface;
-use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\band_booking_registration\WorkflowHelperInterface;
 use Drupal\state_machine\Event\WorkflowTransitionEvent;
 use Drupal\state_machine\Plugin\Workflow\WorkflowInterface;
 use Drupal\state_machine\Plugin\Workflow\WorkflowState;
-//use Drupal\state_machine_workflow\RevisionManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -39,7 +37,7 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      'state_machine.pre_transition' => 'handleAction',
+      //'state_machine.pre_transition' => 'handleAction',
     ];
   }
 
@@ -50,7 +48,7 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
    *   The state change event.
    */
   public function handleAction(WorkflowTransitionEvent $event) {
-    $entity = $event->getEntity();
+    //$entity = $event->getEntity();
 
     // Verify if the new state is marked as published state.
     // TODO : deprecated.

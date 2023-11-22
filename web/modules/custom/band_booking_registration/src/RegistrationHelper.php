@@ -459,6 +459,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
       /** @var User $destinationUser */
       $destinationUser = $users[$uid];
       $node = Node::load($nid);
+      // TODO : should check if there are values.
       $object = $node->get('field_unregister_mail_object')->getValue()[0]['value'];
       $message = $node->get('field_unregister_mail_content')->getValue()[0]['value'];
 

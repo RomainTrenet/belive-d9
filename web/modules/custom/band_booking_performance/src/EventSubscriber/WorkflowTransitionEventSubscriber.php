@@ -49,7 +49,6 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
    */
   public function handleAction(WorkflowTransitionEvent $event) {
     // If necessary, check which transition group this is.
-    $toto = "titi";
   }
 
   /**
