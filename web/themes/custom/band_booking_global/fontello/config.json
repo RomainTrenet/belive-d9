@@ -38,7 +38,7 @@
     },
     {
       "uid": "11ee481ba69d7fbedc8749a436648237",
-      "css": "perf-pending",
+      "css": "perf-optional",
       "code": 59398,
       "src": "custom_icons",
       "selected": true,

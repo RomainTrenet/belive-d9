@@ -5,5 +5,5 @@
 .icon-cancel:before { content: '\e803'; } /* '' */
 .icon-help:before { content: '\e804'; } /* '' */
 .icon-perf-confirmed:before { content: '\e805'; } /* '' */
-.icon-perf-pending:before { content: '\e806'; } /* '' */
+.icon-perf-optional:before { content: '\e806'; } /* '' */
 .icon-perf-canceled:before { content: '\e807'; } /* '' */

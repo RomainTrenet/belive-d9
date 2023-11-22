@@ -81,18 +81,20 @@ class PerformancePresaveSubscriber implements EventSubscriberInterface {
       ) :
       null;
 
-    // Compare date to call event subscriber.
+    // Compare date to call event subscriber, not for new content.
     $nid = $performance->id();
-    $formerPerf = Node::load($nid);
-    $former_date_value = $formerPerf->get('field_date')->getValue();
-    if ($former_date_value[0]['value'] != $date_value[0]['value']) {
-      $mailObject = $this->performanceHelper->getDefaultDateChangedPerformanceMailObject();
-      $mailMessage = $this->performanceHelper->getDefaultDateChangedPerformanceMailMessage();
-      $this->performanceHelper->performanceChanged(
-        $performance,
-        $mailObject,
-        $mailMessage
-      );
+    if ($nid) {
+      $formerPerf = Node::load($nid);
+      $former_date_value = $formerPerf->get('field_date')->getValue();
+      if ($former_date_value[0]['value'] != $date_value[0]['value']) {
+        $mailObject = $this->performanceHelper->getDefaultDateChangedPerformanceMailObject();
+        $mailMessage = $this->performanceHelper->getDefaultDateChangedPerformanceMailMessage();
+        $this->performanceHelper->performanceChanged(
+          $performance,
+          $mailObject,
+          $mailMessage
+        );
+      }
     }
 
     // Finally save.

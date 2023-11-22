@@ -1,8 +1,9 @@
 <?php
 
+// Not really needed, but could be great to send mail on confirmation change.
+
 namespace Drupal\band_booking_performance\EventSubscriber;
 
-use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\band_booking_performance\WorkflowHelperInterface;
 use Drupal\state_machine\Event\WorkflowTransitionEvent;
 use Drupal\state_machine\Plugin\Workflow\WorkflowInterface;
@@ -36,7 +37,7 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      'state_machine.pre_transition' => 'handleAction',
+      //'state_machine.pre_transition' => 'handleAction',
     ];
   }
 
@@ -47,21 +48,8 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
    *   The state change event.
    */
   public function handleAction(WorkflowTransitionEvent $event) {
-    $entity = $event->getEntity();
-
-    // Verify if the new state is marked as published state.
-    // TODO : deprecated.
-    $is_published_state = $this->isPublishedState($event->getToState(), $event->getWorkflow());
-
-    if ($entity instanceof EntityPublishedInterface) {
-      if ($is_published_state) {
-        $entity->setPublished();
-      }
-      else {
-        $entity->setUnpublished();
-      }
-
-    }
+    // If necessary, check which transition group this is.
+    $toto = "titi";
   }
 
   /**

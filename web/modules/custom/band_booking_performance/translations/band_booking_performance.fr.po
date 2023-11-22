@@ -173,11 +173,11 @@ msgid_plural "@count successful operations :"
 msgstr[0] "Opération réussie :"
 msgstr[1] "@count opération réussies :"
 
-msgid "\"[registration:nid:entity:title]\" deleted by [user:display-name] | @site"
-msgstr "\"[registration:nid:entity:title]\" supprimée par [user:display-name] | @site"
+msgid "\"[node:title]\" deleted by [user:display-name] | @site"
+msgstr "\"[node:title]\" supprimée par [user:display-name] | @site"
 
-msgid "<p>Hello [registration:registration_user_id:entity:display-name],</p><p>\"[registration:nid:entity:title]\" has been deleted.</p><p>[user:display-name].</p>"
-msgstr "<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>\"[registration:nid:entity:title]\" a été supprimée.</p><p>[user:display-name].</p>"
+msgid "<p>Hello [registration:registration_user_id:entity:display-name],</p><p>\"[node:title]\" has been deleted.</p><p>[user:display-name].</p>"
+msgstr "<p>Bonjour [registration:registration_user_id:entity:display-name],</p><p>\"[node:title]\" a été supprimée.</p><p>[user:display-name].</p>"
 
 msgid "\"[node:title]\" date modified by [user:display-name] | @site"
 msgstr "\"[node:title]\" date modifiée par [user:display-name] | @site"
