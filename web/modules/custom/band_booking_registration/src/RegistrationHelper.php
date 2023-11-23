@@ -246,6 +246,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
       $node = Node::load($nid);
       $object = $node->get('field_register_mail_object')->getValue()[0]['value'];
       $message = $node->get('field_register_mail_content')->getValue()[0]['value'];
+      $site = \Drupal::config('system.site');
 
       // $module tells in which .module to find hook_mail. See band_booking_registration_mail.
       $module = 'band_booking_registration';
@@ -258,7 +259,7 @@ class RegistrationHelper implements RegistrationHelperInterface {
         $object,
         $message,
         ['registration' => $registrationEntity],
-        ['registration' => $registrationEntity],
+        ['site' => $site],
       );
       $mailResult = RegistrationHelper::bookingSendMail($module, $key, $destinationUser, $mail['object'], $mail['message']);
 
