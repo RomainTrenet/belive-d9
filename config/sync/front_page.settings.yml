@@ -2,7 +2,7 @@ enable: 1
 rid_anonymous:
   enabled: '1'
   weigth: '0'
-  path: user/login
+  path: /user/login
 rid_authenticated:
   weigth: '0'
   path: ''

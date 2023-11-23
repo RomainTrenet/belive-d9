@@ -6,9 +6,9 @@ name: 'Be live booking'
 mail: admin@romain-trenet.com
 slogan: ''
 page:
-  403: /toboggan/denied
+  403: ''
   404: ''
-  front: /node
+  front: /user
 admin_compact_mode: false
 weight_select_max: 100
 default_langcode: fr
