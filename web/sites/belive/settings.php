@@ -788,6 +788,3 @@ $databases['default']['default'] = [
   'port' => $_SERVER['MYSQL_PORT'],
   'prefix' => "",
 ];
-
-// This will allow config "be_live_config"
-$config['config_split.config_split.be_live_config']['status'] = TRUE;
