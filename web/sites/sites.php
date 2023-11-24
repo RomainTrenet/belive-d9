@@ -55,18 +55,10 @@
  * @see \Drupal\Core\DrupalKernel::getSitePath()
  * @see https://www.drupal.org/documentation/install/multi-site
  */
-/* Local dev (be live) and prod */
+/* Local dev and prod */
 $sites['belive-d9-dev.ddev.site'] = 'dev';
 $sites['belive-d9-sandbox.ddev.site'] = 'sandbox';
 $sites['belive-d9.ddev.site'] = 'belive';
-
-/* Temporary prod */
-$sites['www.belive.romain-trenet.com'] = 'belive';
-$sites['belive.romain-trenet.com'] = 'belive';
-$sites['www.romain-trenet.com'] = 'belive';
-$sites['romain-trenet.com'] = 'belive';
-$sites['www.belive.romain-trenet.fr'] = 'belive';
-$sites['belive.romain-trenet.fr'] = 'belive';
 
 /* Prod */
 $sites['www.booking.orchestre-belive.com'] = 'belive';

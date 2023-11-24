@@ -783,11 +783,10 @@ $databases['default']['default'] = [
   'database' => $_SERVER['MYSQL_DATABASE'],
   'username' => $_SERVER['MYSQL_USER'],
   'password' => $_SERVER['MYSQL_PASSWORD'],
+  'prefix' => "",
   'host' => $_SERVER['MYSQL_HOSTNAME'],
   'driver' => 'mysql',
   'port' => $_SERVER['MYSQL_PORT'],
-  'prefix' => "",
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
 ];
-
-// This will allow config "be_live_config"
-$config['config_split.config_split.be_live_config']['status'] = TRUE;
