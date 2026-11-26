@@ -264,7 +264,6 @@ $settings['config_sync_directory'] = '../config/sync';
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = $_SERVER['PROD_HASH'];
 
 /**
  * Deployment identifier.
@@ -833,6 +832,8 @@ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 }
 
 // Automatically generated include for settings managed by ddev.
-if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') == 'true') {
+if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') === 'true') {
   include __DIR__ . '/settings.ddev.php';
 }
+
+$config['config_split.config_split.development_config']['status'] = TRUE;

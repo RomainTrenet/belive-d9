@@ -34,6 +34,8 @@
 
 # Ignore Drupal's file directory
 /web/sites/*/files/
+/web/sites/default/default.services.yml
+/web/sites/default/default.settings.php
 
 # Ignore testing related files
 /sites/simpletest
@@ -62,10 +64,8 @@
 /themes/README.txt
 /vendor
 /.csslintrc
-/.editorconfig
 /.eslintignore
 /.eslintrc.json
-/.gitattributes
 /.htaccess
 /autoload.php
 /example.gitignore

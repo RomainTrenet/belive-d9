@@ -264,7 +264,6 @@ $settings['config_sync_directory'] = '../config/sync';
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = $_SERVER['PROD_HASH'];
 
 /**
  * Deployment identifier.
@@ -815,6 +814,21 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # $settings['migrate_file_public_path'] = '';
 # $settings['migrate_file_private_path'] = '';
 
+if (getenv('IS_DDEV_PROJECT') !== 'true') {
+  $settings['hash_salt'] = $_SERVER['PROD_HASH'];
+  $databases['default']['default'] = [
+    'database' => $_SERVER['PROD_MYSQL_DATABASE'],
+    'username' => $_SERVER['PROD_MYSQL_USERNAME'],
+    'password' => $_SERVER['PROD_MYSQL_PASSWORD'],
+    'prefix' => '',
+    'host' => $_SERVER['PROD_MYSQL_HOSTNAME'],
+    'port' => $_SERVER['PROD_MYSQL_PORT'],
+    'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+    'driver' => 'mysql',
+    'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+  ];
+}
+
 /**
  * Load local development override configuration, if available.
  *
@@ -832,19 +846,9 @@ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings.local.php';
 }
 
-$databases['default']['default'] = array (
-  'database' => $_SERVER['PROD_MYSQL_DATABASE'],
-  'username' => $_SERVER['PROD_MYSQL_USERNAME'],
-  'password' => $_SERVER['PROD_MYSQL_PASSWORD'],
-  'prefix' => '',
-  'host' => $_SERVER['PROD_MYSQL_HOSTNAME'],
-  'port' => $_SERVER['PROD_MYSQL_PORT'],
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'driver' => 'mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-);
-
 // Automatically generated include for settings managed by ddev.
-if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') == 'true') {
+if (file_exists(__DIR__ . '/settings.ddev.php') && getenv('IS_DDEV_PROJECT') === 'true') {
   include __DIR__ . '/settings.ddev.php';
 }
+
+$config['config_split.config_split.development_config']['status'] = FALSE;
