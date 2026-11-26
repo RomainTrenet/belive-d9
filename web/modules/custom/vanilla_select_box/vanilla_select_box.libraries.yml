@@ -10,6 +10,6 @@ vanilla-select-box:
   version: 1.0.5
   css:
     theme:
-      vendor://philippemarcmeyer/vanillaselectbox/vanillaSelectBox.css: {}
+      /libraries/vanillaselectbox/vanillaSelectBox.css: {}
   js:
-    vendor://philippemarcmeyer/vanillaselectbox/vanillaSelectBox.js: {}
+    /libraries/vanillaselectbox/vanillaSelectBox.js: {}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "609a891a3b49b088b1bfe342db73ad74",
+    "content-hash": "4d8a3bbb2cb6f36b2a08489289b14b21",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -897,23 +897,6 @@
                 "source": "https://github.com/consolidation/site-process/tree/4.2.1"
             },
             "time": "2022-10-18T13:19:35+00:00"
-        },
-        {
-            "name": "custom/vanilla_select_box",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "web/modules/custom/vanilla_select_box",
-                "reference": "8036530de2de8956c98a536000381befed739c25"
-            },
-            "require": {
-                "philippemarcmeyer/vanillaselectbox": "^1.0"
-            },
-            "type": "drupal-custom-module",
-            "description": "Vanilla javascript library for creating select boxes",
-            "transport-options": {
-                "relative": true
-            }
         },
         {
             "name": "defuse/php-encryption",
@@ -5912,13 +5895,17 @@
         },
         {
             "name": "philippemarcmeyer/vanillaselectbox",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PhilippeMarcMeyer/vanillaSelectBox.git",
-                "reference": "master"
+            "version": "1.0.5",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/vanillaselectbox/-/vanillaselectbox-1.0.5.tgz",
+                "reference": "48cf529e62337259759ef686465aef58af464b2f",
+                "shasum": "96ec221fcecb430dbacea7a7bead1cbc1f1eb81d"
             },
-            "type": "javascript-library"
+            "type": "drupal-library",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "phpoption/phpoption",
@@ -10866,7 +10853,6 @@
     "aliases": [],
     "minimum-stability": "alpha",
     "stability-flags": {
-        "custom/vanilla_select_box": 20,
         "drupal/addtocal": 10,
         "drupal/advagg": 15,
         "drupal/calendar": 15,
@@ -10881,7 +10867,7 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.11.0"
 }

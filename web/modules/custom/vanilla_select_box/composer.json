@@ -7,12 +7,14 @@
             "type": "package",
             "package": {
                 "name": "philippemarcmeyer/vanillaselectbox",
-                "version": "1.0.4",
-                "type":"javascript-library",
-                "source": {
-                    "url": "https://github.com/PhilippeMarcMeyer/vanillaSelectBox.git",
-                    "type": "git",
-                    "reference": "master"
+                "version": "1.0.5",
+                "type": "drupal-library",
+                "license": "MIT",
+                "dist": {
+                    "url": "https://registry.npmjs.org/vanillaselectbox/-/vanillaselectbox-1.0.5.tgz",
+                    "type": "tar",
+                    "reference": "48cf529e62337259759ef686465aef58af464b2f",
+                    "shasum": "96ec221fcecb430dbacea7a7bead1cbc1f1eb81d"
                 }
             }
         }

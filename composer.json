@@ -12,28 +12,10 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        },
-        {
-            "type": "path",
-            "url": "web/modules/custom/vanilla_select_box"
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "philippemarcmeyer/vanillaselectbox",
-                "version": "1.0.5",
-                "type":"javascript-library",
-                "source": {
-                    "url": "https://github.com/PhilippeMarcMeyer/vanillaSelectBox.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
         }
     ],
     "require": {
         "composer/installers": "^1.9",
-        "custom/vanilla_select_box": "dev-main",
         "defuse/php-encryption": "^2.4",
         "drupal/addtocal": "^2.0@beta",
         "drupal/adminimal_admin_toolbar": "^1.11",
