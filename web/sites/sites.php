@@ -55,11 +55,6 @@
  * @see \Drupal\Core\DrupalKernel::getSitePath()
  * @see https://www.drupal.org/documentation/install/multi-site
  */
-/* Local dev and prod */
+/* Local dev, sandbox. Default is for prod, or local prod */
 $sites['belive-d9-dev.ddev.site'] = 'dev';
 $sites['belive-d9-sandbox.ddev.site'] = 'sandbox';
-$sites['belive-d9.ddev.site'] = 'belive';
-
-/* Prod */
-$sites['www.booking.orchestre-belive.com'] = 'belive';
-$sites['booking.orchestre-belive.com'] = 'belive';
